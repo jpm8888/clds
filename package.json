@@ -34,6 +34,8 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "check-tokens": "bun run scripts/check-tokens.ts",
+    "test": "playwright test",
+    "test:smoke": "playwright test tests/smoke.spec.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "verify": "bun run typecheck && bun run lint && bun run check-tokens && bun run build && bun run build-storybook"
@@ -43,7 +45,9 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.62.1",
     "@storybook/addon-a11y": "^10.5.10",
     "@storybook/addon-docs": "^10.5.10",
     "@storybook/react-vite": "^10.5.10",

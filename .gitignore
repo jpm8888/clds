@@ -5,3 +5,5 @@ storybook-static/
 .DS_Store
 *.tsbuildinfo
 .vite/
+test-results/
+playwright-report/

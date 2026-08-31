@@ -62,3 +62,11 @@ live in CLAUDE.md; this file covers judgment calls.
   gate yours behind `@media (prefers-reduced-motion: no-preference)` too.
 - Interactive color contrast is tuned per theme in the tokens; using tokens = inheriting
   the contrast work.
+
+## Known accessibility debt (from the source palette)
+
+axe flags `color-contrast` (serious) on a few Figma-faithful pairs: placeholder text
+`#b2b2b2` on white, status text on its 10% soft tint (warning `#ff8400`, success
+`#629c28`, danger on `--mav-*-soft` backgrounds), and OTP slot placeholders. These are
+inherited from the source design system, excluded from the automated axe gate
+(`tests/a11y.spec.ts`), and should be revisited with design if the prototype graduates.
