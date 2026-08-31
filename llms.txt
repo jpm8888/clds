@@ -1,0 +1,65 @@
+# @mav/bayad — machine index
+# React design system for the Bayad fintech prototype. ESM, TypeScript, CSS-variable tokens.
+# Setup: import '@mav/bayad/styles.css' once; fonts via Google Fonts link or '@mav/bayad/fonts.css';
+# dark mode: document.documentElement.setAttribute('data-theme','dark'). No ThemeProvider.
+# Tokens (typed): import { color, space, radius, shadow, font, fontSize, fontWeight, duration, easing, zIndex, breakpoints, layout, borderWidth } from '@mav/bayad/tokens'
+# Never hardcode colors; never write [data-theme=dark] styles in app code.
+
+Icon(name: IconName, size?, strokeWidth?) — typed line-icon registry; iconNames lists all
+Button(variant: primary|secondary|clear|swipe, size: xs|sm|md|lg|xl, leadingIcon?, trailingIcon?, iconOnly?, loading?) — xl = full-width dock CTA
+TextField(size: sm|md|lg, label?, description?, errorMessage?, leadingIcon?, trailingIcon?, prefix?, state?) — text input, ref→<input>
+Textarea(label?, errorMessage?, state?) — multiline input
+SearchField(clearable?, onClear?, label?) — search input with magnifier
+OtpInput(length: 4|6, variant: boxed|boxless, value?/defaultValue?, onChange?, onComplete?) — auto-advance, paste-aware
+Badge(color: primary|white|warning|success|danger, type?, size?) — status label
+Chip(color, size?, onClick?) — selectable chip
+Avatar(src?|initials, size?, statusOnline?) ; AvatarStack(items) ; AvatarProfile — people
+Divider(label?) — hairline, optional centered label
+Spinner(size?) — loading spinner
+ProgressBar(value, max?, label?, showValue?) — determinate progress
+Illustration(name: IllustrationName | src) — bundled brand art; illustrationNames lists bundled
+SocialButton(provider image via children/img, size: sm|md|lg, iconOnly?) — white card auth button
+TextLink(variant: primary|secondary|tertiary, sm?) — inline text action
+Checkbox(checked?/defaultChecked?, indeterminate?, label?) — native input
+Radio(name, checked?, label?) — native input; group by name
+Toggle(checked?/defaultChecked?, onChange?, label?, labelPosition?) — role=switch
+Stepper(steps, current) — progress stepper
+AmountInput(value?/defaultValue?, currency?, presets?) — large centered currency entry
+Tabs / PillTabs / GlideTabs(items: {id,label,icon?}[], value?/defaultValue?, onChange?) — GlideTabs animates indicator
+ButtonGroup(items) — segmented control
+MenuButton(variant: primary|secondary|tertiary, size?, label?) — circular quick-action button
+ButtonDock(fixed?) — bottom dock for xl Buttons, safe-area aware
+Breadcrumb(items) — path navigation
+Coachmark(title, description, step?, total?, placement?) — onboarding tooltip
+Alert(variant: primary|warning|success|danger, title?, action?, onDismiss?) — inline banner
+Toast(title, description?, action?, onClose?) ; ToastNotification ; Snackbar(status) — transient feedback
+EmptyState(media: illustration|icon|loader|none, icon?, title?, subtitle?) — centered empty/loading
+PaymentCard(skin: PaymentCardSkin|src, number?, holder?, expiry?) — card face; paymentCardSkins map
+List / ListRow(+ListSoftIcon|ListAvatar|ListStore|ListButton|ListTag|ListCheck) — row lists with accessories
+SectionHeader(title, action?, size?, spacing: none|xs|sm|md|lg) — section title row
+BlogCard / BlogListRow(image?, tag?, title, excerpt?, meta?) — content cards
+Pagination(page, count, onPageChange, type?) — controlled pager
+Balance(amount, currency?, hidden-toggle) — balance display with eye toggle
+CashflowCard(direction income|expense, amount, delta) — cashflow summary
+Chart(data: number[]|{label,value}[], variant: gain|loss|warning|brand) — hand-rolled SVG line/bar
+ChatBubble(side: incoming|outgoing, name?, reply?, time?) ; ChatThread — support chat
+MessageInput(onSend) — chat composer
+Datepicker(value?/defaultValue?, onChange?, min?, max?) — month grid, keyboard nav
+SwipeButton(variant, onConfirm, disabled?) — drag-to-confirm; Enter/Space fallback
+AppBar(title, onBack?, actions?, inverted?) — top bar
+BottomNav(items: {id,label,icon,badge?}[], value?, onChange?) — bottom tab bar
+BottomSheet(open, onClose, header?, footer?) — modal sheet: blanket, drag-dismiss, Esc, scroll-lock
+PhoneFrame(children) — demo phone bezel (stories only)
+BalanceCard(label?, amount, actions?) — hero balance card
+TransactionList(items) / TransactionItem(direction sent|received, title, meta?, amount) — activity rows
+SpendLimit(items, limit) / SpendBarChart — spend limit progress
+LinkedAccounts(accounts) — linked bank rows
+QrPay(payload?, label?) — scan-to-pay card
+ReceiptDetail(status?, amount, rows: ReceiptRow[]) — transaction receipt
+DonutChart(segments: {label,value,color?}[]) — category donut
+PinDots(length, filled, keypad?) — PIN entry
+AmountSlider(value?, min?, max?, onChange?) — amount range slider
+LoginForm(fields?, onSubmit(values, remember), socialProviders?, footer?) — sign-in screen
+OtpEntry(length?, onComplete, resend timer props) — OTP verification screen
+SelectAccount(accounts: {id,name,balance,disabled?,message?}[], value?/defaultValue?, onChange?, onConfirm) — source-of-funds picker screen
+Splash(variant: light|brand|beam, footer?, logo?) — launch screen
