@@ -1,0 +1,432 @@
+/* AI Assistant — ported from MaV-Ver2 components/ai-assistant.html.
+   A conversational layer over payment history. THE DESIGN RULE: an assistant
+   inside a payments app must answer with OBJECTS, not prose — every answer
+   resolves to something payable, openable, or chartable; prose is reduced to
+   one framing line. Answers are read-only over history (no new money
+   movement, no new authorisation surface). */
+
+.aia {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  font-family: var(--mav-font-body);
+}
+
+/* header */
+.aia-head {
+  display: flex;
+  align-items: center;
+  padding: 6px 14px 10px;
+  gap: 10px;
+  border-bottom: 1px solid var(--mav-divider-default);
+}
+.aia-av {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--mav-radius-full);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-btn-primary-default);
+}
+.aia-av svg {
+  width: 17px;
+  height: 17px;
+  stroke: var(--mav-btn-primary-text);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.aia-title {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 14.5px; /* one-off: source spec */
+  color: var(--mav-text-default);
+}
+.aia-sub {
+  font-size: 10.5px; /* one-off: micro line */
+  color: var(--mav-text-description);
+  margin-top: 1px;
+}
+
+/* thread */
+.aia-thread {
+  flex: 1;
+  padding: 16px 14px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* bubbles */
+.aia-me {
+  align-self: flex-end;
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 16px 16px 4px 16px; /* one-off: outgoing bubble shape */
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+  font-size: 13.5px; /* one-off: source spec */
+  line-height: 1.45;
+  font-weight: var(--mav-font-weight-semibold);
+}
+.aia-ai {
+  align-self: flex-start;
+  max-width: 94%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.aia-say {
+  font-size: 13.5px; /* one-off: source spec */
+  line-height: 1.5;
+  color: var(--mav-text-default);
+}
+.aia-say b {
+  font-weight: var(--mav-font-weight-bold);
+}
+
+/* answer object: payable rows */
+.aia-card {
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: 12px; /* one-off: source spec */
+  overflow: hidden;
+  background: var(--mav-bg-default);
+}
+.aia-ci {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--mav-divider-default);
+}
+.aia-ci:last-child {
+  border-bottom: 0;
+}
+.aia-ci-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--mav-radius-md);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 11.5px; /* one-off: chip initials */
+}
+/* The name column takes the slack and truncates, so a long biller name
+   cannot push the amount out of alignment. */
+.aia-ci-main {
+  flex: 1;
+  min-width: 0;
+}
+.aia-ci-n {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13px; /* one-off: source spec */
+  color: var(--mav-text-default);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.aia-ci-d {
+  font-size: 10.5px; /* one-off: micro line */
+  color: var(--mav-text-description);
+  margin-top: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Amount and action are an explicit row with fixed columns, so figures line
+   up down the card instead of ending wherever their digits stop. */
+.aia-ci-r {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.aia-ci-v {
+  min-width: 78px;
+  text-align: right;
+  font-family: var(--mav-font-mono);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13.5px; /* one-off: source spec */
+  color: var(--mav-text-default);
+}
+/* Tinted rather than solid: three solid brand buttons stacked down a short
+   card shout over the amounts, which are the thing being read. */
+.aia-ci-pay {
+  width: 46px;
+  flex-shrink: 0;
+  padding: 5px 0;
+  border: 0;
+  border-radius: 7px; /* one-off: source spec */
+  cursor: pointer;
+  background: var(--mav-alert-primary-bg);
+  color: var(--mav-text-brand);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 10.5px; /* one-off: micro label */
+  transition:
+    background var(--mav-duration-fast),
+    color var(--mav-duration-fast);
+}
+.aia-ci-pay:hover {
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+}
+.aia-ci-tot {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--mav-bg-secondary);
+}
+.aia-ci-tot .l {
+  font-size: 11px; /* one-off: micro label */
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-description);
+}
+/* Sits in the same column as the amounts above it — offset by the button
+   width plus its gap — so the card reads as one ledger. */
+.aia-ci-tot .v {
+  margin-left: auto;
+  margin-right: 56px;
+  min-width: 78px;
+  text-align: right;
+  font-family: var(--mav-font-mono);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+}
+
+/* answer object: single fact */
+.aia-fact {
+  padding: 13px;
+  border-radius: 12px; /* one-off: source spec */
+  background: var(--mav-alert-primary-bg);
+  border: 1px solid var(--mav-border-active);
+}
+.aia-fact-l {
+  font-size: 10.5px; /* one-off: micro label */
+  font-weight: var(--mav-font-weight-bold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--mav-text-brand);
+}
+.aia-fact-v {
+  font-family: var(--mav-font-mono);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 25px; /* one-off: fact display */
+  line-height: 1.1;
+  margin-top: 4px;
+  color: var(--mav-text-default);
+}
+.aia-fact-s {
+  font-size: 11.5px; /* one-off: source spec */
+  color: var(--mav-text-description);
+  margin-top: 3px;
+}
+
+/* answer object: spend trend — bars use the brand tint, highlight full brand */
+.aia-chart {
+  padding: 13px;
+  border-radius: 12px; /* one-off: source spec */
+  border: 1px solid var(--mav-border-subtle);
+  background: var(--mav-bg-default);
+}
+.aia-ch-h {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.aia-ch-v {
+  font-family: var(--mav-font-mono);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-xl);
+  color: var(--mav-text-default);
+}
+.aia-ch-d {
+  font-size: 10.5px; /* one-off: micro line */
+  color: var(--mav-text-description);
+}
+.aia-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  height: 74px;
+  margin-top: 12px;
+}
+.aia-bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: var(--mav-system-primary-soft);
+  position: relative;
+}
+.aia-bar.hi {
+  background: var(--mav-btn-primary-default);
+}
+.aia-xax {
+  display: flex;
+  gap: 7px;
+  margin-top: 6px;
+}
+.aia-xax span {
+  flex: 1;
+  text-align: center;
+  font-size: 9.5px; /* one-off: axis micro */
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-description);
+}
+
+/* suggestion chips */
+.aia-sugg {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.aia-sg {
+  padding: 8px 12px;
+  border-radius: var(--mav-radius-full);
+  cursor: pointer;
+  border: 1px solid var(--mav-border-active);
+  background: var(--mav-bg-default);
+  font-family: var(--mav-font-body);
+  font-size: var(--mav-font-size-xs);
+  font-weight: var(--mav-font-weight-bold);
+  color: var(--mav-text-brand);
+}
+
+/* typing */
+.aia-typing {
+  align-self: flex-start;
+  display: flex;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 16px; /* one-off: bubble shape */
+  background: var(--mav-bg-secondary);
+}
+.aia-typing i {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-text-description);
+  opacity: 0.28;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .aia-typing i {
+    animation: aia-blink 1.2s infinite;
+  }
+  .aia-typing i:nth-child(2) {
+    animation-delay: 0.18s;
+  }
+  .aia-typing i:nth-child(3) {
+    animation-delay: 0.36s;
+  }
+}
+@keyframes aia-blink {
+  0%,
+  60%,
+  100% {
+    opacity: 0.28;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+/* composer */
+.aia-composer {
+  padding: 10px 12px 6px;
+  border-top: 1px solid var(--mav-divider-default);
+  background: var(--mav-bg-default);
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.aia-inp {
+  flex: 1;
+  padding: 11px 14px;
+  border-radius: var(--mav-radius-full);
+  border: 1px solid var(--mav-border-subtle);
+  background: var(--mav-bg-secondary);
+  font-family: var(--mav-font-body);
+  font-size: 13px; /* one-off: source spec */
+  color: var(--mav-text-default);
+  min-width: 0;
+}
+.aia-inp::placeholder {
+  color: var(--mav-text-placeholder);
+}
+.aia-inp:focus {
+  outline: none;
+  border-color: var(--mav-border-active);
+}
+.aia-send {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--mav-radius-full);
+  border: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: var(--mav-btn-primary-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aia-send svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--mav-btn-primary-text);
+  stroke-width: 2.2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* empty state */
+.aia-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+}
+.aia-em-orb {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--mav-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-btn-primary-default);
+}
+.aia-em-orb svg {
+  width: 30px;
+  height: 30px;
+  stroke: var(--mav-btn-primary-text);
+  stroke-width: 1.9;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.aia-em-t {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 17px; /* one-off: source spec */
+  color: var(--mav-text-default);
+  text-align: center;
+}
+.aia-em-s {
+  font-size: 12.5px; /* one-off: source spec */
+  line-height: 1.5;
+  color: var(--mav-text-description);
+  text-align: center;
+  max-width: 250px;
+}
+.aia-empty .aia-sugg {
+  justify-content: center;
+}

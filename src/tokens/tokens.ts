@@ -20,20 +20,20 @@
  */
 
 export const color = {
-  /** Brand primary. Light `#352eff` (electric blue) / dark `#a1ff5b` (lime). */
+  /** Brand primary. Light `#f26122` (Bayad orange) / dark `#ff7a3d` (lifted orange). */
   primary: 'var(--mav-main-primary)',
-  /** Brand secondary. Light `#0053ff` / dark `#a1ff5b`. */
+  /** Brand secondary. Light `#2188ca` (official Bayad blue) / dark `#ff7a3d` (follows primary). */
   secondary: 'var(--mav-main-secondary)',
-  /** Brand tertiary 1 — soft periwinkle `#7c9dff` (both themes). */
+  /** Brand tertiary 1 — lighter orange (hover/outline). Light `#f58859` / dark `#ff9d6b`. */
   tertiary1: 'var(--mav-main-tertiary-1)',
-  /** Brand tertiary 2. Light `#030192` (deep navy) / dark `#a1ff5b`. */
+  /** Brand tertiary 2. Light `#c2491a` (deep orange, pressed) / dark `#ff7a3d`. */
   tertiary2: 'var(--mav-main-tertiary-2)',
 
   /** Page background. Light `#ffffff` / dark `#171717`. */
   bgDefault: 'var(--mav-bg-default)',
   /** Secondary background (grouped rows, wells). Light `#e5e5e5` / dark `#242424`. */
   bgSecondary: 'var(--mav-bg-secondary)',
-  /** Tinted brand background (highlights, swipe-up areas). Light `#e6edff` / dark `#f6fff1`. */
+  /** Tinted brand background (highlights, swipe-up areas). Light `#fde4da` (pale orange wash) / dark `#2b1a12`. */
   bgTertiary: 'var(--mav-bg-tertiary)',
   /** Raised surface (cards). Light `#ffffff` / dark `#1f1f1f`. */
   surface: 'var(--mav-surface)',
@@ -46,14 +46,14 @@ export const color = {
   textPlaceholder: 'var(--mav-text-placeholder)',
   /** Disabled text. Light `#cccccc`. */
   textDisabled: 'var(--mav-text-disabled)',
-  /** Brand-colored text/links. Light `#352eff` / dark `#a1ff5b`. */
+  /** Brand-colored text/links. Light `#f26122` / dark `#ff7a3d`. */
   textBrand: 'var(--mav-text-brand)',
   /** Text on brand/inverse surfaces. Light `#ffffff` / dark `#171717`. */
   textInverted: 'var(--mav-text-inverted)',
 
   /** Default icon tint. Light `#171717` / dark `#ffffff`. */
   iconDefault: 'var(--mav-icon-default)',
-  /** Active/selected icon. Light `#352eff` / dark `#a1ff5b`. */
+  /** Active/selected icon. Light `#f26122` / dark `#ff7a3d`. */
   iconActive: 'var(--mav-icon-active)',
   /** Subtle icon `#b2b2b2`. */
   iconSubtle: 'var(--mav-icon-subtle)',
@@ -66,7 +66,7 @@ export const color = {
   borderDefault: 'var(--mav-border-default)',
   /** Subtle border. Light `#efefef` / dark `#b2b2b2`. */
   borderSubtle: 'var(--mav-border-subtle)',
-  /** Active border. Light `#352eff` / dark `#a1ff5b`. */
+  /** Active border. Light `#f26122` / dark `#ff7a3d`. */
   borderActive: 'var(--mav-border-active)',
   /** Disabled border `#cccccc`. */
   borderDisabled: 'var(--mav-border-disabled)',
@@ -150,7 +150,7 @@ export const shadow = {
   outline: 'var(--mav-shadow-outline)',
   /** Subtle raised edge used by inputs and small cards. */
   input: 'var(--mav-shadow-input)',
-  /** Brand focus ring — identical in light and dark. */
+  /** Brand focus ring — primary @ 40%, lifted with the primary in dark. */
   focus: 'var(--mav-shadow-focus)',
   /** Softer blue focus ring used by form fields. */
   focusSoft: 'var(--mav-shadow-focus-soft)',

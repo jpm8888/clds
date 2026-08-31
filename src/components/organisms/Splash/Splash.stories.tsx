@@ -20,12 +20,12 @@ const meta = {
       </div>
     ),
   ],
-  args: { footer: '© 2026 Fyscal Technologies. All rights reserved.' },
+  args: { footer: '© 2026 CIS Bayad Center, Inc. All rights reserved.' },
   parameters: {
     docs: {
       description: {
         component:
-          'App launch screen with the bundled background art (light squares / brand gradient / beam). Decorative — navigate away after boot.',
+          'Bayad launch screen — the real lockup with dispersing rings and a determinate progress rail, on a white, brand-gradient, or deep ground. Decorative — navigate away after boot.',
       },
     },
   },
@@ -34,6 +34,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Brand: Story = { args: { variant: 'brand' } };
+export const Gradient: Story = { args: { variant: 'gradient' } };
 export const Light: Story = { args: { variant: 'light' } };
-export const Beam: Story = { args: { variant: 'beam' } };
+export const Deep: Story = { args: { variant: 'deep' } };

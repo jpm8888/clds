@@ -82,6 +82,23 @@
   color: var(--mav-btn-primary-text);
   cursor: not-allowed;
 }
+/* Full-width CTA carries the brand gradient (orange -> blue in Bayad).
+   WIDTH MATTERS: a ~90px button would show only the middle of the ramp and
+   read as disabled, so smaller primaries keep the flat fill above. */
+.mav-btn-primary.mav-btn-xl {
+  background: var(--mav-btn-primary-bg);
+}
+.mav-btn-primary.mav-btn-xl:focus-visible,
+.mav-btn-primary.mav-btn-xl.is-focus {
+  background: var(--mav-btn-primary-bg);
+}
+.mav-btn-primary.mav-btn-xl:hover {
+  background: var(--mav-btn-primary-hover);
+}
+.mav-btn-primary.mav-btn-xl:disabled,
+.mav-btn-primary.mav-btn-xl.is-disabled {
+  background: var(--mav-btn-primary-disabled);
+}
 
 /* Secondary (outline) */
 .mav-btn-secondary {

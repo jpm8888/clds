@@ -1,10 +1,21 @@
-/* Tabs — ported from MaV components/tabs.html (Figma "‣ Tabs" 901:22860).
-   48px tab bar: full-width rail with a per-tab active indicator. */
+/* Tabs — ported from MaV components/tabs.html (Figma "‣ Tabs" 901:22860)
+   with the css/patterns.css revision. 48px tab bar: full-width rail with a
+   per-tab active indicator.
+   Fill when the tabs fit, scroll when they do not — no JS and no author
+   choice required: flex-basis 0 shares the width equally while there is
+   room; min-width:max-content stops tabs shrinking below their label, so
+   once the labels no longer fit the row overflows and scrolls sideways
+   instead of ellipsing. */
 .tabs {
   position: relative;
   display: flex;
   width: 100%;
-  max-width: 375px;
+  overflow-x: auto;
+  scrollbar-width: none; /* the rail is the affordance; a bar under it reads as chrome */
+  -ms-overflow-style: none;
+}
+.tabs::-webkit-scrollbar {
+  display: none;
 }
 .tabs::after {
   content: '';
@@ -17,8 +28,8 @@
   background: var(--mav-tabs-default);
 }
 .tab {
-  flex: 1;
-  min-width: 0;
+  flex: 1 1 0;
+  min-width: max-content;
   height: 48px;
   display: flex;
   align-items: center;
@@ -39,7 +50,11 @@
   font-family: var(--mav-font-body);
   font-weight: var(--mav-font-weight-bold);
   font-size: var(--mav-font-size-md);
-  color: var(--mav-text-placeholder);
+  /* DECIDED: the inactive label is description grey (4.00:1), not placeholder
+     (#b2b2b2, 2.12:1) as in the original page. #b2b2b2 is well under the
+     4.5:1 a text label needs — a contrast bug, not a style choice; do not
+     "restore" the lighter value. */
+  color: var(--mav-text-description);
 }
 .tab.selected .tab-label {
   color: var(--mav-text-default);
@@ -64,20 +79,21 @@
   height: 22px;
   flex-shrink: 0;
 }
+/* Notification dot. Absolutely positioned rather than an inline flex child:
+   in flow it widens the label past its tab, and at phone width the overflow
+   gets clipped by the device frame. */
 .tab-dot {
-  width: 8px;
-  height: 8px;
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--mav-system-danger);
-  border: 1.5px solid var(--mav-bg-default);
-  flex-shrink: 0;
+  background: var(--mav-system-danger-dark);
 }
 
-/* scrollable: tabs keep intrinsic width and scroll horizontally */
-.tabs-scroll {
-  overflow-x: auto;
-  max-width: 375px;
-}
+/* scrollable (legacy): tabs keep intrinsic width — the base .tabs now
+   scrolls on overflow by itself, so this only forces intrinsic widths */
 .tabs-scroll .tab {
   flex: 0 0 auto;
 }

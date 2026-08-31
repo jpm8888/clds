@@ -4,8 +4,11 @@
    Never reference --mav-bc-* from component CSS — go through the semantic
    layer (semantic.css). Suffixes: -l = value used by the light theme,
    -d = value used by the dark theme (semantic tokens flip between them).
-   Source: MaV Figma "Modular App Visualizer" (normalized names; see
-   docs/tokens-figma-mapping.md for the verbatim Figma names).
+   Brand source: Bayad brand layer (MaV-Ver2 css/brands/bayad.css) — CIS
+   Bayad Center. Values extracted 26 Aug 2026 from 30 screenshots of the
+   live Bayad app by pixel-frequency analysis; "DERIVED" values (dark theme,
+   pressed states) computed from the observed set. Non-brand families (mono,
+   status, illustrative ramps) remain from the MaV Figma source.
    ════════════════════════════════════════════════════════════════════════ */
 :root {
   /* ── Core ── */
@@ -14,15 +17,26 @@
   --mav-bc-grey: #efefef;
   --mav-bc-transparent: #ffffff00;
 
-  /* ── Brand ── */
-  --mav-bc-primary-light: #352eff; /* brand primary, light theme */
-  --mav-bc-primary-dark: #a1ff5b; /* brand primary, dark theme (lime) */
-  --mav-bc-secondary: #0053ff;
-  --mav-bc-tertiary1: #7c9dff;
-  --mav-bc-tertiary2: #030192;
+  /* ── Brand (Bayad) ── */
+  --mav-bc-primary-light: #f26122; /* observed — solid CTA orange, light theme */
+  --mav-bc-primary-dark: #ff7a3d; /* DERIVED — primary lifted for dark; hue held */
+  --mav-bc-secondary-l: #2188ca; /* OFFICIAL — Bayad brand-page blue */
+  --mav-bc-secondary-d: #4ea9dd; /* DERIVED — official blue lifted for dark */
+  --mav-bc-secondary-hover-l: #1b6fa4;
+  --mav-bc-secondary-hover-d: #3d93c6;
+  --mav-bc-secondary-clicked-l: #155882;
+  --mav-bc-secondary-clicked-d: #2f7ba8;
+  --mav-bc-tertiary1-l: #f58859; /* observed — lighter orange, hover + outline */
+  --mav-bc-tertiary1-d: #ff9d6b; /* DERIVED — hover + outline on dark */
+  --mav-bc-tertiary2-l: #c2491a; /* DERIVED ~20% darker — pressed state */
+  --mav-bc-tertiary2-d: #d24d14; /* DERIVED — pressed on dark */
   --mav-bc-variation: #ff00ff;
-  --mav-bc-primary-soft: #352eff1a; /* primary at 10% */
-  --mav-bc-primary-dark-soft: #a1ff5b1a; /* dark primary at 10% */
+  --mav-bc-primary-soft: #f261221a; /* primary at 10% */
+  --mav-bc-primary-dark-soft: #ff7a3d1a; /* dark primary at 10% */
+  --mav-bc-surface-brand-l: #fde4da; /* observed — pale orange wash */
+  --mav-bc-surface-brand-d: #2b1a12; /* DERIVED — warm dark tint replacing the wash */
+  --mav-bc-grad-mid-l: #f05c33; /* warm mid stop of the CTA gradient */
+  --mav-bc-grad-mid-d: #f2663c;
 
   /* ── Mono scale (light/dark pairs) ── */
   --mav-bc-mono100-l: #e5e5e5;
@@ -60,129 +74,167 @@
   --mav-bc-surface-dark: #1f1f1f; /* dark-theme raised surface */
   --mav-bc-code-bg: #0d0d0d; /* code block bg — invariant dark */
 
-  /* ── Tint/Primary (light/dark pairs) ── */
-  --mav-bc-tintp100-l: #eaeaff;
-  --mav-bc-tintp100-d: #e1e5ef;
-  --mav-bc-tintp200-l: #d6d5ff;
-  --mav-bc-tintp200-d: #c3cce0;
-  --mav-bc-tintp300-l: #c2c0ff;
-  --mav-bc-tintp300-d: #8a9ac0;
-  --mav-bc-tintp400-l: #aeabff;
-  --mav-bc-tintp400-d: #556aa0;
-  --mav-bc-tintp500-l: #9a96ff;
-  --mav-bc-tintp500-d: #3c538f;
-  --mav-bc-tintp600-l: #8581ff;
-  --mav-bc-tintp600-d: #253b7f;
-  --mav-bc-tintp700-l: #716cff;
-  --mav-bc-tintp700-d: #10226e;
-  --mav-bc-tintp800-l: #5d57ff;
-  --mav-bc-tintp800-d: #0a1b61;
-  --mav-bc-tintp900-l: #4942ff;
-  --mav-bc-tintp900-d: #060070;
+  /* ── Tint/Primary (light/dark pairs) — Bayad orange ramp.
+     MaV built these as white→brand mixes; each MaV step was solved for its
+     mix ratio and the same ratio re-applied to the Bayad primary. ── */
+  --mav-bc-tintp100-l: #feefe8;
+  --mav-bc-tintp100-d: #ffede5;
+  --mav-bc-tintp200-l: #fcdfd2;
+  --mav-bc-tintp200-d: #ffdbcb;
+  --mav-bc-tintp300-l: #fbcfbc;
+  --mav-bc-tintp300-d: #ffb898;
+  --mav-bc-tintp400-l: #fac0a6;
+  --mav-bc-tintp400-d: #ff9868;
+  --mav-bc-tintp500-l: #f8b090;
+  --mav-bc-tintp500-d: #ff8852;
+  --mav-bc-tintp600-l: #f7a07a;
+  --mav-bc-tintp600-d: #ff7a3d;
+  --mav-bc-tintp700-l: #f69064;
+  --mav-bc-tintp700-d: #ff7a3d;
+  --mav-bc-tintp800-l: #f5804e;
+  --mav-bc-tintp800-d: #ff7a3d;
+  --mav-bc-tintp900-l: #f37038;
+  --mav-bc-tintp900-d: #ff7a3d;
 
   /* ── Shade/Primary (light/dark pairs) ── */
-  --mav-bc-shadep100-l: #2f29e5;
-  --mav-bc-shadep100-d: #040050;
-  --mav-bc-shadep200-l: #2a24cc;
-  --mav-bc-shadep200-d: #05005e;
-  --mav-bc-shadep300-l: #2520b2;
-  --mav-bc-shadep300-d: #040050;
-  --mav-bc-shadep400-l: #1f1b99;
-  --mav-bc-shadep400-d: #030043;
-  --mav-bc-shadep500-l: #1a177f;
-  --mav-bc-shadep500-d: #020037;
-  --mav-bc-shadep600-l: #151266;
-  --mav-bc-shadep600-d: #01002a;
-  --mav-bc-shadep700-l: #0f0d4c;
-  --mav-bc-shadep700-d: #01001f;
-  --mav-bc-shadep800-l: #0a0933;
-  --mav-bc-shadep800-d: #000014;
-  --mav-bc-shadep900-l: #050419;
-  --mav-bc-shadep900-d: #010111;
+  --mav-bc-shadep100-l: #d8571e;
+  --mav-bc-shadep100-d: #211008;
+  --mav-bc-shadep200-l: #c04d1b;
+  --mav-bc-shadep200-d: #271309;
+  --mav-bc-shadep300-l: #a94418;
+  --mav-bc-shadep300-d: #211008;
+  --mav-bc-shadep400-l: #8f3914;
+  --mav-bc-shadep400-d: #1b0d06;
+  --mav-bc-shadep500-l: #783011;
+  --mav-bc-shadep500-d: #160a05;
+  --mav-bc-shadep600-l: #60260d;
+  --mav-bc-shadep600-d: #100704;
+  --mav-bc-shadep700-l: #461c0a;
+  --mav-bc-shadep700-d: #0c0603;
+  --mav-bc-shadep800-l: #2f1307;
+  --mav-bc-shadep800-d: #070302;
+  --mav-bc-shadep900-l: #170903;
+  --mav-bc-shadep900-d: #090402;
 
-  /* ── Tint/Secondary (light/dark pairs) ── */
-  --mav-bc-tints100-l: #e6edff;
-  --mav-bc-tints100-d: #f6fff1;
-  --mav-bc-tints200-l: #ccddff;
-  --mav-bc-tints200-d: #edffe3;
-  --mav-bc-tints300-l: #b2cbff;
-  --mav-bc-tints300-d: #e4ffd5;
-  --mav-bc-tints400-l: #9abaff;
-  --mav-bc-tints400-d: #d2ffb7;
-  --mav-bc-tints500-l: #6697ff;
-  --mav-bc-tints500-d: #c9ffa7;
-  --mav-bc-tints600-l: #4c86ff;
-  --mav-bc-tints600-d: #bfff96;
-  --mav-bc-tints700-l: #3276ff;
-  --mav-bc-tints700-d: #b5ff85;
-  --mav-bc-tints800-l: #1964ff;
-  --mav-bc-tints800-d: #aeff79;
-  --mav-bc-tints900-l: #0053ff;
-  --mav-bc-tints900-d: #a3ff68;
+  /* ── Tint/Secondary (light/dark pairs) — Bayad blue ramp ── */
+  --mav-bc-tints100-l: #e9f3fa;
+  --mav-bc-tints100-d: #fcfdfe;
+  --mav-bc-tints200-l: #d3e7f4;
+  --mav-bc-tints200-d: #f9fcfe;
+  --mav-bc-tints300-l: #bcdbef;
+  --mav-bc-tints300-d: #f6fafd;
+  --mav-bc-tints400-l: #a7d0ea;
+  --mav-bc-tints400-d: #eff7fc;
+  --mav-bc-tints500-l: #79b7df;
+  --mav-bc-tints500-d: #ecf6fb;
+  --mav-bc-tints600-l: #63abda;
+  --mav-bc-tints600-d: #e9f4fb;
+  --mav-bc-tints700-l: #4da0d5;
+  --mav-bc-tints700-d: #e5f3fa;
+  --mav-bc-tints800-l: #3794cf;
+  --mav-bc-tints800-d: #e3f1fa;
+  --mav-bc-tints900-l: #2188ca;
+  --mav-bc-tints900-d: #dfeff9;
 
   /* ── Shade/Secondary (light/dark pairs) ── */
-  --mav-bc-shades100-l: #004ae6;
-  --mav-bc-shades100-d: #8bde4e;
-  --mav-bc-shades200-l: #0042cc;
-  --mav-bc-shades200-d: #76be41;
-  --mav-bc-shades300-l: #003ab2;
-  --mav-bc-shades300-d: #629e35;
-  --mav-bc-shades400-l: #003199;
-  --mav-bc-shades400-d: #4e8029;
-  --mav-bc-shades500-l: #00297f;
-  --mav-bc-shades500-d: #3c631e;
-  --mav-bc-shades600-l: #002166;
-  --mav-bc-shades600-d: #2a4813;
-  --mav-bc-shades700-l: #00184c;
-  --mav-bc-shades700-d: #233c10;
-  --mav-bc-shades800-l: #000f33;
-  --mav-bc-shades800-d: #1c300d;
-  --mav-bc-shades900-l: #000819;
-  --mav-bc-shades900-d: #010300;
+  --mav-bc-shades100-l: #1e7ab5;
+  --mav-bc-shades100-d: #4ea9dd;
+  --mav-bc-shades200-l: #1a6ca1;
+  --mav-bc-shades200-d: #4ea9dd;
+  --mav-bc-shades300-l: #175f8d;
+  --mav-bc-shades300-d: #4ea9dd;
+  --mav-bc-shades400-l: #145178;
+  --mav-bc-shades400-d: #4290bc;
+  --mav-bc-shades500-l: #104364;
+  --mav-bc-shades500-d: #336f91;
+  --mav-bc-shades600-l: #0d3651;
+  --mav-bc-shades600-d: #255068;
+  --mav-bc-shades700-l: #0a283b;
+  --mav-bc-shades700-d: #1f4257;
+  --mav-bc-shades800-l: #061a26;
+  --mav-bc-shades800-d: #193546;
+  --mav-bc-shades900-l: #030d14;
+  --mav-bc-shades900-d: #010304;
 
-  /* ── Tint/Tertiary (theme-invariant) ── */
-  --mav-bc-tintt100: #f1f5ff;
-  --mav-bc-tintt200: #e4ebff;
-  --mav-bc-tintt300: #d7e1ff;
-  --mav-bc-tintt400: #cbd7ff;
-  --mav-bc-tintt500: #b0c5ff;
-  --mav-bc-tintt600: #a4bbff;
-  --mav-bc-tintt700: #96b0ff;
-  --mav-bc-tintt800: #89a6ff;
-  --mav-bc-tintt900: #7c9dff;
+  /* ── Tint/Tertiary (light/dark pairs) — lighter-orange ramp ── */
+  --mav-bc-tintt100-l: #fef3ee;
+  --mav-bc-tintt100-d: #fff5f0;
+  --mav-bc-tintt200-l: #fde7dd;
+  --mav-bc-tintt200-d: #ffebe1;
+  --mav-bc-tintt300-l: #fcdbcc;
+  --mav-bc-tintt300-d: #ffe1d2;
+  --mav-bc-tintt400-l: #fbcfbc;
+  --mav-bc-tintt400-d: #ffd8c3;
+  --mav-bc-tintt500-l: #f9b89c;
+  --mav-bc-tintt500-d: #ffc4a7;
+  --mav-bc-tintt600-l: #f8ac8c;
+  --mav-bc-tintt600-d: #ffbb98;
+  --mav-bc-tintt700-l: #f79f7a;
+  --mav-bc-tintt700-d: #ffb088;
+  --mav-bc-tintt800-l: #f69369;
+  --mav-bc-tintt800-d: #ffa679;
+  --mav-bc-tintt900-l: #f58859;
+  --mav-bc-tintt900-d: #ff9d6b;
 
-  /* ── Tint/Tertiary-2 (theme-invariant) ── */
-  --mav-bc-tintt2-100: #e5e5f4;
-  --mav-bc-tintt2-200: #cccce9;
-  --mav-bc-tintt2-300: #b3b2de;
-  --mav-bc-tintt2-400: #9a99d3;
-  --mav-bc-tintt2-500: #8180c8;
-  --mav-bc-tintt2-600: #6766bd;
-  --mav-bc-tintt2-700: #4e4db2;
-  --mav-bc-tintt2-800: #3533a7;
-  --mav-bc-tintt2-900: #1c1a9c;
+  /* ── Tint/Tertiary-2 (light/dark pairs) — deep-orange ramp ── */
+  --mav-bc-tintt2-100-l: #f9ece8;
+  --mav-bc-tintt2-100-d: #faede7;
+  --mav-bc-tintt2-200-l: #f3dad1;
+  --mav-bc-tintt2-200-d: #f6dbd0;
+  --mav-bc-tintt2-300-l: #edc8ba;
+  --mav-bc-tintt2-300-d: #f1c9b8;
+  --mav-bc-tintt2-400-l: #e6b6a3;
+  --mav-bc-tintt2-400-d: #edb7a1;
+  --mav-bc-tintt2-500-l: #e0a48c;
+  --mav-bc-tintt2-500-d: #e8a689;
+  --mav-bc-tintt2-600-l: #da9175;
+  --mav-bc-tintt2-600-d: #e49471;
+  --mav-bc-tintt2-700-l: #d47f5e;
+  --mav-bc-tintt2-700-d: #df825a;
+  --mav-bc-tintt2-800-l: #ce6d47;
+  --mav-bc-tintt2-800-d: #db7042;
+  --mav-bc-tintt2-900-l: #c85b30;
+  --mav-bc-tintt2-900-d: #d65e2b;
 
-  /* ── Shade/Tertiary (theme-invariant) ── */
-  --mav-bc-shadet100: #6f8de5;
-  --mav-bc-shadet200: #637dcc;
-  --mav-bc-shadet300: #566db2;
-  --mav-bc-shadet400: #4a5f99;
-  --mav-bc-shadet500: #3e4e7f;
-  --mav-bc-shadet600: #313e66;
-  --mav-bc-shadet700: #252f4c;
-  --mav-bc-shadet800: #171f34;
-  --mav-bc-shadet900: #0b0f19;
+  /* ── Shade/Tertiary (light/dark pairs) ── */
+  --mav-bc-shadet100-l: #dc7a50;
+  --mav-bc-shadet100-d: #e58d60;
+  --mav-bc-shadet200-l: #c46d47;
+  --mav-bc-shadet200-d: #cc7d55;
+  --mav-bc-shadet300-l: #aa5f3e;
+  --mav-bc-shadet300-d: #b16d4a;
+  --mav-bc-shadet400-l: #935235;
+  --mav-bc-shadet400-d: #995e40;
+  --mav-bc-shadet500-l: #7a442c;
+  --mav-bc-shadet500-d: #7f4e35;
+  --mav-bc-shadet600-l: #613623;
+  --mav-bc-shadet600-d: #653e2a;
+  --mav-bc-shadet700-l: #49291b;
+  --mav-bc-shadet700-d: #4c2f20;
+  --mav-bc-shadet800-l: #301b11;
+  --mav-bc-shadet800-d: #321f15;
+  --mav-bc-shadet900-l: #170d08;
+  --mav-bc-shadet900-d: #180f0a;
 
-  /* ── Shade/Tertiary-2 (theme-invariant) ── */
-  --mav-bc-shadet2-100: #020084;
-  --mav-bc-shadet2-200: #020074;
-  --mav-bc-shadet2-300: #020066;
-  --mav-bc-shadet2-400: #010057;
-  --mav-bc-shadet2-500: #010049;
-  --mav-bc-shadet2-600: #01003a;
-  --mav-bc-shadet2-700: #00002b;
-  --mav-bc-shadet2-800: #00001d;
-  --mav-bc-shadet2-900: #00000e;
+  /* ── Shade/Tertiary-2 (light/dark pairs) ── */
+  --mav-bc-shadet2-100-l: #af4218;
+  --mav-bc-shadet2-100-d: #be4612;
+  --mav-bc-shadet2-200-l: #9a3a15;
+  --mav-bc-shadet2-200-d: #a73d10;
+  --mav-bc-shadet2-300-l: #883312;
+  --mav-bc-shadet2-300-d: #93360e;
+  --mav-bc-shadet2-400-l: #742c0f;
+  --mav-bc-shadet2-400-d: #7d2e0c;
+  --mav-bc-shadet2-500-l: #61240d;
+  --mav-bc-shadet2-500-d: #69260a;
+  --mav-bc-shadet2-600-l: #4d1d0a;
+  --mav-bc-shadet2-600-d: #531f08;
+  --mav-bc-shadet2-700-l: #391608;
+  --mav-bc-shadet2-700-d: #3e1706;
+  --mav-bc-shadet2-800-l: #270e05;
+  --mav-bc-shadet2-800-d: #2a0f04;
+  --mav-bc-shadet2-900-l: #130702;
+  --mav-bc-shadet2-900-d: #140702;
 
   /* ── Illustration / data-viz ramps (800 dark → 100 light) ── */
   --mav-bc-polipurple-800: #20104d;
@@ -287,7 +339,8 @@
   --mav-bc-success-dark: #3a6a00;
 
   /* ── Misc one-offs referenced by the semantic layer ── */
-  --mav-bc-bubble-outgoing: #352eff19; /* chat outgoing bubble tint */
-  --mav-bc-toggle-disabled2: #e4ebff;
+  --mav-bc-bubble-outgoing: #f261221a; /* chat outgoing bubble tint (primary @10%) */
+  --mav-bc-toggle-disabled2-l: #feede6;
+  --mav-bc-toggle-disabled2-d: #fff0e9;
   --mav-bc-avatar-online: #7cc731; /* avatar presence dot (green/500) */
 }

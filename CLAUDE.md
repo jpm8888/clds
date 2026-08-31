@@ -26,7 +26,7 @@ document.documentElement.setAttribute('data-theme', 'dark'); // or 'light' / rem
    `@mav/bayad/tokens` (`color`, `space`, `radius`, `shadow`, `fontSize`, `fontWeight`,
    `duration`, `easing`, `zIndex`, `breakpoints`) in inline styles.
 2. **Never write dark-mode styles.** Dark mode is automatic — the tokens flip when
-   `data-theme="dark"` is set (brand: `#352eff` blue → `#a1ff5b` lime). If something
+   `data-theme="dark"` is set (brand: `#f26122` Bayad orange → `#ff7a3d` lifted orange). If something
    looks wrong in dark, you used a literal color; replace it with a token.
 3. **Layout is mobile-first**: 390px reference viewport, `--mav-container-padding`
    (20px) side padding, content max-width `--mav-max-content-width` (343px). One
@@ -108,7 +108,14 @@ document.documentElement.setAttribute('data-theme', 'dark'); // or 'light' / rem
 | `LoginForm` | Sign-in screen (fields, CTA, social row) |
 | `OtpEntry` | OTP verification screen with resend timer |
 | `SelectAccount` | "Select source of funds" screen with locked rows |
-| `Splash` | Launch screen (3 background variants, animated) |
+| `Splash` | Bayad launch screen (light/gradient/deep grounds, lockup + progress rail, animated) |
+| `HomeHero` + `HomeHeroWallet` | Home greeting panel (warm gradient, Power-On ring, clock greeting) + overlapping wallet card |
+| `ServiceMenu` | Home services / bill-category icon grid (one line set, brand-tint chips, one emphasised tile) |
+| `BillReminders` + `BillReminderSetup` | Due bills with pay-from-the-row + reminder setup (lead-time chips, channels, autopay) |
+| `SnapABillCapture` / `SnapABillReview` | Photograph a paper bill → confirm extracted biller/account/amount/due date |
+| `AiAssistant` | Conversational layer over payment history — answers are objects (payable rows, a figure, a chart) |
+| `PaymentOrchestration` / `OrchestrationTrace` | Ops (desktop): rail health, ordered routing rules, rollout share; per-payment path trace |
+| `Reconciliation` / `ReconciliationEvidence` | Ops (desktop): settlement batch with exceptions; source-of-truth evidence panel |
 
 ## Screen recipes (copy-paste starting points)
 

@@ -25,7 +25,7 @@ export interface DonutChartProps extends HTMLAttributes<HTMLDivElement> {
 const PALETTE = [
   'var(--mav-main-primary)',
   'var(--mav-main-tertiary-1)',
-  '#a1ff5b' /* one-off: brand lime accent */,
+  '#2188ca' /* one-off: official Bayad blue accent */,
   '#d7dbe3' /* one-off: neutral remainder */,
 ];
 

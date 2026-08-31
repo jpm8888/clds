@@ -3,8 +3,10 @@
    Activated by data-theme="dark" on <html> (or any ancestor).
    Only tokens that change are re-pointed — component CSS never mentions
    dark mode. Status colors (danger/success/warning) are deliberately
-   identical in both themes, as is the focus ring.
-   Headline flip: brand primary #352eff → #a1ff5b (lime).
+   identical in both themes.
+   Headline flip: brand primary #f26122 → #ff7a3d — Bayad's primary stays
+   orange in both themes (hue held, lifted for dark), so on-primary text
+   stays white and does NOT flip like a light-primary brand's would.
    ════════════════════════════════════════════════════════════════════════ */
 [data-theme='dark'] {
   /* Foundation */
@@ -13,6 +15,7 @@
   --mav-main-grey: var(--mav-bc-mono200-l); /* #cccccc in dark, per source */
   --mav-main-primary: var(--mav-bc-primary-dark);
   --mav-main-secondary: var(--mav-bc-primary-dark);
+  --mav-main-tertiary-1: var(--mav-bc-tertiary1-d);
   --mav-main-tertiary-2: var(--mav-bc-primary-dark);
 
   --mav-mono-100: var(--mav-bc-mono100-d);
@@ -67,10 +70,50 @@
   --mav-shade-secondary-800: var(--mav-bc-shades800-d);
   --mav-shade-secondary-900: var(--mav-bc-shades900-d);
 
+  --mav-tint-tertiary-100: var(--mav-bc-tintt100-d);
+  --mav-tint-tertiary-200: var(--mav-bc-tintt200-d);
+  --mav-tint-tertiary-300: var(--mav-bc-tintt300-d);
+  --mav-tint-tertiary-400: var(--mav-bc-tintt400-d);
+  --mav-tint-tertiary-500: var(--mav-bc-tintt500-d);
+  --mav-tint-tertiary-600: var(--mav-bc-tintt600-d);
+  --mav-tint-tertiary-700: var(--mav-bc-tintt700-d);
+  --mav-tint-tertiary-800: var(--mav-bc-tintt800-d);
+  --mav-tint-tertiary-900: var(--mav-bc-tintt900-d);
+
+  --mav-tint-tertiary2-100: var(--mav-bc-tintt2-100-d);
+  --mav-tint-tertiary2-200: var(--mav-bc-tintt2-200-d);
+  --mav-tint-tertiary2-300: var(--mav-bc-tintt2-300-d);
+  --mav-tint-tertiary2-400: var(--mav-bc-tintt2-400-d);
+  --mav-tint-tertiary2-500: var(--mav-bc-tintt2-500-d);
+  --mav-tint-tertiary2-600: var(--mav-bc-tintt2-600-d);
+  --mav-tint-tertiary2-700: var(--mav-bc-tintt2-700-d);
+  --mav-tint-tertiary2-800: var(--mav-bc-tintt2-800-d);
+  --mav-tint-tertiary2-900: var(--mav-bc-tintt2-900-d);
+
+  --mav-shade-tertiary-100: var(--mav-bc-shadet100-d);
+  --mav-shade-tertiary-200: var(--mav-bc-shadet200-d);
+  --mav-shade-tertiary-300: var(--mav-bc-shadet300-d);
+  --mav-shade-tertiary-400: var(--mav-bc-shadet400-d);
+  --mav-shade-tertiary-500: var(--mav-bc-shadet500-d);
+  --mav-shade-tertiary-600: var(--mav-bc-shadet600-d);
+  --mav-shade-tertiary-700: var(--mav-bc-shadet700-d);
+  --mav-shade-tertiary-800: var(--mav-bc-shadet800-d);
+  --mav-shade-tertiary-900: var(--mav-bc-shadet900-d);
+
+  --mav-shade-tertiary2-100: var(--mav-bc-shadet2-100-d);
+  --mav-shade-tertiary2-200: var(--mav-bc-shadet2-200-d);
+  --mav-shade-tertiary2-300: var(--mav-bc-shadet2-300-d);
+  --mav-shade-tertiary2-400: var(--mav-bc-shadet2-400-d);
+  --mav-shade-tertiary2-500: var(--mav-bc-shadet2-500-d);
+  --mav-shade-tertiary2-600: var(--mav-bc-shadet2-600-d);
+  --mav-shade-tertiary2-700: var(--mav-bc-shadet2-700-d);
+  --mav-shade-tertiary2-800: var(--mav-bc-shadet2-800-d);
+  --mav-shade-tertiary2-900: var(--mav-bc-shadet2-900-d);
+
   /* Background & surface */
   --mav-bg-default: var(--mav-bc-black);
   --mav-bg-secondary: var(--mav-bc-mono100-d);
-  --mav-bg-tertiary: var(--mav-bc-tints100-d);
+  --mav-bg-tertiary: var(--mav-bc-surface-brand-d);
   --mav-surface: var(--mav-bc-surface-dark);
 
   /* Overlay — scrim slightly stronger over dark UI */
@@ -92,12 +135,40 @@
   --mav-border-active: var(--mav-bc-primary-dark);
   --mav-border-subtle: var(--mav-bc-mono300-l); /* #b2b2b2 in dark, per source */
 
-  /* Buttons */
+  /* Buttons — primary keeps white text (orange fill in both themes) */
   --mav-btn-primary-default: var(--mav-bc-primary-dark);
+  --mav-btn-primary-bg: linear-gradient(
+    105deg,
+    var(--mav-bc-primary-dark) 0%,
+    var(--mav-bc-grad-mid-d) 50%,
+    var(--mav-bc-secondary-d) 100%
+  );
+  --mav-btn-primary-clicked: var(--mav-bc-tertiary2-d);
   --mav-btn-primary-disabled: var(--mav-bc-mono100-d);
-  --mav-btn-primary-text: var(--mav-bc-black);
+  --mav-btn-primary-loading: var(--mav-bc-primary-dark);
   --mav-btn-textonly-default: var(--mav-bc-primary-dark);
+  --mav-btn-textonly-hover: var(--mav-bc-tertiary1-d);
   --mav-btn-textonly-clicked: var(--mav-bc-primary-dark);
+  --mav-btn-textonly-loading: var(--mav-bc-primary-dark);
+
+  /* Buttons — secondary (filled blue, lifted for dark; pressed goes orange) */
+  --mav-btn-secondary-default: var(--mav-bc-secondary-d);
+  --mav-btn-secondary-hover: var(--mav-bc-secondary-hover-d);
+  --mav-btn-secondary-clicked: var(--mav-bc-primary-dark);
+  --mav-btn-secondary-outline: var(--mav-bc-secondary-d);
+  --mav-btn-secondary-outline-hover: var(--mav-bc-tertiary1-d);
+  --mav-btn-secondary-outline-clicked: var(--mav-bc-secondary-clicked-d);
+  --mav-btn-secondary-outline-loading: var(--mav-bc-primary-dark);
+
+  /* Buttons — sliding / swipe-up */
+  --mav-btn-sliding-default: var(--mav-bc-primary-dark);
+  --mav-btn-sliding-hover: var(--mav-bc-tertiary1-d);
+  --mav-btn-sliding-clicked: var(--mav-bc-tertiary2-d);
+  --mav-btn-swipeup-default: var(--mav-bc-primary-dark);
+  --mav-btn-swipeup-hover: var(--mav-bc-tertiary1-d);
+  --mav-btn-swipeup-clicked: var(--mav-bc-tertiary2-d);
+  --mav-btn-swipeup-loading: var(--mav-bc-primary-dark);
+  --mav-btn-swipeup-bg2: var(--mav-bc-surface-brand-d);
 
   /* Input field */
   --mav-input-default-bg: var(--mav-bc-black);
@@ -122,10 +193,16 @@
 
   /* Controls */
   --mav-loader-spin: var(--mav-bc-primary-dark);
+  --mav-tabs-default: var(--mav-bc-toggle-disabled2-d);
   --mav-tabs-active: var(--mav-bc-primary-dark);
   --mav-toggle-default-bg: var(--mav-bc-mono100-d);
   --mav-toggle-active-bg: var(--mav-bc-primary-dark);
+  --mav-toggle-disabled-bg2: var(--mav-bc-toggle-disabled2-d);
   --mav-checkbox-active-bg: var(--mav-bc-primary-dark);
+
+  /* Progress bar */
+  --mav-progress-fill: #683219; /* one-off: Bayad shade/primary/900, dark */
+  --mav-progress-fill-soft: #ffcab2; /* one-off: Bayad brand/primary/200, dark */
 
   /* Account / dock */
   --mav-account-bg: var(--mav-bc-mono100-d);
@@ -135,13 +212,15 @@
   --mav-dock-bg: var(--mav-bc-black);
 
   /* Alert */
-  --mav-alert-primary-bg: var(--mav-bc-primary-soft);
+  --mav-alert-primary-bg: var(--mav-bc-primary-dark-soft);
   --mav-alert-primary-text: var(--mav-bc-primary-dark);
+  --mav-alert-primary-icon: var(--mav-bc-primary-dark);
 
-  /* Badge & chip */
+  /* Badge & chip — orange fill keeps white text in dark too */
   --mav-badge-primary-bg: var(--mav-bc-primary-dark);
-  --mav-badge-primary-text: var(--mav-bc-black);
-  --mav-badge-primary-icon: var(--mav-bc-black);
+  --mav-badge-primary-text: var(--mav-bc-white);
+  --mav-badge-primary-icon: var(--mav-bc-white);
+  --mav-badge-primary-outline: var(--mav-bc-tertiary1-d);
 
   /* Toast */
   --mav-toast-bg: var(--mav-bc-black);
@@ -149,25 +228,28 @@
   --mav-toast-icon: var(--mav-bc-white);
   --mav-toast-outline: var(--mav-bc-mono200-d);
 
-  /* Nav bar */
-  --mav-nav-bg-primary: var(--mav-bc-white);
+  /* Nav bar — brand-carrying tokens follow the brand; neutrals stay */
+  --mav-nav-bg-primary: var(--mav-bc-tertiary2-d);
   --mav-nav-bg-secondary: var(--mav-bc-white);
   --mav-nav-bg-card: var(--mav-bc-white);
-  --mav-nav-active: var(--mav-bc-white);
+  --mav-nav-active: var(--mav-bc-primary-dark);
   --mav-nav-icon: var(--mav-bc-white);
   --mav-nav-text: var(--mav-bc-white);
 
-  /* Coachmark */
-  --mav-coachmark-dots: var(--mav-bc-white);
-  --mav-coachmark-dot-dash: var(--mav-bc-white);
+  /* Menu */
+  --mav-menu-bg-primary: var(--mav-bc-tertiary2-d);
 
-  /* Chat bubbles — incoming dark-grey, outgoing solid blue, sender lime */
+  /* Coachmark */
+  --mav-coachmark-dots: var(--mav-bc-primary-dark);
+  --mav-coachmark-dot-dash: var(--mav-bc-primary-dark);
+
+  /* Chat bubbles — incoming dark-grey, outgoing warm brand tint */
   --mav-bubble-bg-incoming: #2c2c2e; /* one-off */
-  --mav-bubble-bg-outgoing: #2f43d9; /* one-off */
+  --mav-bubble-bg-outgoing: var(--mav-bc-primary-dark-soft);
   --mav-bubble-name-incoming: var(--mav-bc-primary-dark);
   --mav-bubble-text-outgoing: var(--mav-bc-white);
   --mav-bubble-text-incoming: #f2f2f2; /* one-off */
-  --mav-bubble-bg-outgoing-reply: #ffffff26; /* one-off */
+  --mav-bubble-bg-outgoing-reply: var(--mav-bc-primary-dark-soft);
   --mav-bubble-outline-incoming: var(--mav-bc-primary-dark);
 
   /* Balance / app bar */
@@ -178,4 +260,26 @@
   /* Line chart */
   --mav-chart-line-brand: var(--mav-bc-primary-dark);
   --mav-chart-gradient-brand: var(--mav-bc-primary-dark-soft);
+
+  /* Focus ring — lifted with the dark primary */
+  --mav-focus-ring: rgba(255, 122, 61, 0.4); /* one-off: dark primary @ 40% */
+
+  /* Brand gradient */
+  --mav-gradient-brand: linear-gradient(
+    135deg,
+    var(--mav-bc-primary-dark) 0%,
+    var(--mav-bc-tertiary2-d) 100%
+  );
+}
+
+/* oklab upgrade for the dark CTA transit — see semantic.css for why */
+@supports (background: linear-gradient(in oklab, red, blue)) {
+  [data-theme='dark'] {
+    --mav-btn-primary-bg: linear-gradient(
+      105deg in oklab,
+      var(--mav-bc-primary-dark) 0%,
+      var(--mav-bc-grad-mid-d) 50%,
+      var(--mav-bc-secondary-d) 100%
+    );
+  }
 }
