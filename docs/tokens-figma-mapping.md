@@ -74,7 +74,7 @@ The source shipped several parallel namings; each collapses to ONE set here:
 
 - `--mav-z-*` (z-index layers), `--mav-duration-*` + `--mav-ease-*` (motion),
   heading font sizes, line-heights, letter-spacings, breakpoints (TS-only).
-- `--mav-bc-primary-dark-soft: #a1ff5b1a` — the source referenced
+- `--mav-bc-primary-dark-soft: #ff7a3d1a` — the source referenced
   `--bc-dark-primary-soft` in `--gradient-brand` but never defined it (known bug),
   fixed here.
 
@@ -83,5 +83,15 @@ The source shipped several parallel namings; each collapses to ONE set here:
 - `--mav-bc-manna-200` = `--mav-bc-manna-100` = `#ffefc7` (duplicate in the Figma
   export, kept for parity).
 - The neon theme and `--bc-neon-*` collection were **dropped** (light + dark only).
+
+## Bayad rebrand
+
+Brand-carrying values no longer trace to the MaV Figma file: they come from the
+**Bayad brand layer** (`css/brands/bayad.css`, `bayad-design-system` branch of the
+source repo), which re-pointed 69 brand tokens at six observed/derived Bayad values
+(primary `#f26122`, official blue `#2188ca`, tint `#f58859`, deep `#c2491a`, pale
+wash `#fde4da`, dark primary `#ff7a3d`) and re-solved the tint/shade ramps with
+MaV's original mix ratios. Non-brand families (mono, status, illustrative ramps)
+still trace to the Figma names below.
 - Kept one-off literals (no palette primitive exists): progress-bar fills, dark chat
   bubbles, blanket scrims — each marked `/* one-off */` in the token files.

@@ -1,0 +1,374 @@
+/* Snap a Bill — ported from MaV-Ver2 components/snap-a-bill.html.
+   Capture a paper bill with the camera, extract the biller, account number,
+   amount and due date, then confirm and pay. For the long tail of billers
+   that were never wired up, the paper IS the interface.
+
+   Every colour routes through role tokens except the viewfinder: what the
+   camera sees is a photograph — IMAGE CONTENT, NOT UI CHROME — so the feed
+   is dark and the paper is white in every theme and brand. Even the
+   white/black role tokens SWAP in dark and would invert the viewfinder, so
+   those literals are deliberate. Only the overlay UI is tokenised. */
+
+/* ── capture ── */
+.sab-cam {
+  flex: 1;
+  border-radius: 20px; /* one-off: source spec */
+  position: relative;
+  overflow: hidden;
+  min-height: 392px;
+  background: #14151a; /* camera feed — image content, not chrome */
+  font-family: var(--mav-font-body);
+}
+.sab-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background: repeating-linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.05) 0 2px,
+    transparent 2px 5px
+  );
+}
+.sab-paper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-1.6deg);
+  width: 196px;
+  height: 266px;
+  border-radius: var(--mav-radius-sm);
+  background: #fbfbf8; /* the photographed bill — image content */
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.sab-paper-brand {
+  height: 9px;
+  width: 64px;
+  border-radius: 2px;
+  background: #1d1d22;
+  opacity: 0.75;
+}
+.sab-paper-rule {
+  height: 5px;
+  border-radius: 2px;
+  background: #1d1d22;
+  opacity: 0.24;
+}
+.sab-paper-rule.s {
+  width: 52%;
+}
+.sab-paper-rule.m {
+  width: 74%;
+}
+.sab-paper-rule.l {
+  width: 88%;
+}
+.sab-paper-amt {
+  margin-top: 5px;
+  height: 20px;
+  width: 104px;
+  border-radius: 3px;
+  background: #1d1d22;
+  opacity: 0.82;
+}
+.sab-paper-foot {
+  margin-top: auto;
+  display: flex;
+  gap: 5px;
+  align-items: flex-end;
+}
+.sab-paper-bar {
+  width: 3px;
+  background: #1d1d22;
+  opacity: 0.7;
+}
+
+/* corner brackets — overlay on the feed, so also literal white */
+.sab-bracket {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border: 3px solid #ffffff;
+  opacity: 0.95;
+}
+.sab-bracket.tl {
+  top: 26px;
+  left: 26px;
+  border-right: 0;
+  border-bottom: 0;
+  border-radius: 10px 0 0 0;
+}
+.sab-bracket.tr {
+  top: 26px;
+  right: 26px;
+  border-left: 0;
+  border-bottom: 0;
+  border-radius: 0 10px 0 0;
+}
+.sab-bracket.bl {
+  bottom: 74px;
+  left: 26px;
+  border-right: 0;
+  border-top: 0;
+  border-radius: 0 0 0 10px;
+}
+.sab-bracket.br {
+  bottom: 74px;
+  right: 26px;
+  border-left: 0;
+  border-top: 0;
+  border-radius: 0 0 10px 0;
+}
+
+/* the scan line and hint pick up the brand */
+.sab-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--mav-icon-active);
+  box-shadow: 0 0 16px 3px var(--mav-icon-active);
+  opacity: 0;
+}
+.sab-cam.scanning .sab-scanline {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sab-cam.scanning .sab-scanline {
+    animation: sab-sweep 1.15s ease-in-out infinite;
+  }
+}
+@keyframes sab-sweep {
+  0% {
+    top: 8%;
+  }
+  50% {
+    top: 88%;
+  }
+  100% {
+    top: 8%;
+  }
+}
+.sab-hint {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  padding: 9px 12px;
+  border-radius: 10px; /* one-off: source spec */
+  background: rgba(0, 0, 0, 0.55); /* scrim over the feed */
+  backdrop-filter: var(--mav-blur-sm);
+  text-align: center;
+  font-weight: var(--mav-font-weight-semibold);
+  font-size: var(--mav-font-size-xs);
+  color: #ffffff; /* on-feed, theme-invariant */
+}
+.sab-cam.scanning .sab-hint {
+  background: var(--mav-btn-primary-default);
+}
+
+.sab-shutter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 34px 10px;
+  font-family: var(--mav-font-body);
+}
+.sab-side {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px; /* one-off: source spec */
+  border: 1px solid var(--mav-border-subtle);
+  background: var(--mav-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.sab-side svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--mav-icon-default);
+  stroke-width: 1.9;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sab-shutter {
+  width: 66px;
+  height: 66px;
+  border-radius: var(--mav-radius-full);
+  border: 4px solid var(--mav-border-subtle);
+  background: var(--mav-btn-primary-default);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--mav-duration-fast) ease;
+}
+.sab-shutter:active {
+  transform: scale(0.93);
+}
+.sab-shutter svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--mav-btn-primary-text);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── review ── */
+.sab-review {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--mav-font-body);
+}
+/* Brand-tinted surface: the alert tint is translucent (10% brand) so it
+   composites over the page background and keeps text-token pairings valid in
+   both themes. Do NOT use --mav-bg-tertiary here — it stays light in dark
+   theme while text flips to white. */
+.sab-detected {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 12px; /* one-off: source spec */
+  background: var(--mav-alert-primary-bg);
+  border: 1px solid var(--mav-border-active);
+}
+.sab-det-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px; /* one-off: source spec */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-btn-primary-default);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 15px; /* one-off: chip initials */
+  color: var(--mav-btn-primary-text);
+}
+.sab-det-name {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 15px; /* one-off: source spec */
+  color: var(--mav-text-default);
+}
+.sab-det-sub {
+  font-size: var(--mav-font-size-xs);
+  color: var(--mav-text-description);
+  margin-top: 2px;
+}
+.sab-det-tick {
+  margin-left: auto;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--mav-radius-full);
+  flex-shrink: 0;
+  background: var(--mav-btn-primary-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sab-det-tick svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--mav-btn-primary-text);
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sab-f-label {
+  font-size: 11px; /* one-off: micro label */
+  font-weight: var(--mav-font-weight-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mav-text-description);
+  margin-bottom: 6px;
+}
+.sab-field {
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: 10px; /* one-off: source spec */
+  padding: 11px 13px;
+  background: var(--mav-bg-default);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* low-confidence field, surfaced for confirmation */
+.sab-field.confirm {
+  border-color: var(--mav-border-active);
+  background: var(--mav-system-primary-soft);
+}
+.sab-f-val {
+  font-family: var(--mav-font-mono);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 15px; /* one-off: source spec */
+  color: var(--mav-text-default);
+  flex: 1;
+  letter-spacing: 0.01em;
+}
+.sab-f-edit {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: var(--mav-font-body);
+  font-size: var(--mav-font-size-xs);
+  font-weight: var(--mav-font-weight-bold);
+  color: var(--mav-text-brand);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.sab-f-note {
+  font-size: 11px; /* one-off: micro line */
+  color: var(--mav-text-brand);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.sab-f-note svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+.sab-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.sab-total {
+  margin-top: 2px;
+  padding: 15px;
+  border-radius: 12px; /* one-off: source spec */
+  background: var(--mav-bg-secondary);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.sab-total-l {
+  font-size: var(--mav-font-size-xs);
+  color: var(--mav-text-description);
+  font-weight: var(--mav-font-weight-semibold);
+}
+.sab-total-v {
+  font-family: var(--mav-font-mono);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 26px; /* one-off: total display */
+  line-height: 1;
+  color: var(--mav-text-default);
+}

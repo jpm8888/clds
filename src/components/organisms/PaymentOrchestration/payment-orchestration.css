@@ -1,0 +1,337 @@
+/* Payment Orchestration — ported from MaV-Ver2 components/payment-orchestration.html.
+   Which rail a payment takes, why, and what happens when a rail degrades.
+   Desktop, not phone — same reasoning as Reconciliation, whose ops primitives
+   (window chrome, toolbar, chips, buttons: .bld-recon-*) this organism reuses
+   via reconciliation.css, per the source's "lift into one place when a second
+   surface needs them". This file holds only what is unique here. */
+
+/* rail health cards */
+.bld-orch-rails {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-bottom: 1px solid var(--mav-divider-default);
+}
+.bld-orch-rl {
+  padding: 15px 16px;
+  border-right: 1px solid var(--mav-divider-default);
+}
+.bld-orch-rl:last-child {
+  border-right: 0;
+}
+.bld-orch-rl-top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.bld-orch-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--mav-radius-full);
+  flex-shrink: 0;
+  background: var(--mav-system-success);
+}
+.bld-orch-pulse.warn {
+  background: var(--mav-system-danger-dark);
+}
+.bld-orch-pulse.off {
+  background: var(--mav-system-natural);
+}
+.bld-orch-rl-n {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13px; /* one-off: dense ops scale */
+  color: var(--mav-text-default);
+}
+.bld-orch-rl-v {
+  font-family: var(--mav-font-mono);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-xl);
+  margin-top: 8px;
+  color: var(--mav-text-default);
+}
+.bld-orch-rl-d {
+  font-size: 11px; /* one-off: micro line */
+  color: var(--mav-text-description);
+  margin-top: 2px;
+}
+.bld-orch-rl-d.bad {
+  color: var(--mav-system-danger-dark);
+  font-weight: var(--mav-font-weight-bold);
+}
+.bld-orch-spark {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 22px;
+  margin-top: 9px;
+}
+.bld-orch-spark i {
+  flex: 1;
+  border-radius: 1px;
+  background: var(--mav-system-primary-soft);
+  display: block;
+}
+.bld-orch-spark i.hi {
+  background: var(--mav-text-brand);
+}
+
+/* section header shared shape (matches the source's .sec-h) */
+.bld-orch-sec-h {
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--mav-divider-default);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13px; /* one-off: dense ops scale */
+  color: var(--mav-text-default);
+}
+
+/* routing rules */
+.bld-orch-rules {
+  padding: 4px 0;
+}
+.bld-orch-rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--mav-divider-default);
+}
+.bld-orch-rule:last-child {
+  border-bottom: 0;
+}
+.bld-orch-grip {
+  width: 14px;
+  flex-shrink: 0;
+  color: var(--mav-icon-subtle);
+  cursor: grab;
+  font-size: 13px;
+  line-height: 1;
+}
+.bld-orch-ord {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px; /* one-off: source spec */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-bg-secondary);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 11px; /* one-off: micro label */
+  color: var(--mav-text-description);
+}
+.bld-orch-cond {
+  font-size: 12.5px; /* one-off: dense ops scale */
+  color: var(--mav-text-default);
+}
+.bld-orch-cond code {
+  font-family: var(--mav-font-mono);
+  font-size: 11.5px;
+  padding: 2px 6px;
+  border-radius: var(--mav-radius-sm);
+  background: var(--mav-bg-secondary);
+  color: var(--mav-text-default);
+}
+.bld-orch-arrow {
+  color: var(--mav-text-description);
+  font-size: 13px;
+}
+.bld-orch-dest {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 7px; /* one-off: source spec */
+  background: var(--mav-alert-primary-bg);
+  border: 1px solid var(--mav-border-active);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-xs);
+  color: var(--mav-text-default);
+}
+.bld-orch-hits {
+  margin-left: auto;
+  font-size: 11.5px; /* one-off: dense ops scale */
+  color: var(--mav-text-description);
+  white-space: nowrap;
+}
+.bld-orch-sw {
+  width: 40px;
+  height: 23px;
+  border-radius: var(--mav-radius-full);
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  border: 0;
+  padding: 0;
+  background: var(--mav-system-natural);
+  transition: background var(--mav-duration-med);
+}
+.bld-orch-sw::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 17px;
+  height: 17px;
+  border-radius: var(--mav-radius-full);
+  background: #ffffff; /* knob stays white in both themes, like Toggle */
+  transition: transform var(--mav-duration-med);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+.bld-orch-sw.on {
+  background: var(--mav-toggle-active-bg);
+}
+.bld-orch-sw.on::after {
+  transform: translateX(17px);
+}
+/* a paused rule stays visible and dimmed rather than disappearing */
+.bld-orch-rule.off .bld-orch-cond,
+.bld-orch-rule.off .bld-orch-dest {
+  opacity: 0.45;
+}
+
+/* rollout bar */
+.bld-orch-rollout {
+  padding: 15px 18px;
+  border-top: 1px solid var(--mav-divider-default);
+}
+.bld-orch-ro-h {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.bld-orch-ro-t {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13px; /* one-off: dense ops scale */
+  color: var(--mav-text-default);
+}
+.bld-orch-ro-s {
+  font-size: 11.5px; /* one-off: dense ops scale */
+  color: var(--mav-text-description);
+}
+.bld-orch-bar {
+  height: 9px;
+  border-radius: var(--mav-radius-full);
+  margin-top: 10px;
+  overflow: hidden;
+  background: var(--mav-bg-secondary);
+  display: flex;
+}
+.bld-orch-bar i {
+  display: block;
+  height: 100%;
+}
+.bld-orch-bar .new {
+  background: var(--mav-btn-primary-default);
+}
+.bld-orch-bar .old {
+  background: var(--mav-system-natural);
+}
+.bld-orch-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 9px;
+  font-size: 11px; /* one-off: micro line */
+  color: var(--mav-text-description);
+}
+.bld-orch-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.bld-orch-legend i {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--mav-radius-xs);
+  display: block;
+}
+
+/* trace */
+.bld-orch-trace {
+  padding: 18px;
+}
+.bld-orch-step {
+  display: flex;
+  gap: 13px;
+  padding-bottom: 16px;
+  position: relative;
+}
+.bld-orch-step:last-child {
+  padding-bottom: 0;
+}
+.bld-orch-step::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 26px;
+  bottom: 0;
+  width: 2px;
+  background: var(--mav-divider-default);
+}
+.bld-orch-step:last-child::before {
+  display: none;
+}
+.bld-orch-pin {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--mav-radius-full);
+  flex-shrink: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-btn-primary-default);
+}
+.bld-orch-pin svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--mav-btn-primary-text);
+  stroke-width: 2.6;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.bld-orch-pin.fail {
+  background: var(--mav-system-danger-dark);
+}
+.bld-orch-pin.idle {
+  background: var(--mav-system-natural);
+}
+.bld-orch-st-t {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13px; /* one-off: dense ops scale */
+  color: var(--mav-text-default);
+}
+.bld-orch-st-d {
+  font-size: 11.5px; /* one-off: dense ops scale */
+  color: var(--mav-text-description);
+  margin-top: 2px;
+  line-height: 1.5;
+}
+.bld-orch-st-d code {
+  font-family: var(--mav-font-mono);
+  font-size: 11px;
+}
+.bld-orch-ms {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--mav-text-description);
+  white-space: nowrap;
+  font-family: var(--mav-font-mono);
+}
+.bld-orch-split {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+}
+.bld-orch-split > div + div {
+  border-left: 1px solid var(--mav-divider-default);
+}
+/* key/value rows in the cost panel reuse the rule row shape without chrome */
+.bld-orch-kv {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--mav-divider-default);
+}
+.bld-orch-kv:last-child {
+  border-bottom: 0;
+}

@@ -1,0 +1,87 @@
+/* ServiceMenu — ported from MaV components/service-menu.html (bills payment).
+   4-across grid of icon tiles: one geometric line set (24px box, 1.8 stroke,
+   round caps/joins) in a translucent brand tint, so the chip composites over
+   any surface and needs no dark-mode value. One tile may be emphasised. */
+.svc-menu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px 4px;
+  font-family: var(--mav-font-body);
+}
+.svc-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 4px 10px;
+  border: none;
+  border-radius: 14px; /* one-off: source spec */
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--mav-duration-fast);
+}
+.svc-tile:hover {
+  background: var(--mav-system-primary-soft);
+}
+.svc-tile:focus-visible {
+  outline: none;
+  box-shadow: var(--mav-shadow-focus);
+}
+
+/* The icon chip: translucent brand tint rather than an opaque pale fill —
+   it lands on cards, sheets and dark surfaces without a second value. */
+.svc-ico {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 17px; /* one-off: source spec */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-alert-primary-bg);
+}
+.svc-ico svg {
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: var(--mav-text-brand);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.svc-label {
+  font-size: 11px; /* one-off: micro label */
+  font-weight: var(--mav-font-weight-semibold);
+  line-height: 1.25;
+  text-align: center;
+  color: var(--mav-text-default);
+}
+
+/* One emphasised tile, for the primary action (Pay Bills). */
+.svc-tile-key .svc-ico {
+  background: var(--mav-btn-primary-default);
+}
+.svc-tile-key .svc-ico svg {
+  stroke: var(--mav-btn-primary-text);
+}
+
+/* Optional count badge pinned to the chip (e.g. bills due). */
+.svc-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--mav-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-badge-primary-bg);
+  color: var(--mav-badge-primary-text);
+  font-size: 10px; /* one-off: micro count */
+  font-weight: var(--mav-font-weight-bold);
+  line-height: 1;
+  box-shadow: 0 0 0 2px var(--mav-bg-default); /* separates the dot from the tint */
+}

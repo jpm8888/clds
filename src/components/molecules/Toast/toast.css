@@ -210,7 +210,7 @@
 .snack-action {
   font-size: var(--mav-font-size-xs);
   font-weight: var(--mav-font-weight-semibold);
-  color: #a1ff5b; /* accent on the invariant dark surface — lime in both themes */
+  color: #ff7a3d; /* brand accent on the invariant dark surface — same in both themes */
   background: none;
   border: 0;
   padding: 0;
@@ -241,7 +241,7 @@
   opacity: 0.9;
 }
 .snack-success .snack-icon {
-  background: #a1ff5b; /* lime chip on the invariant dark surface */
+  background: #629c28; /* success chip on the invariant dark surface */
   color: #191919;
 }
 .snack-error .snack-icon {

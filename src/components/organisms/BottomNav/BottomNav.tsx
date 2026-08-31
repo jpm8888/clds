@@ -10,6 +10,8 @@ export interface BottomNavItem {
   icon: IconName;
   /** Red notification dot on the icon. @default false */
   dot?: boolean;
+  /** Numeric count badge on the icon (e.g. unread activity). Wins over `dot`. */
+  badge?: string | number;
 }
 
 export interface BottomNavProps extends Omit<HTMLAttributes<HTMLElement>, 'onChange'> {
@@ -105,8 +107,14 @@ export const BottomNav = forwardRef<HTMLElement, BottomNavProps>(function Bottom
             className={cx('bnav-item', it.id === selected && 'on')}
             onClick={() => select(it.id)}
           >
-            <Icon name={it.icon} size={22} strokeWidth={1.9} aria-hidden />
-            {it.dot && <span className="bnav-dot" aria-label="New activity" />}
+            <Icon name={it.icon} size={24} strokeWidth={it.id === selected ? 2.1 : 1.9} aria-hidden />
+            {it.badge != null && it.badge !== '' ? (
+              <span className="bnav-badge" aria-label={`${it.badge} new`}>
+                {it.badge}
+              </span>
+            ) : (
+              it.dot && <span className="bnav-dot" aria-label="New activity" />
+            )}
             <span className="lbl">{it.label}</span>
           </button>
         );

@@ -1,0 +1,452 @@
+/* Home Hero — ported from MaV-Ver2 components/home-hero.html.
+   The greeting panel at the top of the home screen, and the wallet card that
+   overlaps it.
+
+   The panel is WARM end to end: primary -> deep, with a drifting WHITE
+   highlight for depth. Blue is deliberately not blended into this panel at
+   all — orange and blue mixed along a line (or as an overlaid glow; it was
+   measured) always cross the grey axis and go muddy. Blue carries the brand
+   where it sits ON a surface (the wallet's swipe hint, secondary CTAs, nav)
+   rather than mixing INTO one.
+
+   On-panel copy is literal white on purpose: the ground is the brand
+   gradient in both themes, so these do not follow text tokens.
+
+   MOTION BUDGET: everything is slow and small — a 26s glow drift, a 60s ring
+   rotation breathing on a 9s cycle, three sparkles out of phase, and a
+   one-shot text rise. Nothing loops fast enough to catch the eye twice; with
+   reduced motion the panel is a static gradient, which is a perfectly good
+   panel. */
+
+.hh {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 64px;
+  isolation: isolate;
+  font-family: var(--mav-font-body);
+}
+
+/* Base ramp stays warm end to end. */
+.hh::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(
+    150deg,
+    var(--mav-btn-primary-default) 0%,
+    var(--mav-main-tertiary-2) 100%
+  );
+}
+
+/* A white highlight rather than a second hue: it raises luminosity without
+   touching the hue, so there is nothing to go muddy. Kept to the right of
+   the copy column (which runs to 250px in a 375px panel) and dim enough
+   that the panel under the copy stays past 4.5:1. */
+.hh::after {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  z-index: -1;
+  background: radial-gradient(
+    29% 33% at 75% 27%,
+    rgba(255, 255, 255, 0.26) 0%,
+    rgba(255, 255, 255, 0.06) 46%,
+    transparent 70%
+  );
+}
+
+/* Power-On ring — the client's own mark as furniture, not decoration; the
+   one shape that can rotate without looking like it is spinning. */
+.hh-orb {
+  position: absolute;
+  right: -52px;
+  top: 10px;
+  width: 248px;
+  height: 248px;
+  z-index: -1;
+  opacity: 0.22;
+  transform-origin: 50% 50%;
+}
+.hh-orb svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.hh-orb circle {
+  stroke: #ffffff; /* on-gradient, theme-invariant */
+  fill: none;
+}
+
+/* Three sparkles, staggered so they never blink together. */
+.hh-spark {
+  position: absolute;
+  z-index: -1;
+  fill: #ffffff; /* on-gradient, theme-invariant */
+  opacity: 0;
+}
+.hh-spark.s1 {
+  right: 120px;
+  top: 76px;
+  width: 15px;
+  height: 15px;
+}
+.hh-spark.s2 {
+  right: 52px;
+  top: 148px;
+  width: 10px;
+  height: 10px;
+}
+.hh-spark.s3 {
+  right: 158px;
+  top: 186px;
+  width: 8px;
+  height: 8px;
+}
+
+/* Scrim: load-bearing, not decoration — white on the brand orange alone is
+   ~3.2:1, under the 4.5:1 body copy needs. Held near-constant across the
+   text block (a fade leaves the last line on the weakest ground) and
+   overshot far past the panel, clipped by overflow:hidden, so its end is
+   tied to the panel's own edge rather than the copy's. */
+.hh-body {
+  position: relative;
+  z-index: 2;
+  padding: 18px 20px 0;
+}
+.hh-body::before {
+  content: '';
+  position: absolute;
+  inset: -40px -20px -500px;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.32) 0%,
+    rgba(0, 0, 0, 0.27) 62%,
+    rgba(0, 0, 0, 0.24) 100%
+  );
+}
+
+.hh-top {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 4px 0 20px;
+}
+.hh-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--mav-radius-full);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.22); /* glass chip on the gradient */
+  backdrop-filter: var(--mav-blur-sm);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13px; /* one-off: chip initials */
+  color: #ffffff;
+}
+.hh-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+.hh-who {
+  flex: 1;
+  min-width: 0;
+}
+.hh-who-n {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: #ffffff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hh-who-s {
+  font-size: 11px; /* one-off: micro line */
+  color: rgba(255, 255, 255, 0.84);
+  margin-top: 1px;
+}
+.hh-bell {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px; /* one-off: source spec */
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+}
+.hh-bell svg {
+  width: 19px;
+  height: 19px;
+  stroke: #ffffff;
+  stroke-width: 1.9;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hh-bell i {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-system-danger-dark);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+}
+
+.hh-greet {
+  font-size: 13px; /* one-off: source spec */
+  color: rgba(255, 255, 255, 0.93);
+  font-weight: var(--mav-font-weight-semibold);
+}
+.hh-name {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 27px; /* one-off: hero display size */
+  line-height: 1.15;
+  color: #ffffff;
+  margin-top: 3px;
+  letter-spacing: -0.01em;
+}
+.hh-sub {
+  font-size: 12.5px; /* one-off: source spec */
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.96);
+  margin-top: 9px;
+  max-width: 250px;
+}
+
+.hh-acts {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+/* Inverted CTA: white card on the gradient, brand-blue-free — the live app's
+   dark pill was not a button this system has. */
+.hh-cta {
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 11px; /* one-off: source spec */
+  cursor: pointer;
+  background: #ffffff; /* stays white on the gradient in both themes */
+  color: var(--mav-main-primary);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13.5px; /* one-off: source spec */
+  transition:
+    transform var(--mav-duration-fast) ease,
+    box-shadow var(--mav-duration-fast) ease;
+  box-shadow: 0 6px 18px -8px rgba(0, 0, 0, 0.5);
+}
+.hh-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px -8px rgba(0, 0, 0, 0.55);
+}
+.hh-cta:active {
+  transform: translateY(0);
+}
+.hh-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: var(--mav-font-body);
+  font-size: 12.5px; /* one-off: source spec */
+  font-weight: var(--mav-font-weight-bold);
+  color: #ffffff;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+/* compact variant (time-of-day strips, tight layouts) */
+.hh-mini {
+  padding-bottom: 16px;
+}
+.hh-mini .hh-name {
+  font-size: 19px; /* one-off: compact display */
+}
+.hh-mini .hh-sub,
+.hh-mini .hh-acts,
+.hh-mini .hh-who-s {
+  display: none;
+}
+.hh-mini .hh-orb {
+  width: 150px;
+  height: 150px;
+  right: -32px;
+  top: 6px;
+}
+.hh-mini .hh-spark {
+  display: none;
+}
+
+/* ── wallet card, overlapping the panel ── */
+.hh-wallet {
+  margin: -52px 16px 0;
+  position: relative;
+  z-index: 4;
+  border-radius: var(--mav-radius-lg);
+  padding: 15px 16px;
+  background: var(--mav-bg-default);
+  border: 1px solid var(--mav-border-subtle);
+  box-shadow: 0 16px 34px -20px rgba(0, 0, 0, 0.42);
+  font-family: var(--mav-font-body);
+}
+.hh-w-top {
+  display: flex;
+  align-items: center;
+}
+.hh-w-t {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-brand);
+}
+/* Secondary blue, nudged toward the text colour: raw secondary is 3.75:1 on
+   white — clears the 3:1 graphics floor but not the 4.5:1 this 11.5px label
+   needs. 18% toward body text gives 5.09:1 and inverts correctly in dark,
+   where the mix lightens instead. */
+.hh-w-swipe {
+  margin-left: auto;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--mav-font-body);
+  font-size: 11.5px; /* one-off: source spec */
+  font-weight: var(--mav-font-weight-bold);
+  color: color-mix(in srgb, var(--mav-main-secondary) 82%, var(--mav-text-default));
+}
+.hh-w-l {
+  font-size: 11px; /* one-off: micro label */
+  color: var(--mav-text-description);
+  margin-top: 9px;
+}
+.hh-w-v {
+  font-family: var(--mav-font-mono);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 26px; /* one-off: balance display */
+  line-height: 1.1;
+  color: var(--mav-text-default);
+  margin-top: 2px;
+}
+.hh-w-v span {
+  font-size: 13px;
+  font-weight: var(--mav-font-weight-bold);
+  color: var(--mav-text-description);
+  margin-right: 5px;
+}
+.hh-w-bot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 13px;
+}
+.hh-w-tag {
+  font-size: 11.5px; /* one-off: source spec */
+  color: var(--mav-text-description);
+}
+.hh-w-up {
+  margin-left: auto;
+  padding: 7px 13px;
+  border: 0;
+  border-radius: var(--mav-radius-full);
+  cursor: pointer;
+  background: var(--mav-btn-primary-bg);
+  color: var(--mav-btn-primary-text);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 11.5px; /* one-off: source spec */
+}
+
+/* ── motion — all inside the reduced-motion gate ── */
+@media (prefers-reduced-motion: no-preference) {
+  .hh::after {
+    animation: hh-drift 26s ease-in-out infinite;
+  }
+  .hh-orb {
+    animation:
+      hh-spin 60s linear infinite,
+      hh-breathe 9s ease-in-out infinite;
+  }
+  .hh-spark {
+    animation: hh-twinkle 5.5s ease-in-out infinite;
+  }
+  .hh-spark.s2 {
+    animation-delay: 1.8s;
+  }
+  .hh-spark.s3 {
+    animation-delay: 3.4s;
+  }
+  /* entrance — plays once, so the panel arrives rather than sitting there */
+  .hh-rise {
+    opacity: 0;
+    transform: translateY(9px);
+    animation: hh-rise 0.55s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+  }
+  .hh-rise.d1 {
+    animation-delay: 0.06s;
+  }
+  .hh-rise.d2 {
+    animation-delay: 0.13s;
+  }
+  .hh-rise.d3 {
+    animation-delay: 0.2s;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hh-spark {
+    opacity: 0.5;
+  }
+}
+@keyframes hh-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-9%, 6%, 0) scale(1.14);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+@keyframes hh-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes hh-breathe {
+  0%,
+  100% {
+    opacity: 0.22;
+  }
+  50% {
+    opacity: 0.32;
+  }
+}
+@keyframes hh-twinkle {
+  0%,
+  72%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  84% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}
+@keyframes hh-rise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

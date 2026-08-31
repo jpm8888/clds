@@ -111,7 +111,7 @@
   fill: #ffffff;
 }
 .appbar.inverted .ab-txt {
-  color: #a1ff5b;
+  color: #ff7a3d; /* brand accent on the invariant dark bar */
 }
 
 /* framed variant (hairline bottom border) */

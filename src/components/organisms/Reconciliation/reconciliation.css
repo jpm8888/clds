@@ -1,0 +1,433 @@
+/* Reconciliation — ported from MaV components/reconciliation.html + css/patterns.css
+   (the `.ops` operations primitives: window frame, toolbar, stat rail, dense table,
+   status chips, rail tags, links, evidence panel).
+
+   THIS IS NOT A PHONE SCREEN. Reconciliation is a desk job — wide tables, dense
+   rows — so it is framed as a fixed-width desktop window; the wrapper scrolls
+   sideways instead of squeezing the table.
+
+   The ops primitives use generic names (.chip, .dot, table…) in the source, so
+   everything here is scoped under the component root `.bld-recon` — nothing leaks
+   globally and the bare table rules only apply inside this organism.
+
+   Status colours deliberately avoid System/Warning: it collides with warm brand
+   palettes (Bayad's primary is orange). Matched = success, exception = danger,
+   everything else neutral. */
+
+.bld-recon {
+  overflow-x: auto;
+  width: 100%;
+  padding-bottom: 6px;
+  font-family: var(--mav-font-body);
+}
+
+.bld-recon-win {
+  width: 1240px;
+  border-radius: var(--mav-radius-lg);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--mav-bg-default);
+  border: 1px solid var(--mav-border-subtle);
+  box-shadow: var(--mav-shadow-lg);
+}
+
+/* window chrome */
+.bld-recon-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 14px;
+  background: var(--mav-bg-secondary);
+  border-bottom: 1px solid var(--mav-border-subtle);
+}
+
+.bld-recon-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-system-natural);
+}
+
+.bld-recon-bar-title {
+  margin-left: 8px;
+  font-family: var(--mav-font-display);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 12.5px; /* one-off: dense ops scale from the source */
+  color: var(--mav-text-description);
+}
+
+/* toolbar */
+.bld-recon-tb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--mav-divider-default);
+}
+
+.bld-recon-tb-h {
+  font-family: var(--mav-font-display);
+  font-weight: 800; /* one-off: source uses extra-bold */
+  font-size: 17px; /* one-off: dense ops scale */
+  color: var(--mav-text-default);
+}
+
+.bld-recon-tb-sub {
+  font-size: 11.5px; /* one-off: dense ops scale */
+  color: var(--mav-text-description);
+  margin-top: 2px;
+}
+
+.bld-recon-sp {
+  flex: 1;
+}
+
+.bld-recon-sel {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: var(--mav-radius-md);
+  cursor: pointer;
+  border: 1px solid var(--mav-border-subtle);
+  background: var(--mav-bg-default);
+  font-family: var(--mav-font-body);
+  font-size: 12.5px; /* one-off: dense ops scale */
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-default);
+}
+
+.bld-recon-sel svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--mav-icon-subtle);
+  stroke-width: 2.2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bld-recon-sel.on {
+  border-color: var(--mav-border-active);
+  color: var(--mav-text-brand);
+  background: var(--mav-system-primary-soft);
+}
+
+.bld-recon-btn {
+  padding: 9px 15px;
+  border: 0;
+  border-radius: var(--mav-radius-md);
+  cursor: pointer;
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+  font-family: var(--mav-font-display);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 12.5px; /* one-off: dense ops scale */
+}
+
+.bld-recon-btn.ghost {
+  background: none;
+  border: 1px solid var(--mav-border-subtle);
+  color: var(--mav-text-default);
+}
+
+.bld-recon-btn.push {
+  margin-left: auto;
+}
+
+/* stat rail */
+.bld-recon-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--mav-divider-default);
+}
+
+.bld-recon-stat {
+  padding: 16px 18px;
+  border-right: 1px solid var(--mav-divider-default);
+}
+
+.bld-recon-stat:last-child {
+  border-right: 0;
+}
+
+.bld-recon-stat-l {
+  font-size: 11px; /* one-off: micro label */
+  font-weight: var(--mav-font-weight-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mav-text-description);
+}
+
+.bld-recon-stat-v {
+  font-family: var(--mav-font-mono); /* amounts/figures use the mono token */
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 24px; /* one-off: dense ops scale */
+  line-height: 1.15;
+  margin-top: 6px;
+  color: var(--mav-text-default);
+}
+
+.bld-recon-stat-d {
+  font-size: 11.5px; /* one-off: dense ops scale */
+  margin-top: 3px;
+  color: var(--mav-text-description);
+}
+
+.bld-recon-stat-d.good {
+  color: var(--mav-system-success);
+  font-weight: var(--mav-font-weight-bold);
+}
+
+.bld-recon-stat-d.bad {
+  color: var(--mav-system-danger-dark);
+  font-weight: var(--mav-font-weight-bold);
+}
+
+/* dense table.
+   Fixed layout on purpose: with auto layout the browser sizes thead and tbody
+   columns independently and the headers drift out of line with their data. */
+.bld-recon table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.bld-recon col.c-ref {
+  width: 13%;
+}
+.bld-recon col.c-bil {
+  width: 14%;
+}
+.bld-recon col.c-rail {
+  width: 13%;
+}
+.bld-recon col.c-amt {
+  width: 10%;
+}
+.bld-recon col.c-st {
+  width: 14%;
+}
+.bld-recon col.c-act {
+  width: 11%;
+}
+
+.bld-recon thead th {
+  text-align: left;
+  padding: 10px 18px;
+  font-size: 10.5px; /* one-off: micro label */
+  font-weight: 800; /* one-off: source uses extra-bold */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--mav-text-description);
+  background: var(--mav-bg-secondary);
+  white-space: nowrap;
+}
+
+.bld-recon thead th.r,
+.bld-recon tbody td.r {
+  text-align: right;
+}
+
+.bld-recon tbody td {
+  padding: 12px 18px;
+  font-size: 12.5px; /* one-off: dense ops scale */
+  color: var(--mav-text-default);
+  border-bottom: 1px solid var(--mav-divider-default);
+  white-space: nowrap;
+}
+
+.bld-recon tbody td,
+.bld-recon thead th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bld-recon tbody tr.exc td {
+  background: var(--mav-system-danger-soft);
+}
+
+.bld-recon tbody tr.sel-row td {
+  background: var(--mav-system-primary-soft);
+}
+
+.bld-recon td.ref {
+  font-family: var(--mav-font-mono);
+  font-size: 11.5px; /* one-off: dense ops scale */
+  color: var(--mav-text-description);
+}
+
+.bld-recon .amt {
+  font-family: var(--mav-font-mono); /* amounts use the mono token */
+  font-weight: var(--mav-font-weight-bold);
+}
+
+.bld-recon .amt.var-0 {
+  color: var(--mav-text-description);
+}
+
+.bld-recon .amt.var-x {
+  color: var(--mav-system-danger-dark);
+  font-weight: 800; /* one-off: source uses extra-bold */
+}
+
+/* status chips.
+   Warning is deliberately unused: it collides with warm brand palettes and
+   turns the badge to mud. Success, danger and neutral only. */
+.bld-recon-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: var(--mav-radius-full);
+  font-size: 10.5px; /* one-off: micro label */
+  font-weight: 800; /* one-off: source uses extra-bold */
+  letter-spacing: 0.02em;
+}
+
+.bld-recon-chip svg {
+  width: 10px;
+  height: 10px;
+  stroke: currentColor;
+  stroke-width: 2.6;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bld-recon-chip.ok {
+  background: var(--mav-system-success-soft);
+  color: var(--mav-system-success);
+}
+
+.bld-recon-chip.no {
+  background: var(--mav-system-danger-soft);
+  color: var(--mav-system-danger-dark);
+}
+
+.bld-recon-chip.hold {
+  background: var(--mav-bg-secondary);
+  color: var(--mav-text-description);
+}
+
+/* rail tag */
+.bld-recon-rail {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px; /* one-off: dense ops scale */
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-default);
+}
+
+.bld-recon-rail i {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--mav-radius-xs);
+  background: var(--mav-text-brand);
+  display: block;
+}
+
+/* row action link (a real button, reset to link styling) */
+.bld-recon-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: var(--mav-font-body);
+  color: var(--mav-text-brand);
+  font-weight: var(--mav-font-weight-bold);
+  cursor: pointer;
+  font-size: 11.5px; /* one-off: dense ops scale */
+}
+
+/* evidence panel */
+.bld-recon-ev {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+}
+
+.bld-recon-ev-col {
+  padding: 16px 18px;
+}
+
+.bld-recon-ev-col + .bld-recon-ev-col {
+  border-left: 1px solid var(--mav-divider-default);
+}
+
+.bld-recon-ev-h {
+  font-size: 10.5px; /* one-off: micro label */
+  font-weight: 800; /* one-off: source uses extra-bold */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--mav-text-description);
+  margin-bottom: 10px;
+}
+
+.bld-recon-kv {
+  display: flex;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--mav-divider-default);
+  font-size: 12px; /* one-off: dense ops scale */
+}
+
+.bld-recon-kv:last-child {
+  border-bottom: 0;
+}
+
+.bld-recon-kv .k {
+  width: 180px;
+  flex-shrink: 0;
+  color: var(--mav-text-description);
+}
+
+.bld-recon-kv .v {
+  font-family: var(--mav-font-mono);
+  font-size: 11.5px; /* one-off: dense ops scale */
+  color: var(--mav-text-default);
+}
+
+.bld-recon-kv.clash {
+  background: var(--mav-system-danger-soft);
+  margin: 0 -8px;
+  padding: 7px 8px;
+  border-radius: var(--mav-radius-sm);
+}
+
+.bld-recon-kv.clash .v {
+  color: var(--mav-system-danger-dark);
+  font-weight: var(--mav-font-weight-bold);
+}
+
+.bld-recon-note {
+  display: flex;
+  gap: 9px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--mav-divider-default);
+  background: var(--mav-alert-primary-bg);
+}
+
+.bld-recon-note svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  stroke: var(--mav-text-brand);
+  stroke-width: 2.2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.bld-recon-note-t {
+  font-size: 12px; /* one-off: dense ops scale */
+  line-height: var(--mav-line-height-body);
+  color: var(--mav-text-default);
+}
+
+.bld-recon-actions {
+  display: flex;
+  gap: 9px;
+  padding: 13px 18px;
+  border-top: 1px solid var(--mav-divider-default);
+}

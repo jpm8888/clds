@@ -2,7 +2,8 @@
    @mav/bayad — Shadows, focus rings, blur
    The source had two overlapping shadow sets; this is the collapsed one
    (see docs/tokens-figma-mapping.md). Components mostly use
-   --mav-shadow-input and the focus rings. The focus ring never changes
+   --mav-shadow-input and the focus rings. Both focus rings ride
+   --mav-focus-ring (brand primary @ 40%), which lifts with the primary
    in dark mode.
    ════════════════════════════════════════════════════════════════════════ */
 :root {
@@ -21,9 +22,9 @@
     0px 1px 0px -1px rgba(0, 0, 0, 0.05), 0px 1px 2px -1px rgba(0, 0, 0, 0.05),
     0px 2px 4px -2px rgba(0, 0, 0, 0.05), 0px 3px 6px -3px rgba(0, 0, 0, 0.05);
 
-  /* Focus rings — invariant across themes */
+  /* Focus rings */
   --mav-shadow-focus: 0 0 0 3px var(--mav-focus-ring); /* brand focus */
-  --mav-shadow-focus-soft: 0 0 0 3px rgba(89, 156, 219, 0.4); /* input focus (Figma focus/primary) */
+  --mav-shadow-focus-soft: 0 0 0 3px var(--mav-focus-ring); /* input focus — Bayad points focus/primary at the brand ring */
 
   /* Blur (full filter functions) */
   --mav-blur-xs: blur(4px);

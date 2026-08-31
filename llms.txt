@@ -62,4 +62,11 @@ AmountSlider(value?, min?, max?, onChange?) — amount range slider
 LoginForm(fields?, onSubmit(values, remember), socialProviders?, footer?) — sign-in screen
 OtpEntry(length?, onComplete, resend timer props) — OTP verification screen
 SelectAccount(accounts: {id,name,balance,disabled?,message?}[], value?/defaultValue?, onChange?, onConfirm) — source-of-funds picker screen
-Splash(variant: light|brand|beam, footer?, logo?) — launch screen
+Splash(variant: light|gradient|deep, hint?, footer?, logo?) — Bayad launch screen
+HomeHero(name, fullName?, detail?, avatar?, greeting?, subline?, ctaLabel?, dismissLabel?, bell?, bellDot?, mini?) — home greeting panel; HomeHeroWallet(balance, title?, swipeHint?, tag?, actionLabel?) overlaps it
+ServiceMenu(items?, onSelect?) — services/bill-category icon grid; serviceMenuHomeItems + serviceMenuBillCategories presets
+BillReminders(reminders?, summaryLabel?, summaryValue?, summaryDetail?, onAction?, onMuteChange?) — due bills, pay from the row; BillReminderSetup(biller?, leadOptions?, channels?, autopay?) — reminder setup
+SnapABillCapture(scanning?, hint?, onShutter?) / SnapABillReview(biller?, fields?, total?, onEdit?) — photograph a paper bill, confirm extracted fields
+AiAssistant(messages?, onSend?, onPay?, onSuggestion?) — chat over payment history; answers are objects (bills|fact|chart), see AiMessage/AiAnswerObject
+PaymentOrchestration(rails?, rules?, rolloutNewPct?, onRuleToggle?) / OrchestrationTrace(steps?, outcome?) — desktop ops: routing health, rules, per-payment trace
+Reconciliation(stats?, rows?, onRowAction?) / ReconciliationEvidence(columns?, actions?, onAction?) — desktop ops: settlement batch + evidence panel

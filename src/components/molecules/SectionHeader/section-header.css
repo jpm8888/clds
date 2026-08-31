@@ -109,7 +109,7 @@
   color: #c7c7c7;
 }
 .sh.inverted .sh-link {
-  color: #a1ff5b;
+  color: #ff7a3d; /* brand accent on the invariant dark media */
 }
 .sh.inverted .sh-ico {
   border-color: #484848;

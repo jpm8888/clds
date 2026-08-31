@@ -2,22 +2,24 @@ import { test, expect } from '@playwright/test';
 import { gotoStory } from './helpers';
 
 /** Token/theme regression: the data-theme attribute re-points the semantic
- * tokens — brand flips electric blue → lime, surfaces flip white → near-black,
- * and the focus ring stays identical in both themes. */
+ * tokens — the Bayad brand primary lifts from orange #f26122 to #ff7a3d,
+ * surfaces flip white → near-black, on-primary text stays white in BOTH
+ * themes (the primary stays orange, unlike a light dark-primary brand),
+ * and the focus ring lifts with the primary. */
 
-test('light theme: primary button uses brand blue #352eff on white text', async ({ page }) => {
+test('light theme: primary button uses Bayad orange #f26122 on white text', async ({ page }) => {
   await gotoStory(page, 'atoms-button--primary', { theme: 'light' });
   const btn = page.locator('.mav-btn-primary');
-  await expect(btn).toHaveCSS('background-color', 'rgb(53, 46, 255)');
+  await expect(btn).toHaveCSS('background-color', 'rgb(242, 97, 34)');
   await expect(btn).toHaveCSS('color', 'rgb(255, 255, 255)');
 });
 
-test('dark theme: primary button flips to lime #a1ff5b with dark text', async ({ page }) => {
+test('dark theme: primary lifts to #ff7a3d and text stays white', async ({ page }) => {
   await gotoStory(page, 'atoms-button--primary', { theme: 'dark' });
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   const btn = page.locator('.mav-btn-primary');
-  await expect(btn).toHaveCSS('background-color', 'rgb(161, 255, 91)');
-  await expect(btn).toHaveCSS('color', 'rgb(23, 23, 23)');
+  await expect(btn).toHaveCSS('background-color', 'rgb(255, 122, 61)');
+  await expect(btn).toHaveCSS('color', 'rgb(255, 255, 255)');
 });
 
 test('semantic surface tokens flip between themes', async ({ page }) => {
@@ -35,15 +37,28 @@ test('semantic surface tokens flip between themes', async ({ page }) => {
   const light = await read();
   expect(light.bg).toBe('#ffffff');
   expect(light.text).toBe('#171717');
+  expect(light.focus).toBe('rgba(242, 97, 34, 0.4)');
 
   await gotoStory(page, 'atoms-button--primary', { theme: 'dark' });
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   const dark = await read();
   expect(dark.bg).toBe('#171717');
   expect(dark.text).toBe('#ffffff');
-  // status + focus ring are deliberately theme-invariant
+  // status colors are deliberately theme-invariant …
   expect(dark.danger).toBe(light.danger);
-  expect(dark.focus).toBe(light.focus);
+  // … while the focus ring lifts with the dark primary
+  expect(dark.focus).toBe('rgba(255, 122, 61, 0.4)');
+});
+
+test('full-width CTA (xl) carries the orange→blue brand gradient', async ({ page }) => {
+  await gotoStory(page, 'atoms-button--primary', { theme: 'light' });
+  const gradient = await page.evaluate(() => {
+    const btn = document.querySelector('.mav-btn-primary') as HTMLElement;
+    btn.classList.add('mav-btn-xl');
+    return getComputedStyle(btn).backgroundImage;
+  });
+  expect(gradient).toContain('linear-gradient');
+  expect(gradient).not.toContain('var(');
 });
 
 test('no dangling token: gradient-brand resolves both stops', async ({ page }) => {

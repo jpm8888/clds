@@ -1,7 +1,15 @@
-/* Splash / Opening — ported from MaV components/splash.html (Figma 845:25608).
-   Full-screen launch screen: drifting background art, light sweep, pulsing
-   glow behind the centred logomark, footer legal line. All motion gated
-   behind prefers-reduced-motion. */
+/* Splash / Opening — ported from MaV-Ver2 components/splash-bayad.html.
+   The one screen tokens alone cannot re-skin: the lockup is a raster, so the
+   brand gets its own splash. Grounds, rings, rail and sheen ARE token-driven.
+
+   WHY THE PLATE: on the gradient and deep grounds the mark sits on a white
+   rounded plate. The mark's squircle is brand orange and the gradient ground
+   runs orange → blue, so without the plate the squircle disappears into its
+   own colour at one end and the blue wordmark into the ground at the other.
+
+   The at-rest CSS below is the REDUCED-MOTION state: mark visible, rail
+   full, footer legible. Motion is layered on via the media query — written
+   the other way round, a reduced-motion user would get an empty screen. */
 .sp-screen {
   display: flex;
   flex-direction: column;
@@ -9,23 +17,70 @@
   overflow: hidden;
   min-height: 610px;
   height: 100%;
-  background: var(--mav-bg-default);
+  background: var(--sp-ground);
   font-family: var(--mav-font-body);
 }
 
-/* exported background art (393×852), covering the screen */
-.sp-bg {
-  position: absolute;
-  inset: 0;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  transform-origin: center;
-  z-index: 0;
-  transform: scale(1.06); /* static fallback: subtle fill */
+/* ── ground treatments — each sets the ground plus the colours the rings and
+   footer read, so nothing below this block branches per variant ── */
+.sp-light {
+  --sp-ground: var(--mav-bg-default);
+  --sp-ink: var(--mav-text-default);
+  --sp-sub: var(--mav-text-description);
+  --sp-ring: var(--mav-main-primary);
+  --sp-pill: transparent; /* white ground already passes; a tinted pill would push the hint under 4.5:1 */
+}
+/* --sp-sub is opaque white on both coloured grounds: the ground under the
+   footer gives pure white only ~3.3:1, so alpha was buying a look the
+   contrast could not afford. */
+.sp-gradient {
+  --sp-ground: var(--mav-btn-primary-bg);
+  --sp-ink: #ffffff;
+  --sp-sub: #ffffff;
+  --sp-ring: #ffffff;
+  --sp-pill: rgba(0, 0, 0, 0.3);
+}
+.sp-deep {
+  --sp-ground: var(--mav-main-tertiary-2);
+  --sp-ink: #ffffff;
+  --sp-sub: #ffffff;
+  --sp-ring: #ffffff;
+  --sp-pill: rgba(0, 0, 0, 0.3);
 }
 
-/* moving light sweep */
+/* Bottom scrim — gradient ground only. Short and steep (26% tall): a taller,
+   gentler ramp reaches the same contrast under the footer but washes a third
+   of the gradient grey, and the gradient is the thing being shown. The deep
+   ground already clears contrast and gets no scrim. */
+.sp-gradient::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 26%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.26) 100%);
+}
+
+/* warm wash — only the light variant needs one; the other two ARE the wash */
+.sp-wash {
+  display: none;
+}
+.sp-light .sp-wash {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    62% 44% at 50% 34%,
+    var(--mav-tint-primary-100) 0%,
+    transparent 72%
+  );
+}
+
+/* light sweep across the gradient */
 .sp-sheen {
   position: absolute;
   inset: -40%;
@@ -33,149 +88,215 @@
   pointer-events: none;
   background: linear-gradient(
     115deg,
-    transparent 34%,
-    rgba(255, 255, 255, 0.22) 49%,
+    transparent 36%,
+    rgba(255, 255, 255, 0.2) 50%,
     transparent 64%
   );
-  transform: translateX(-65%);
+  transform: translateX(-70%);
 }
-
-/* soft glow behind the mark */
-.sp-glow {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 250px;
-  height: 250px;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  border-radius: var(--mav-radius-full);
-  background: radial-gradient(circle, var(--sp-glow, rgba(53, 46, 255, 0.22)), transparent 68%);
-  filter: var(--mav-blur-xs);
+.sp-light .sp-sheen {
+  display: none;
 }
 
 .sp-body {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   z-index: 2;
+  gap: 26px;
+}
+
+/* ── the mark, and the rings it sends out — rings are separate elements
+   rather than a box-shadow animation so they can overlap with independent
+   delays; pointer-events:none keeps anything underneath clickable ── */
+.sp-markwrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.sp-ring {
+  position: absolute;
+  width: 104px;
+  height: 104px;
+  border-radius: var(--mav-radius-full);
+  pointer-events: none;
+  border: 1.5px solid var(--sp-ring);
+  opacity: 0;
+  z-index: 0;
 }
 .sp-mark {
-  width: 66px;
-  height: 66px;
   position: relative;
+  z-index: 1;
+  width: 104px;
+  height: 104px;
+  display: grid;
+  place-items: center;
 }
+.sp-mark img,
 .sp-mark svg {
   width: 100%;
   height: 100%;
-  fill: currentColor;
+  object-fit: contain;
+  display: block;
 }
+
+/* the plate — see WHY THE PLATE above. Stays white in dark theme too: it
+   exists to separate the mark from the ground, and a dark plate would put
+   the blue wordmark back onto a dark field. */
+.sp-gradient .sp-mark,
+.sp-deep .sp-mark {
+  width: 132px;
+  height: 132px;
+  padding: 18px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0 14px 34px -12px rgba(0, 0, 0, 0.34);
+}
+.sp-gradient .sp-ring,
+.sp-deep .sp-ring {
+  width: 132px;
+  height: 132px;
+  border-radius: 30px;
+}
+
+/* ── progress rail — determinate rather than a spinner: the wait here is a
+   known one (session restore) and a determinate bar tells the user it ends ── */
+.sp-load {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  position: relative;
+}
+.sp-rail {
+  width: 104px;
+  height: 3px;
+  border-radius: var(--mav-radius-full);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--sp-ring) 22%, transparent);
+}
+.sp-fill {
+  height: 100%;
+  width: 100%;
+  border-radius: var(--mav-radius-full);
+  background: var(--sp-ring);
+  transform-origin: left center;
+  transform: scaleX(1);
+}
+/* The hint is a pill, not bare text: on the coloured grounds bare white copy
+   lands around 3.3:1, under the 4.5:1 that 10.5px copy needs, and a pill is
+   what the system already uses for transient status. */
+.sp-hint {
+  font-size: 10.5px;
+  letter-spacing: 0.01em;
+  color: var(--sp-sub);
+  padding: 4px 11px;
+  border-radius: var(--mav-radius-full);
+  background: var(--sp-pill);
+}
+
 .sp-foot {
   padding: 0 28px 30px;
   text-align: center;
-  font-size: var(--mav-font-size-2xs);
-  line-height: var(--mav-line-height-body);
+  font-size: 9.5px;
+  line-height: 1.5;
   z-index: 3;
+  color: var(--sp-sub);
 }
 
-/* variants: logo colour + glow tint (background art set via inline style) */
-.sp-light {
-  color: var(--mav-text-default);
-  --sp-glow: rgba(53, 46, 255, 0.16); /* one-off: brand glow */
-}
-.sp-light .sp-foot {
-  color: var(--mav-text-description);
-}
-.sp-brand {
-  color: var(--mav-text-inverted);
-  --sp-glow: rgba(255, 255, 255, 0.34); /* one-off */
-}
-.sp-brand .sp-foot {
-  color: rgba(255, 255, 255, 0.66); /* one-off: on brand art */
-}
-.sp-beam {
-  color: var(--mav-text-default);
-  --sp-glow: rgba(53, 46, 255, 0.2); /* one-off */
-}
-.sp-beam .sp-foot {
-  color: var(--mav-text-description);
-}
-
+/* ── motion — one timeline, hanging off .sp-play so re-adding that single
+   class replays the whole sequence ── */
 @media (prefers-reduced-motion: no-preference) {
-  .sp-bg {
-    animation: sp-drift 16s ease-in-out infinite;
+  .sp-play .sp-mark {
+    animation: sp-rise 0.78s cubic-bezier(0.22, 1.4, 0.36, 1) both;
   }
-  .sp-sheen {
-    animation: sp-sheen 7.5s ease-in-out infinite;
+  .sp-play .sp-ring {
+    animation: sp-ring 2.6s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
   }
-  .sp-glow {
-    animation: sp-glow 3.6s ease-in-out infinite;
+  .sp-play .sp-ring:nth-child(2) {
+    animation-delay: 0.85s;
   }
-  .sp-mark {
-    animation: sp-mark-in 0.85s cubic-bezier(0.34, 1.45, 0.4, 1) both;
+  .sp-play .sp-sheen {
+    animation: sp-sheen 6.5s ease-in-out 0.4s infinite;
   }
-  .sp-mark svg {
-    animation: sp-breathe 4.2s ease-in-out 1s infinite;
+  .sp-play .sp-fill {
+    animation: sp-fill 1.9s cubic-bezier(0.3, 0.7, 0.2, 1) 0.25s both;
   }
-  .sp-foot {
-    animation: sp-fade 1s ease 0.5s both;
+  .sp-play .sp-hint {
+    animation: sp-up 0.6s ease 0.35s both;
   }
-  @keyframes sp-drift {
-    0%,
-    100% {
-      transform: scale(1.06);
+  .sp-play .sp-foot {
+    animation: sp-up 0.7s ease 0.55s both;
+  }
+  .sp-play .sp-wash {
+    animation: sp-breathe 8s ease-in-out infinite;
+  }
+
+  @keyframes sp-rise {
+    from {
+      opacity: 0;
+      transform: scale(0.72) translateY(10px);
     }
-    50% {
-      transform: scale(1.14) translateY(-1.5%);
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  /* Rings fade before they finish growing — a ring reaching full size at full
+     opacity reads as a hard edge landing, not as something dispersing. */
+  @keyframes sp-ring {
+    0% {
+      opacity: 0;
+      transform: scale(1);
+    }
+    18% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.85);
     }
   }
   @keyframes sp-sheen {
     0%,
     100% {
-      transform: translateX(-65%);
+      transform: translateX(-70%);
     }
-    52% {
-      transform: translateX(65%);
-    }
-  }
-  @keyframes sp-glow {
-    0%,
-    100% {
-      opacity: 0.55;
-      transform: translate(-50%, -50%) scale(0.9);
-    }
-    50% {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1.12);
+    54% {
+      transform: translateX(70%);
     }
   }
-  @keyframes sp-mark-in {
+  @keyframes sp-fill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes sp-up {
     from {
       opacity: 0;
-      transform: scale(0.6);
+      transform: translateY(6px);
     }
     to {
       opacity: 1;
-      transform: scale(1);
+      transform: none;
     }
   }
   @keyframes sp-breathe {
     0%,
     100% {
+      opacity: 0.85;
       transform: scale(1);
     }
     50% {
-      transform: scale(1.06);
-    }
-  }
-  @keyframes sp-fade {
-    from {
-      opacity: 0;
-    }
-    to {
       opacity: 1;
+      transform: scale(1.06);
     }
   }
 }

@@ -1,0 +1,286 @@
+/* Bill Reminders — ported from MaV-Ver2 components/bill-reminders.html.
+   A reminders tab that tells the payer what is due, when, and how much — then
+   lets them pay from the same row.
+
+   STATUS COLOUR NOTE — "due soon" uses the BRAND, not System/Warning. Warning
+   is #ff8400, which collides with warm-brand palettes (Bayad's primary is
+   #f26122) and turns the badge to mud. Brand for "needs you", danger red for
+   overdue, and neutral for everything further out stays legible under any
+   brand. */
+
+.brem {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: var(--mav-font-body);
+}
+
+/* Summary strip */
+.brem-summary {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 12px; /* one-off: source spec */
+  background: var(--mav-bg-secondary);
+}
+.brem-sm-l {
+  font-size: 11.5px; /* one-off: source spec */
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-description);
+}
+.brem-sm-v {
+  font-family: var(--mav-font-mono);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 19px; /* one-off: source spec */
+  color: var(--mav-text-default);
+}
+
+/* Reminder row */
+.brem-rem {
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: 12px; /* one-off: source spec */
+  padding: 12px;
+  background: var(--mav-bg-default);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.brem-rem.urgent {
+  border-color: var(--mav-border-active);
+  background: var(--mav-alert-primary-bg);
+}
+.brem-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brem-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px; /* one-off: source spec */
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13px; /* one-off: chip initials */
+}
+.brem-name {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+}
+.brem-acct {
+  font-family: var(--mav-font-mono);
+  font-size: 11.5px; /* one-off: source spec */
+  color: var(--mav-text-description);
+  margin-top: 1px;
+  letter-spacing: 0.02em;
+}
+.brem-amt {
+  margin-left: auto;
+  text-align: right;
+  flex-shrink: 0;
+}
+.brem-val {
+  font-family: var(--mav-font-mono);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 15px; /* one-off: source spec */
+  color: var(--mav-text-default);
+}
+.brem-date {
+  font-size: 11px; /* one-off: micro line */
+  color: var(--mav-text-description);
+  margin-top: 1px;
+}
+
+.brem-bot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brem-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: var(--mav-radius-full);
+  font-size: 11px; /* one-off: micro label */
+  font-weight: var(--mav-font-weight-bold);
+  letter-spacing: 0.01em;
+}
+.brem-badge svg {
+  width: 11px;
+  height: 11px;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.brem-badge.soon {
+  background: var(--mav-system-primary-soft);
+  color: var(--mav-text-brand);
+}
+.brem-badge.over {
+  background: var(--mav-system-danger-soft);
+  color: var(--mav-system-danger-dark);
+}
+.brem-badge.later {
+  background: var(--mav-bg-secondary);
+  color: var(--mav-text-description);
+}
+.brem-badge.paid {
+  background: var(--mav-system-success-soft);
+  color: var(--mav-system-success);
+}
+.brem-pay {
+  margin-left: auto;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: var(--mav-radius-md);
+  cursor: pointer;
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-xs);
+}
+.brem-pay.ghost {
+  background: none;
+  color: var(--mav-text-brand);
+  padding-right: 2px;
+}
+
+/* Per-biller mute bell */
+.brem-bell {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--mav-radius-md);
+  border: 1px solid var(--mav-border-subtle);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-bg-default);
+  flex-shrink: 0;
+}
+.brem-bell svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--mav-icon-subtle);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.brem-bell.on {
+  background: var(--mav-btn-primary-default);
+  border-color: var(--mav-btn-primary-default);
+}
+.brem-bell.on svg {
+  stroke: var(--mav-btn-primary-text);
+}
+
+/* ── setup form ── */
+.brem-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-family: var(--mav-font-body);
+}
+.brem-sheet-h {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 15px; /* one-off: source spec */
+  color: var(--mav-text-default);
+  margin-bottom: 2px;
+}
+.brem-f-label {
+  font-size: 11px; /* one-off: micro label */
+  font-weight: var(--mav-font-weight-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mav-text-description);
+  margin-bottom: 7px;
+}
+/* Lead time as chips rather than a date picker — nobody wants to pick a
+   date every month. */
+.brem-chips {
+  display: flex;
+  gap: 7px;
+  flex-wrap: nowrap;
+}
+.brem-chip {
+  flex: 1;
+  text-align: center;
+  padding: 9px 6px;
+  border-radius: var(--mav-radius-md);
+  cursor: pointer;
+  border: 1px solid var(--mav-border-subtle);
+  white-space: nowrap;
+  background: var(--mav-bg-default);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 11.5px; /* one-off: source spec */
+  color: var(--mav-text-default);
+  transition: background var(--mav-duration-fast), color var(--mav-duration-fast);
+}
+.brem-chip.on {
+  background: var(--mav-btn-primary-default);
+  border-color: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+}
+.brem-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--mav-divider-default);
+}
+.brem-row:last-of-type {
+  border-bottom: 0;
+}
+.brem-row-t {
+  font-size: 13.5px; /* one-off: source spec */
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-default);
+}
+.brem-row-s {
+  font-size: 11.5px; /* one-off: source spec */
+  color: var(--mav-text-description);
+  margin-top: 2px;
+}
+.brem-sw {
+  margin-left: auto;
+  width: 44px;
+  height: 26px;
+  border-radius: var(--mav-radius-full);
+  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  border: 0;
+  padding: 0;
+  background: var(--mav-system-natural);
+  transition: background var(--mav-duration-med);
+}
+.brem-sw::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--mav-radius-full);
+  background: #ffffff; /* knob stays white in both themes, like Toggle */
+  transition: transform var(--mav-duration-med);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+.brem-sw.on {
+  background: var(--mav-toggle-active-bg);
+}
+.brem-sw.on::after {
+  transform: translateX(18px);
+}
