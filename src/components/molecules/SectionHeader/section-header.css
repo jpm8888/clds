@@ -1,0 +1,163 @@
+/* SectionHeader — ported from MaV components/section-header.html
+   (Figma "❖ Section Header", 270:8099). Title (+ optional description) with
+   an optional trailing "See all" link or icon button. Sizes sm/md/lg,
+   left/center alignment, default/subtle/inverted appearance, skeleton state,
+   and bottom-spacing presets (--mav-space-header-*). */
+.sh {
+  /* skeleton fill — no token equivalent; theme-flipped locally */
+  --sh-skeleton: #e3e3e380;
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  width: 343px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+[data-theme='dark'] .sh {
+  --sh-skeleton: #ffffff14;
+}
+.sh-main {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sh-title {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  line-height: 1.2;
+  color: var(--mav-text-default);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+}
+.sh-desc {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  line-height: 1.35;
+  color: var(--mav-text-description);
+  margin: 0;
+}
+
+/* trailing: text button */
+.sh-link {
+  flex-shrink: 0;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-brand);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  white-space: nowrap;
+}
+/* trailing: icon button */
+.sh-ico {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--mav-radius-full);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--mav-btn-secondary-outline);
+  color: var(--mav-icon-default);
+}
+
+/* sizes */
+.sh.lg .sh-title {
+  font-size: var(--mav-font-size-h7);
+}
+.sh.lg .sh-desc {
+  font-size: var(--mav-font-size-md);
+}
+.sh.md .sh-title {
+  font-size: var(--mav-font-size-xl);
+}
+.sh.md .sh-desc {
+  font-size: var(--mav-font-size-md);
+}
+.sh.sm .sh-title {
+  font-size: var(--mav-font-size-sm);
+}
+.sh.sm .sh-desc {
+  font-size: var(--mav-font-size-sm);
+}
+
+/* alignment */
+.sh.center {
+  justify-content: center;
+}
+.sh.center .sh-main {
+  flex: 0 1 auto;
+  text-align: center;
+}
+
+/* appearance */
+.sh.subtle .sh-title,
+.sh.subtle .sh-desc {
+  color: #565656; /* one-off: Figma main-text/title-subtle, not tokenized */
+}
+.sh.inverted .sh-title {
+  color: #ffffff; /* sits on invariant-dark media, so literals */
+}
+.sh.inverted .sh-desc {
+  color: #c7c7c7;
+}
+.sh.inverted .sh-link {
+  color: #a1ff5b;
+}
+.sh.inverted .sh-ico {
+  border-color: #484848;
+  color: #ffffff;
+}
+
+/* skeleton */
+.sh.skeleton .sh-title,
+.sh.skeleton .sh-desc {
+  color: transparent;
+  border-radius: var(--mav-radius-sm);
+  background: var(--sh-skeleton);
+}
+.sh.skeleton .sh-title {
+  width: 60%;
+  height: 1em;
+}
+.sh.skeleton .sh-desc {
+  width: 85%;
+  height: 0.9em;
+}
+.sh.skeleton .sh-link {
+  color: transparent;
+  background: var(--sh-skeleton);
+  border-radius: var(--mav-radius-sm);
+  text-decoration: none;
+}
+.sh.skeleton .sh-ico {
+  border-color: transparent;
+  background: var(--sh-skeleton);
+}
+.sh.skeleton .sh-ico svg {
+  visibility: hidden;
+}
+
+/* bottom-spacing presets */
+.sh-space-none {
+  margin-bottom: var(--mav-space-header-none);
+}
+.sh-space-xs {
+  margin-bottom: var(--mav-space-header-xs);
+}
+.sh-space-sm {
+  margin-bottom: var(--mav-space-header-sm);
+}
+.sh-space-md {
+  margin-bottom: var(--mav-space-header-md);
+}
+.sh-space-lg {
+  margin-bottom: var(--mav-space-header-lg);
+}

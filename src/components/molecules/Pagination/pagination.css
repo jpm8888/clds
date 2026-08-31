@@ -1,0 +1,196 @@
+/* Pagination — ported from MaV components/pagination.html (Figma 203:3134).
+   Types: button group (connected), clear (spaced pills), page count, dots.
+   A single active indicator glides between pages; dots stretch into a pill.
+   The accent is the brand primary and its on-colour is the inverted text
+   token, so both re-theme blue/white → lime/ink automatically. */
+.pg {
+  --pg-accent: var(--mav-main-primary);
+  --pg-on: var(--mav-text-inverted);
+  font-family: var(--mav-font-body);
+}
+
+.pg-ind {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: 0;
+  background: var(--pg-accent);
+  z-index: 0;
+  border-radius: 6px;
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.1, 0.35, 1),
+    width 0.4s cubic-bezier(0.34, 1.1, 0.35, 1),
+    opacity var(--mav-duration-med);
+  pointer-events: none;
+}
+
+/* items shared */
+.pg-item {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  min-width: 40px;
+  box-sizing: border-box;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+  transition:
+    color var(--mav-duration-med),
+    background 0.16s,
+    transform 0.12s;
+  white-space: nowrap;
+}
+.pg-item svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--mav-duration-med);
+}
+.pg-item.gap {
+  cursor: default;
+  color: var(--mav-text-placeholder);
+}
+.pg-item.active {
+  color: var(--pg-on);
+}
+.pg-item:disabled {
+  color: var(--mav-text-placeholder);
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.pg-item.nav:hover:not(:disabled) .ic-prev {
+  transform: translateX(-3px);
+}
+.pg-item.nav:hover:not(:disabled) .ic-next {
+  transform: translateX(3px);
+}
+.pg-item:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+/* Button group — connected bar */
+.pg-group {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  background: var(--mav-bg-default);
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: var(--mav-radius-md);
+  overflow: hidden;
+  box-shadow:
+    0 1px 2px -1px rgba(0, 0, 0, 0.06),
+    0 3px 6px -3px rgba(0, 0, 0, 0.06); /* one-off */
+}
+.pg-group .pg-item + .pg-item {
+  border-left: 1px solid var(--mav-border-subtle);
+}
+.pg-group .pg-num:hover:not(.active) {
+  background: var(--mav-bg-secondary);
+}
+
+/* Clear — spaced pills */
+.pg-clear {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.pg-clear .pg-ind {
+  border-radius: 10px;
+}
+.pg-clear .pg-num {
+  border-radius: 10px;
+}
+.pg-clear .pg-num:hover:not(.active) {
+  background: var(--mav-bg-secondary);
+}
+
+/* Page count */
+.pg-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+}
+.pg-count .pg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: var(--mav-radius-md);
+  border: 1px solid var(--mav-border-subtle);
+  background: var(--mav-bg-default);
+  cursor: pointer;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+  box-shadow: 0 1px 2px -1px rgba(0, 0, 0, 0.06); /* one-off */
+  transition:
+    transform 0.12s,
+    border-color var(--mav-duration-fast),
+    opacity var(--mav-duration-fast);
+}
+.pg-count .pg-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--mav-duration-med);
+}
+.pg-count .pg-btn:hover:not(:disabled) {
+  border-color: var(--pg-accent);
+}
+.pg-count .pg-btn:hover:not(:disabled) .ic-prev {
+  transform: translateX(-3px);
+}
+.pg-count .pg-btn:hover:not(:disabled) .ic-next {
+  transform: translateX(3px);
+}
+.pg-count .pg-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+.pg-count .pg-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.pg-count .pg-label {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+  min-width: 96px;
+  text-align: center;
+}
+
+/* Dots */
+.pg-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.pg-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-border-subtle);
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition:
+    width 0.4s cubic-bezier(0.34, 1.2, 0.35, 1),
+    background 0.28s;
+}
+.pg-dot:hover:not(.on) {
+  background: var(--mav-text-placeholder);
+}
+.pg-dot.on {
+  width: 24px;
+  background: var(--pg-accent);
+}

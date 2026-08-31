@@ -1,0 +1,105 @@
+/* Alert — ported from MaV components/feedback.html (Figma set 52:28340).
+   10% tinted bg · icon + title carry the variant colour · neutral body copy. */
+.mav-alert {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 10px;
+  font-family: var(--mav-font-body);
+}
+.mav-alert.is-multiline {
+  align-items: flex-start;
+}
+.alert-icon {
+  flex-shrink: 0;
+  width: 19.43px;
+  height: 19.43px;
+}
+.alert-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.alert-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+.mav-alert.is-multiline .alert-main {
+  align-items: flex-start;
+}
+.alert-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+.alert-title {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 14px;
+  line-height: 1.3;
+}
+/* body copy stays neutral for legibility — only the icon + title carry the
+   variant colour */
+.alert-desc {
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  line-height: 1.45;
+  color: var(--mav-text-default);
+}
+[data-theme='dark'] .alert-desc {
+  color: rgba(255, 255, 255, 0.7); /* soft body copy on dark — no token equivalent */
+}
+/* the compact single-line state keeps the variant colour — there the colour
+   IS the message */
+.alert-single {
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  line-height: 1.4;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+}
+/* action buttons — always btn/textonly colors, 12px Medium, regardless of variant */
+.alert-actions {
+  display: flex;
+  gap: 16px;
+  flex-shrink: 0;
+}
+.alert-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-xs);
+  line-height: normal;
+  white-space: nowrap;
+  color: var(--mav-btn-textonly-default);
+}
+.alert-btn + .alert-btn {
+  color: var(--mav-btn-textonly-hover);
+}
+
+/* Variant tints (bg = 10% alpha) + text/icon colour */
+.alert-primary {
+  background: var(--mav-alert-primary-bg);
+  color: var(--mav-alert-primary-text);
+}
+.alert-danger {
+  background: var(--mav-alert-danger-bg);
+  color: var(--mav-alert-danger-text);
+}
+.alert-success {
+  background: var(--mav-alert-success-bg);
+  color: var(--mav-alert-success-text);
+}
+.alert-warning {
+  background: var(--mav-alert-warning-bg);
+  color: var(--mav-alert-warning-text);
+}

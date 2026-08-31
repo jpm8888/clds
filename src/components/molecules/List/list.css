@@ -1,0 +1,117 @@
+/* List — ported from MaV components/list.html (Figma "‣ List", 125:4920).
+   A flexible row: optional leading (icon / soft-icon chip / avatar / store
+   logo), name (+ optional subtitle), optional trailing (check / button / tag).
+   Rows divide with a 1px subtle rule. */
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+.li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0 16px;
+  border-bottom: 1px solid var(--mav-border-subtle);
+}
+.li:last-child {
+  border-bottom: 0;
+}
+.li-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.li-name {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  line-height: 20px;
+  color: var(--mav-text-default);
+}
+.li-sub {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-regular);
+  font-size: var(--mav-font-size-xs);
+  line-height: 16px;
+  color: var(--mav-text-description);
+}
+.li-ic {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: var(--mav-icon-default);
+}
+.li-softic {
+  display: flex;
+  padding: 8px;
+  border-radius: var(--mav-radius-md);
+  background: var(--mav-system-primary-soft);
+  flex-shrink: 0;
+  color: var(--mav-icon-active);
+}
+.li-softic svg {
+  width: 24px;
+  height: 24px;
+}
+.li-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff; /* initials always sit on a saturated custom background */
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-semibold);
+  font-size: 15px;
+}
+.li-check {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  stroke: var(--mav-text-default);
+  stroke-width: 1.8;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.li-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--mav-btn-secondary-outline);
+  border-radius: var(--mav-radius-sm);
+  background: transparent;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.li-store {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--mav-radius-md);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: var(--mav-font-size-2xs);
+  color: #fff; /* logo monogram on a saturated custom background */
+}
+.li-tag {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: var(--mav-badge-white-bg);
+  border: 1px solid var(--mav-badge-white-outline);
+  color: var(--mav-badge-white-icon);
+  font-family: var(--mav-font-inter);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-xs);
+  flex-shrink: 0;
+}

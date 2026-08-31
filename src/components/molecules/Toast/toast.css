@@ -1,0 +1,258 @@
+/* Toast — ported from MaV components/toast.html (Figma page 85:5234).
+   Light toast card with a soft-tinted icon chip, plus the notification toast
+   with a right-side button rail, and the compact dark snackbar from
+   feedback.html. */
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 560px;
+  box-sizing: border-box;
+  background: var(--mav-toast-bg);
+  border: 1px solid var(--mav-toast-outline);
+  border-radius: var(--mav-radius-md);
+  padding: 16px;
+  font-family: var(--mav-font-body);
+  box-shadow: var(--mav-shadow-lg);
+}
+.toast-lead {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+.toast-ic {
+  display: flex;
+  padding: 6px;
+  border-radius: var(--mav-radius-md);
+  flex-shrink: 0;
+}
+.toast-ic svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.toast-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.toast-title {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  line-height: 1.3;
+  color: var(--mav-toast-title);
+}
+.toast-desc {
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  line-height: 1.3;
+  color: var(--mav-toast-desc);
+}
+.toast-1line .toast-title {
+  font-weight: var(--mav-font-weight-medium);
+}
+.toast-btn {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-btn-textonly-default);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.toast-x {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: var(--mav-toast-icon);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.toast-primary .toast-ic {
+  background: var(--mav-system-primary-soft);
+}
+.toast-primary .toast-ic svg {
+  stroke: var(--mav-icon-active);
+}
+.toast-red .toast-ic {
+  background: var(--mav-system-danger-soft);
+}
+.toast-red .toast-ic svg {
+  stroke: var(--mav-system-danger);
+}
+.toast-orange .toast-ic {
+  background: var(--mav-system-warning-soft);
+}
+.toast-orange .toast-ic svg {
+  stroke: var(--mav-system-warning);
+}
+.toast-green .toast-ic {
+  background: var(--mav-system-success-soft);
+}
+.toast-green .toast-ic svg {
+  stroke: var(--mav-system-success);
+}
+
+/* Notification toast — title/desc body with a right-side button rail */
+.ntoast {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 480px;
+  box-sizing: border-box;
+  background: var(--mav-toast-bg);
+  border: 1px solid var(--mav-toast-outline);
+  border-radius: var(--mav-radius-md);
+  overflow: hidden;
+  font-family: var(--mav-font-body);
+  box-shadow: var(--mav-shadow-lg);
+}
+.ntoast-body {
+  flex: 1;
+  min-width: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ntoast-title {
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-toast-title);
+}
+.ntoast-desc {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-toast-desc);
+}
+.ntoast-actions {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--mav-toast-outline);
+}
+.ntoast-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-btn-textonly-default);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ntoast-actions .ntoast-btn + .ntoast-btn {
+  border-top: 1px solid var(--mav-toast-outline);
+}
+
+/* Snackbar — compact floating dark toast (from feedback.html). Invariant dark
+   surface; the accent action re-themes via the dark-brand token. */
+.mav-toast {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  /* invariant dark surface in BOTH themes (source used the fixed light-mode
+     mono-900 primitive), so literals — theme-aware tokens would flip it */
+  background: #191919;
+  color: #ffffff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24); /* one-off: heavy float shadow */
+  font-size: var(--mav-font-size-sm);
+  min-width: 280px;
+  max-width: 360px;
+  font-family: var(--mav-font-body);
+}
+.snack-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--mav-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.snack-icon svg {
+  width: 12px;
+  height: 12px;
+}
+.snack-body {
+  flex: 1;
+  min-width: 0;
+}
+.snack-title {
+  font-weight: var(--mav-font-weight-semibold);
+  font-size: 13px;
+}
+.snack-desc {
+  font-size: var(--mav-font-size-xs);
+  opacity: 0.6;
+  margin-top: 1px;
+}
+.snack-action {
+  font-size: var(--mav-font-size-xs);
+  font-weight: var(--mav-font-weight-semibold);
+  color: #a1ff5b; /* accent on the invariant dark surface — lime in both themes */
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity var(--mav-duration-fast);
+}
+.snack-action:hover {
+  opacity: 0.7;
+}
+.snack-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  opacity: 0.4;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  flex-shrink: 0;
+  transition: opacity var(--mav-duration-fast);
+}
+.snack-close:hover {
+  opacity: 0.9;
+}
+.snack-success .snack-icon {
+  background: #a1ff5b; /* lime chip on the invariant dark surface */
+  color: #191919;
+}
+.snack-error .snack-icon {
+  background: var(--mav-system-danger);
+  color: #ffffff;
+}
+.snack-info .snack-icon {
+  background: var(--mav-main-tertiary-1);
+  color: #ffffff;
+}
+.snack-warning .snack-icon {
+  background: var(--mav-system-warning);
+  color: #ffffff;
+}

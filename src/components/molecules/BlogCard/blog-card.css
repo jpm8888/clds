@@ -1,0 +1,257 @@
+/* BlogCard — ported from MaV components/blog.html (Figma "• Blog", 139:2095).
+   Blog Card (260×292): full-bleed hero, primary badge, date, 2-line title,
+   "Read more ›". Blog List row (335×120): badge, title + meta, right thumb.
+   Both carry an Active and a Read (desaturated/muted) state. The tinted
+   surface is pale in BOTH themes, so on-surface text stays dark. */
+.blog-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  border-radius: var(--mav-radius-sm);
+  background: var(--mav-badge-primary-bg);
+  border: 1px solid var(--mav-badge-primary-outline);
+  color: var(--mav-badge-primary-text);
+  font-family: var(--mav-font-inter);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color 0.45s ease,
+    border-color 0.45s ease,
+    color 0.45s ease;
+}
+.blog-title {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  line-height: 1.25;
+  color: #171717; /* surface is a pale tint in both themes — text stays dark */
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.45s ease;
+}
+.blog-date,
+.blog-meta {
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-xs);
+  line-height: 1.3;
+  color: var(--mav-text-description);
+  margin: 0;
+  transition: color 0.45s ease;
+}
+.blog-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: var(--mav-font-weight-semibold);
+  font-size: var(--mav-font-size-xs);
+  color: var(--mav-text-description);
+  transition: color 0.45s ease;
+}
+.blog-more svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.28s cubic-bezier(0.34, 1.1, 0.35, 1);
+}
+
+/* Blog Card */
+.blog-card {
+  --surf: var(--mav-bg-tertiary);
+  position: relative;
+  width: 260px;
+  box-sizing: border-box;
+  background: var(--surf);
+  border-radius: var(--mav-radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-family: var(--mav-font-body);
+  transition:
+    background-color 0.45s ease,
+    transform 0.28s cubic-bezier(0.34, 1.1, 0.35, 1),
+    box-shadow 0.28s ease;
+}
+.blog-card .thumb {
+  position: relative;
+  height: 173px;
+  overflow: hidden;
+  background: #1b1b2b; /* hero fallback */
+}
+.blog-card .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition:
+    transform 0.5s var(--mav-ease-out),
+    filter 0.45s ease,
+    opacity 0.45s ease;
+}
+.blog-card .blog-badge {
+  position: absolute;
+  top: 15px;
+  left: 16px;
+  z-index: 2;
+}
+.blog-card .body {
+  padding: 15px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.blog-card .body .bstack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .blog-card:hover {
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+  .blog-card:hover .thumb img {
+    transform: scale(1.06);
+  }
+  .blog-card:hover .blog-more svg {
+    transform: translateX(3px);
+  }
+  .blog-card:active {
+    transform: translateY(-1px) scale(0.99);
+  }
+}
+
+/* Blog List row */
+.blog-list {
+  --surf: var(--mav-bg-tertiary);
+  position: relative;
+  width: 335px;
+  max-width: 100%;
+  height: 120px;
+  box-sizing: border-box;
+  background: var(--surf);
+  border-radius: var(--mav-radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  border: 0;
+  padding: 16px;
+  font: inherit;
+  font-family: var(--mav-font-body);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition:
+    background-color 0.45s ease,
+    transform 0.24s cubic-bezier(0.34, 1.1, 0.35, 1),
+    box-shadow 0.24s ease;
+}
+.blog-list .bstack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 170px;
+  position: relative;
+  z-index: 1;
+}
+.blog-list .thumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 119px;
+  height: 120px;
+  overflow: hidden;
+  background: #1b1b2b;
+}
+.blog-list .thumb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, var(--surf) 0%, transparent 42%);
+  transition: background 0.45s ease;
+}
+.blog-list .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition:
+    transform 0.5s var(--mav-ease-out),
+    filter 0.45s ease,
+    opacity 0.45s ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .blog-list:hover {
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  .blog-list:hover .thumb img {
+    transform: scale(1.06);
+  }
+}
+.blog-list .blog-badge {
+  position: relative;
+  z-index: 1;
+}
+
+/* Read (desaturated / muted) state */
+.blog-card.read,
+.blog-list.read {
+  --surf: #f1f1f3; /* one-off: read-state surface */
+}
+.read .thumb img {
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+.read .blog-title,
+.read .blog-date,
+.read .blog-meta,
+.read .blog-more {
+  color: var(--mav-text-disabled);
+}
+.read .blog-badge {
+  background: transparent;
+  border-color: #e2e2e2; /* one-off: read-state badge outline */
+  color: var(--mav-text-disabled);
+}
+
+/* "Read" tick that pops in on the read state */
+.blog-check {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--mav-radius-full);
+  display: grid;
+  place-items: center;
+  background: var(--mav-badge-primary-bg);
+  color: var(--mav-badge-primary-text);
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s cubic-bezier(0.34, 1.5, 0.45, 1);
+}
+.blog-list .blog-check {
+  top: 50%;
+  right: 14px;
+  margin-top: -11px;
+}
+.read .blog-check {
+  opacity: 1;
+  transform: scale(1);
+}
+.blog-check svg {
+  width: 13px;
+  height: 13px;
+}
