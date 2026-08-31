@@ -1,0 +1,101 @@
+/* MessageInput — from MaV inputs.html "Message input" section.
+   Textarea over a toolbar (attach · emoji · mention | send). Send button
+   lights up with the primary token when there is content. */
+.msg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 152px;
+  padding: 12px 16px;
+  border: 1px solid var(--mav-input-default-outline);
+  background: var(--mav-input-default-bg);
+  border-radius: var(--mav-radius-md);
+  transition:
+    border-color var(--mav-duration-fast),
+    background var(--mav-duration-fast);
+}
+.msg:focus-within,
+.msg.is-focus {
+  border-color: var(--mav-input-focus-outline);
+}
+.msg.is-error {
+  background: var(--mav-input-error-bg);
+  border-color: var(--mav-input-error-outline);
+}
+.msg.is-disabled {
+  background: var(--mav-input-disabled-bg);
+  border-color: var(--mav-input-disabled-outline);
+}
+.msg-text {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  resize: none;
+  width: 100%;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  line-height: 20px;
+  color: var(--mav-input-active-text);
+}
+.msg-text::placeholder {
+  color: var(--mav-input-default-placeholder);
+}
+.msg-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.msg-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.msg-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: var(--mav-radius-md);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--mav-icon-default);
+}
+.msg-icon svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.msg-icon:hover {
+  background: var(--mav-border-subtle);
+}
+.msg-vline {
+  width: 1px;
+  align-self: stretch;
+  background: var(--mav-divider-default);
+}
+.msg-send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: var(--mav-radius-sm);
+  background: var(--mav-btn-primary-disabled);
+  border: 0;
+  cursor: pointer;
+  color: var(--mav-text-inverted);
+  transition: background var(--mav-duration-fast);
+}
+.msg-send svg {
+  width: 20px;
+  height: 20px;
+}
+.msg-send.on {
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+}

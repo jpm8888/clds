@@ -1,0 +1,163 @@
+/* OtpEntry — ported from MaV components/auth-otp.html (Figma "• OTP" 162:1133).
+   Verification screen: header, 6 slots (box or boxless), resend countdown,
+   Verify CTA that enables when complete. Classes namespaced otpe-*. */
+.otpe-screen {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background: var(--mav-bg-default);
+  font-family: var(--mav-font-body);
+}
+.otpe-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.otpe-title {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-xl);
+  color: var(--mav-text-default);
+}
+.otpe-desc {
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-md);
+  line-height: 1.4;
+  color: var(--mav-text-description);
+}
+.otpe-desc b {
+  color: var(--mav-text-default);
+  font-weight: var(--mav-font-weight-bold);
+}
+.otpe-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mav-otp-field-gap);
+}
+.otpe-slots {
+  display: flex;
+  gap: var(--mav-otp-slot-gap);
+}
+.otpe-resend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.otpe-timer {
+  display: flex;
+  gap: 8px;
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+}
+.otpe-timer .lbl {
+  color: var(--mav-text-description);
+}
+.otpe-timer .t {
+  color: var(--mav-text-default);
+}
+.otpe-resend-btn {
+  font-family: inherit;
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-xs);
+  color: var(--mav-btn-textonly-default);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+.otpe-resend-btn:disabled {
+  color: var(--mav-text-description);
+  cursor: default;
+}
+.otpe-verify {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: var(--mav-radius-sm);
+  cursor: not-allowed;
+  background: var(--mav-btn-primary-disabled);
+  color: var(--mav-btn-primary-text);
+  font-family: inherit;
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 15px; /* one-off: source spec */
+  transition: background var(--mav-duration-fast);
+}
+.otpe-verify.on {
+  background: var(--mav-btn-primary-default);
+  cursor: pointer;
+}
+
+/* boxed slot */
+.otpe-slot {
+  width: var(--mav-otp-slot-width);
+  height: var(--mav-otp-slot-height);
+  box-sizing: border-box;
+  text-align: center;
+  outline: none;
+  padding: 0;
+  border: 1px solid var(--mav-otp-default-outline);
+  background: var(--mav-otp-default-bg);
+  border-radius: var(--mav-radius-sm);
+  box-shadow: var(--mav-shadow-input);
+  font-family: inherit;
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-lg);
+  color: var(--mav-otp-default-placeholder);
+}
+.otpe-slot.filled {
+  border-color: var(--mav-otp-active-outline);
+  color: var(--mav-otp-active-text);
+}
+.otpe-slot:focus {
+  border-color: var(--mav-otp-focus-outline);
+  box-shadow: var(--mav-shadow-focus);
+  color: var(--mav-otp-focus-text);
+}
+.otpe-slot.error {
+  background: var(--mav-input-error-bg);
+  border-color: var(--mav-input-error-outline);
+  color: var(--mav-input-error-text);
+}
+
+/* boxless (underline) slot */
+.otpe-slot2 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: var(--mav-otp-slot-width);
+  box-sizing: border-box;
+  border: 0;
+  background: transparent;
+  outline: none;
+  text-align: center;
+  padding: 0;
+  font-family: inherit;
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-lg);
+  line-height: 20px;
+  color: var(--mav-otp-default-placeholder);
+  border-bottom: 1px solid var(--mav-divider-default);
+  padding-bottom: 14px;
+  border-radius: 0;
+}
+.otpe-slot2.filled {
+  color: var(--mav-otp-active-text);
+  border-bottom-color: var(--mav-otp-active-outline);
+}
+.otpe-slot2:focus {
+  color: var(--mav-otp-focus-text);
+  border-bottom-color: var(--mav-otp-focus-outline);
+}
+
+.otpe-err {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-input-error-label);
+}
+.otpe-err svg {
+  color: var(--mav-input-error-icon);
+}

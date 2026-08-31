@@ -1,0 +1,181 @@
+/* Splash / Opening — ported from MaV components/splash.html (Figma 845:25608).
+   Full-screen launch screen: drifting background art, light sweep, pulsing
+   glow behind the centred logomark, footer legal line. All motion gated
+   behind prefers-reduced-motion. */
+.sp-screen {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  min-height: 610px;
+  height: 100%;
+  background: var(--mav-bg-default);
+  font-family: var(--mav-font-body);
+}
+
+/* exported background art (393×852), covering the screen */
+.sp-bg {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform-origin: center;
+  z-index: 0;
+  transform: scale(1.06); /* static fallback: subtle fill */
+}
+
+/* moving light sweep */
+.sp-sheen {
+  position: absolute;
+  inset: -40%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 34%,
+    rgba(255, 255, 255, 0.22) 49%,
+    transparent 64%
+  );
+  transform: translateX(-65%);
+}
+
+/* soft glow behind the mark */
+.sp-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  border-radius: var(--mav-radius-full);
+  background: radial-gradient(circle, var(--sp-glow, rgba(53, 46, 255, 0.22)), transparent 68%);
+  filter: var(--mav-blur-xs);
+}
+
+.sp-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+.sp-mark {
+  width: 66px;
+  height: 66px;
+  position: relative;
+}
+.sp-mark svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+.sp-foot {
+  padding: 0 28px 30px;
+  text-align: center;
+  font-size: var(--mav-font-size-2xs);
+  line-height: var(--mav-line-height-body);
+  z-index: 3;
+}
+
+/* variants: logo colour + glow tint (background art set via inline style) */
+.sp-light {
+  color: var(--mav-text-default);
+  --sp-glow: rgba(53, 46, 255, 0.16); /* one-off: brand glow */
+}
+.sp-light .sp-foot {
+  color: var(--mav-text-description);
+}
+.sp-brand {
+  color: var(--mav-text-inverted);
+  --sp-glow: rgba(255, 255, 255, 0.34); /* one-off */
+}
+.sp-brand .sp-foot {
+  color: rgba(255, 255, 255, 0.66); /* one-off: on brand art */
+}
+.sp-beam {
+  color: var(--mav-text-default);
+  --sp-glow: rgba(53, 46, 255, 0.2); /* one-off */
+}
+.sp-beam .sp-foot {
+  color: var(--mav-text-description);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sp-bg {
+    animation: sp-drift 16s ease-in-out infinite;
+  }
+  .sp-sheen {
+    animation: sp-sheen 7.5s ease-in-out infinite;
+  }
+  .sp-glow {
+    animation: sp-glow 3.6s ease-in-out infinite;
+  }
+  .sp-mark {
+    animation: sp-mark-in 0.85s cubic-bezier(0.34, 1.45, 0.4, 1) both;
+  }
+  .sp-mark svg {
+    animation: sp-breathe 4.2s ease-in-out 1s infinite;
+  }
+  .sp-foot {
+    animation: sp-fade 1s ease 0.5s both;
+  }
+  @keyframes sp-drift {
+    0%,
+    100% {
+      transform: scale(1.06);
+    }
+    50% {
+      transform: scale(1.14) translateY(-1.5%);
+    }
+  }
+  @keyframes sp-sheen {
+    0%,
+    100% {
+      transform: translateX(-65%);
+    }
+    52% {
+      transform: translateX(65%);
+    }
+  }
+  @keyframes sp-glow {
+    0%,
+    100% {
+      opacity: 0.55;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+    50% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.12);
+    }
+  }
+  @keyframes sp-mark-in {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes sp-breathe {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.06);
+    }
+  }
+  @keyframes sp-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

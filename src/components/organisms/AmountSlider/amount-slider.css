@@ -1,0 +1,69 @@
+/* AmountSlider — ported from MaV components/finance-widgets.html + builder/data.js
+   (slider). Accent-filled track with a round knob; label + value header. */
+.bld-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: var(--mav-font-body);
+}
+.bld-slider-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bld-slider-lbl {
+  font-size: 13px; /* one-off: source spec */
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-description);
+}
+.bld-slider-val {
+  font-size: var(--mav-font-size-xl);
+  font-weight: 800; /* one-off: source uses extra-bold */
+  color: var(--mav-text-default);
+}
+.bld-slider-track {
+  position: relative;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--mav-border-subtle);
+  margin: 8px 0;
+}
+.bld-slider-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--mav-main-primary);
+  pointer-events: none;
+}
+.bld-slider-knob {
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-bg-default);
+  border: 2px solid var(--mav-main-primary);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+/* invisible native range input over the track for interaction + a11y */
+.bld-slider-input {
+  position: absolute;
+  inset: -8px 0;
+  width: 100%;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+}
+.bld-slider-input:focus-visible ~ .bld-slider-knob {
+  box-shadow: var(--mav-shadow-focus);
+}
+.bld-slider-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px; /* one-off: micro label */
+  color: var(--mav-text-description);
+}

@@ -1,0 +1,65 @@
+/* DonutChart — ported from MaV components/finance-widgets.html + builder/data.js
+   (donut). 120px ring, centred total, colour legend. */
+.bld-donut {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: var(--mav-font-body);
+}
+.bld-dn-chart {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+.bld-dn-chart svg {
+  width: 120px;
+  height: 120px;
+  transform: rotate(-90deg);
+}
+.bld-dn-track {
+  stroke: var(--mav-border-subtle);
+}
+.bld-dn-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.bld-dn-center .v {
+  font-size: var(--mav-font-size-xl);
+  font-weight: 800; /* one-off: source uses extra-bold */
+  color: var(--mav-text-default);
+}
+.bld-dn-center .k {
+  font-size: 11px; /* one-off: micro label */
+  color: var(--mav-text-description);
+}
+.bld-dn-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+}
+.bld-dn-li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px; /* one-off: source spec */
+}
+.bld-dn-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.bld-dn-name {
+  flex: 1;
+  color: var(--mav-text-default);
+}
+.bld-dn-pct {
+  font-weight: var(--mav-font-weight-bold);
+  color: var(--mav-text-default);
+}

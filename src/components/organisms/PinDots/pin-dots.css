@@ -1,0 +1,63 @@
+/* PinDots — ported from MaV components/finance-widgets.html + builder/data.js
+   (pindots + keypad). Filled dots track digits entered; optional keypad. */
+.bld-pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  font-family: var(--mav-font-body);
+}
+.bld-pin-label {
+  font-size: var(--mav-font-size-sm);
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-default);
+}
+.bld-pin-dots {
+  display: flex;
+  gap: 16px;
+}
+.bld-pin-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--mav-radius-full);
+  border: 2px solid var(--mav-border-disabled);
+  box-sizing: border-box;
+  transition: var(--mav-duration-fast);
+}
+.bld-pin-dot.on {
+  background: var(--mav-main-primary);
+  border-color: var(--mav-main-primary);
+}
+
+/* Optional keypad — 3×4 grid of digits + backspace */
+.bld-pin-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 24px;
+  width: 100%;
+  max-width: 280px;
+  margin-top: 8px;
+}
+.bld-pin-key {
+  height: 52px;
+  border: 0;
+  background: transparent;
+  border-radius: var(--mav-radius-md);
+  font-family: var(--mav-font-body);
+  font-size: var(--mav-font-size-xl);
+  font-weight: var(--mav-font-weight-medium);
+  color: var(--mav-text-default);
+  cursor: pointer;
+  transition: background var(--mav-duration-fast);
+}
+.bld-pin-key:hover {
+  background: var(--mav-bg-secondary);
+}
+.bld-pin-key:active {
+  background: var(--mav-bg-tertiary);
+}
+.bld-pin-key.ghost {
+  visibility: hidden;
+  pointer-events: none;
+}

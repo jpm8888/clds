@@ -1,0 +1,82 @@
+/* LinkedAccounts — ported from MaV components/finance.html (Linked Account Cards).
+   40px monogram logo · bank + mono account number · balance; dashed add-card. */
+.acc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: var(--mav-font-body);
+}
+.acc-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--mav-border-subtle);
+  background: var(--mav-bg-default);
+  transition:
+    border-color var(--mav-duration-fast),
+    transform 0.12s;
+}
+.acc-card:hover {
+  border-color: var(--mav-main-primary);
+}
+.acc-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13px; /* one-off: source spec */
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--mav-main-primary) 12%, transparent);
+  color: var(--mav-main-primary);
+}
+.acc-add {
+  color: var(--mav-text-description);
+  border-style: dashed !important;
+  justify-content: center;
+  cursor: pointer;
+  font-family: inherit;
+  width: 100%;
+}
+.acc-add > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px; /* one-off: source spec */
+  font-weight: var(--mav-font-weight-semibold);
+}
+.acc-add:hover {
+  color: var(--mav-main-primary);
+}
+.acc-info {
+  flex: 1;
+}
+.acc-bank {
+  font-size: 13px; /* one-off: source spec */
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-default);
+}
+.acc-num {
+  font-size: 11px; /* one-off: micro label */
+  color: var(--mav-text-description);
+  font-family: var(--mav-font-mono);
+  margin-top: 2px;
+}
+.acc-bal {
+  font-size: 15px; /* one-off: source spec */
+  font-weight: var(--mav-font-weight-bold);
+  color: var(--mav-text-default);
+}
+.acc-bal-sub {
+  font-size: 11px; /* one-off: micro label */
+  color: var(--mav-text-description);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .acc-card:hover {
+    transform: translateY(-2px);
+  }
+}

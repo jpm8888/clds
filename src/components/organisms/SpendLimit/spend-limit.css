@@ -1,0 +1,113 @@
+/* SpendLimit — ported from MaV components/finance.html (Spend Limit & Bar Chart).
+   Limit progress: primary fill → warning near limit → danger at/over limit. */
+.spend-limit,
+.spend-chart {
+  font-family: var(--mav-font-body);
+}
+.spend-head {
+  font-size: 13px; /* one-off: source spec */
+  font-weight: var(--mav-font-weight-bold);
+  color: var(--mav-text-default);
+  margin-bottom: 14px;
+}
+.limit-block {
+  margin-bottom: 18px;
+}
+.limit-block:last-child {
+  margin-bottom: 0;
+}
+.limit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--mav-font-size-xs);
+  margin-bottom: 6px;
+}
+.limit-row .limit-used {
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-default);
+}
+.limit-row .limit-of {
+  color: var(--mav-text-description);
+}
+.limit-note {
+  font-size: 11px; /* one-off: micro label */
+  color: var(--mav-text-description);
+  margin-top: 6px;
+}
+.limit-note-warn {
+  color: var(--mav-system-warning);
+  font-weight: var(--mav-font-weight-semibold);
+}
+.limit-note-over {
+  color: var(--mav-system-danger);
+  font-weight: var(--mav-font-weight-semibold);
+}
+.limit-track {
+  height: 8px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-border-subtle);
+  overflow: hidden;
+}
+.limit-fill {
+  height: 100%;
+  border-radius: var(--mav-radius-full);
+  transition: width 0.3s;
+}
+.limit-fill-ok {
+  background: var(--mav-main-primary);
+}
+.limit-fill-warn {
+  background: var(--mav-system-warning);
+}
+.limit-fill-over {
+  background: var(--mav-system-danger);
+}
+
+/* Weekly spend mini bar chart */
+.spend-bar-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 96px;
+}
+.spend-bar {
+  border-radius: 4px 4px 0 0;
+  flex: 1;
+  transition:
+    opacity var(--mav-duration-fast),
+    transform 0.12s;
+  cursor: pointer;
+  transform-origin: bottom;
+  border: 0;
+  padding: 0;
+}
+.spend-bar:hover {
+  opacity: 0.75;
+}
+.spend-bar-active {
+  background: var(--mav-main-primary);
+}
+.spend-bar-inactive {
+  background: var(--mav-border-subtle);
+}
+.spend-labels {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+.spend-labels span {
+  flex: 1;
+  text-align: center;
+  font-size: 11px; /* one-off: micro label */
+  color: var(--mav-text-description);
+}
+.spend-labels .spend-label-active {
+  color: var(--mav-text-default);
+  font-weight: var(--mav-font-weight-bold);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .spend-bar:hover {
+    transform: scaleY(1.03);
+  }
+}

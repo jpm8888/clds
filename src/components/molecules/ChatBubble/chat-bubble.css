@@ -1,0 +1,205 @@
+/* ChatBubble — from MaV chat.html (Figma 139:2096).
+   Incoming = grey (--mav-bubble-bg-incoming), outgoing = tinted primary
+   (--mav-bubble-bg-outgoing → solid blue in dark). Sender name/reply accent
+   re-theme blue → lime. Radius 18px, sender's bottom corner tucked to 6px. */
+
+/* thread shell */
+.cthread {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 390px;
+  box-sizing: border-box;
+  background: var(--mav-bg-default);
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: 22px;
+  padding: 20px 16px;
+  font-family: var(--mav-font-body);
+}
+.cthread.plain {
+  border: 0;
+  background: none;
+  padding: 0;
+  gap: 14px;
+}
+
+/* message row */
+.cmsg {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 100%;
+  font-family: var(--mav-font-body);
+}
+.cmsg.out {
+  flex-direction: row-reverse;
+}
+.cmsg .col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  max-width: 80%;
+}
+.cmsg.out .col {
+  align-items: flex-end;
+}
+
+/* avatar (incoming) */
+.cavatar {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--mav-radius-full);
+  flex: 0 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mav-bg-secondary);
+  color: var(--mav-text-default);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-xs);
+}
+[data-theme='dark'] .cavatar {
+  background: #3a3a3c; /* one-off: dark avatar disc */
+  color: #f2f2f2;
+}
+
+/* bubble */
+.cbubble {
+  position: relative;
+  padding: 11px 14px;
+  border-radius: 18px;
+  box-sizing: border-box;
+  font-size: var(--mav-font-size-md);
+  line-height: 1.35;
+  color: var(--mav-bubble-text-incoming);
+  background: var(--mav-bubble-bg-incoming);
+  overflow: visible;
+  transition: transform 0.12s var(--mav-ease-standard);
+}
+.cmsg.in .cbubble {
+  border-bottom-left-radius: 6px;
+}
+.cmsg.out .cbubble {
+  background: var(--mav-bubble-bg-outgoing);
+  color: var(--mav-bubble-text-outgoing);
+  border-bottom-right-radius: 6px;
+}
+.cshortrow {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.cname {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-bubble-name-incoming);
+  margin-bottom: 3px;
+  line-height: 1.2;
+}
+
+.cmeta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+.cshortrow .cmeta {
+  margin-top: 0;
+  display: inline-flex;
+}
+.ctime {
+  font-family: var(--mav-font-body);
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  color: var(--mav-text-description);
+  white-space: nowrap;
+}
+[data-theme='dark'] .cmsg.out .cbubble .ctime {
+  color: #c9d2ff; /* one-off: timestamp on the dark solid-blue bubble */
+}
+.ccheck {
+  width: 16px;
+  height: 11px;
+  flex: none;
+  stroke: var(--mav-system-success);
+  stroke-width: 2.4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+[data-theme='dark'] .cmsg.out .ccheck {
+  stroke: #a9ff6b; /* one-off: brighter check on the dark blue bubble */
+}
+
+/* reaction pill */
+.creact {
+  position: absolute;
+  bottom: -13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--mav-bg-default);
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: var(--mav-radius-full);
+  padding: 2px 7px;
+  font-size: var(--mav-font-size-xs);
+  line-height: 1.2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: transform var(--mav-duration-med) cubic-bezier(0.34, 1.5, 0.45, 1);
+}
+[data-theme='dark'] .creact {
+  background: #2c2c2e; /* one-off */
+  border-color: #454547; /* one-off */
+}
+.cmsg.in .creact {
+  right: 10px;
+}
+.cmsg.out .creact {
+  left: 10px;
+}
+.creact:hover {
+  transform: scale(1.12);
+}
+.creact .n {
+  color: var(--mav-text-description);
+  font-weight: var(--mav-font-weight-semibold);
+}
+
+/* quoted reply */
+.cquote {
+  display: block;
+  border-left: 3px solid var(--mav-bubble-outline-incoming);
+  background: rgba(53, 46, 255, 0.06); /* one-off: quote tint */
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-bottom: 7px;
+  max-width: 100%;
+}
+[data-theme='dark'] .cquote {
+  background: rgba(255, 255, 255, 0.1);
+  border-left-color: var(--mav-bubble-name-incoming);
+}
+.cquote .who {
+  display: block;
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 13px;
+  color: var(--mav-bubble-name-incoming);
+  line-height: 1.35;
+}
+.cquote .qt {
+  display: block;
+  font-size: 13px;
+  color: var(--mav-text-default);
+  opacity: 0.8;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 230px;
+}

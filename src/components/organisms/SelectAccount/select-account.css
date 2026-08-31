@@ -1,0 +1,211 @@
+/* SelectAccount — ported from MaV components/select-account.html (Figma
+   "Account" 354:1868). Top nav · standard-account tile · radio-selectable
+   list (with locked rows) · bottom button dock. Classes namespaced sof-*. */
+.sof-screen {
+  display: flex;
+  flex-direction: column;
+  background: var(--mav-bg-default);
+  font-family: var(--mav-font-body);
+}
+.sof-topnav {
+  display: flex;
+  align-items: center;
+  padding: 8px 8px 12px;
+  gap: 4px;
+}
+.sof-nav-ic {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--mav-radius-full);
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  color: var(--mav-text-default);
+  padding: 0;
+}
+.sof-nav-title {
+  flex: 1;
+  text-align: center;
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-md);
+  color: var(--mav-text-default);
+}
+.sof-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.sof-sec-title {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-xl);
+  color: var(--mav-text-default);
+}
+.sof-sec-title.sm {
+  font-size: var(--mav-font-size-lg);
+  font-weight: var(--mav-font-weight-medium);
+}
+.sof-sec-desc {
+  font-weight: var(--mav-font-weight-medium);
+  font-size: 15px; /* one-off: source spec */
+  color: var(--mav-text-description);
+  margin-top: 4px;
+}
+
+/* cards */
+.sof-card {
+  border: 1px solid var(--mav-account-outline);
+  border-radius: var(--mav-radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--mav-account-bg);
+}
+
+/* featured account tile */
+.sof-tile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sof-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #f76b8a, #c9457a); /* one-off: avatar art */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff; /* one-off: on avatar art */
+  font-weight: var(--mav-font-weight-bold);
+}
+.sof-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sof-name {
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-md);
+  color: var(--mav-account-text);
+}
+.sof-num {
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-description);
+}
+.sof-bal {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-account-text);
+}
+
+/* selectable rows */
+.sof-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sof-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 1px solid var(--mav-account-outline);
+  border-radius: var(--mav-radius-sm);
+  background: var(--mav-account-bg);
+  transition: border-color var(--mav-duration-fast);
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+}
+.sof-row.selected {
+  border: 2px solid var(--mav-btn-secondary-outline-loading);
+  padding: 11px 15px;
+}
+.sof-row.disabled {
+  background: var(--mav-bg-secondary);
+  border-color: var(--mav-btn-secondary-outline-disabled);
+  cursor: not-allowed;
+}
+.sof-row.disabled .sof-name,
+.sof-row.disabled .sof-bal {
+  color: var(--mav-text-description);
+}
+.sof-row-ic {
+  flex-shrink: 0;
+  color: var(--mav-text-default);
+}
+.sof-row.disabled .sof-row-ic {
+  color: var(--mav-text-description);
+}
+.sof-msg {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: var(--mav-font-size-xs);
+  color: var(--mav-text-default);
+}
+
+/* radio */
+.sof-rdo {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--mav-radius-full);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  border: 2px solid var(--mav-account-outline);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sof-rdo.active {
+  border-color: var(--mav-icon-active);
+}
+.sof-rdo.active::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-icon-active);
+}
+.sof-rdo.disabled {
+  border-color: var(--mav-radio-secondary);
+  background: var(--mav-radio-secondary);
+}
+
+/* button dock */
+.sof-dock {
+  padding: 16px;
+  border-radius: var(--mav-radius-sheet) var(--mav-radius-sheet) 0 0;
+  background: var(--mav-dock-bg);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+}
+.sof-cta {
+  width: 100%;
+  padding: 16px;
+  border: 0;
+  border-radius: var(--mav-radius-sm);
+  cursor: pointer;
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+  font-family: inherit;
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-lg);
+}
+.sof-home {
+  width: 135px;
+  height: 5px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-text-default);
+  margin: 12px auto 4px;
+}

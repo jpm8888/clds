@@ -1,0 +1,69 @@
+/* TransactionList — ported from MaV components/finance.html (Transaction List).
+   Vertical stack of rows: 42px soft icon · title/meta · signed amount/status. */
+.txn-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  font-family: var(--mav-font-body);
+}
+.txn-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--mav-border-subtle);
+}
+.txn-item:last-child {
+  border-bottom: none;
+}
+.txn-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--mav-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.txn-icon-credit {
+  color: var(--mav-gainloss-success-icon);
+}
+.txn-icon-debit {
+  color: var(--mav-gainloss-danger-icon);
+}
+.txn-icon-neutral {
+  color: var(--mav-main-primary);
+}
+.txn-body {
+  flex: 1;
+}
+.txn-name {
+  font-size: var(--mav-font-size-sm);
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-default);
+}
+.txn-meta {
+  font-size: var(--mav-font-size-xs);
+  color: var(--mav-text-description);
+  margin-top: 2px;
+}
+.txn-amount {
+  font-size: 15px; /* one-off: between sm and md in the source spec */
+  font-weight: var(--mav-font-weight-bold);
+  text-align: right;
+  color: var(--mav-text-default);
+}
+.txn-amount-credit {
+  color: var(--mav-gainloss-success-text);
+}
+.txn-amount-debit {
+  color: var(--mav-gainloss-danger-text);
+}
+.txn-date {
+  font-size: 11px; /* one-off: source micro-label size */
+  color: var(--mav-text-description);
+  margin-top: 2px;
+  text-align: right;
+}

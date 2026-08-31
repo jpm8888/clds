@@ -1,0 +1,130 @@
+/* SwipeButton — from MaV buttons.html (Figma Swipe Set 110:14854).
+   Drag the white thumb to the end to confirm. Variants: gradient (v1),
+   brand→peach (v2), white card (v4); pill rounds everything. */
+.swipe {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 362px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 4px 5px;
+  border-radius: var(--mav-radius-md);
+  gap: 20px;
+  user-select: none;
+  overflow: hidden;
+  font-family: var(--mav-font-body);
+}
+.swipe-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px;
+  flex-shrink: 0;
+  background: var(--mav-btn-sliding-bg);
+  border-radius: var(--mav-radius-md);
+  border: 0;
+  cursor: grab;
+  touch-action: none;
+  position: relative;
+  z-index: 2;
+  color: var(--mav-btn-sliding-default);
+}
+.swipe-thumb:active {
+  cursor: grabbing;
+}
+.swipe-thumb:focus-visible {
+  outline: none;
+  box-shadow: var(--mav-shadow-focus);
+}
+.swipe-thumb svg {
+  width: 20px;
+  height: 20px;
+}
+.swipe-label {
+  flex: 1;
+  font-family: var(--mav-font-body);
+  font-size: var(--mav-font-size-xl);
+  font-weight: var(--mav-font-weight-medium);
+  line-height: normal;
+  white-space: nowrap;
+  color: var(--mav-btn-sliding-text);
+  opacity: 0.5;
+}
+.swipe-hint {
+  margin-left: auto;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* variants */
+.swipe-v1 {
+  background: linear-gradient(
+    to right,
+    var(--mav-btn-sliding-default),
+    var(--mav-btn-sliding-hover) 100%
+  );
+}
+.swipe-v2 {
+  background: linear-gradient(
+    to right,
+    var(--mav-btn-primary-default),
+    #ffdfd3
+  ); /* one-off peach */
+}
+.swipe-v4 {
+  background: var(--mav-bg-default);
+  border-radius: 20px;
+  filter: drop-shadow(0 0 20px rgba(0, 51, 218, 0.1));
+}
+.swipe-v4 .swipe-thumb {
+  background: var(--mav-btn-sliding-default);
+  color: var(--mav-btn-sliding-text);
+}
+.swipe-v4 .swipe-label {
+  color: var(--mav-btn-sliding-hover);
+  opacity: 1;
+}
+.swipe-v4 .swipe-hint {
+  color: var(--mav-btn-sliding-hover);
+}
+
+.swipe-pill,
+.swipe-pill .swipe-thumb {
+  border-radius: 50px;
+}
+
+/* confirmed */
+.swipe-done {
+  background: var(--mav-btn-sliding-default);
+}
+.swipe-done .swipe-label {
+  opacity: 1;
+}
+
+/* disabled */
+.swipe.is-disabled {
+  background: var(--mav-btn-sliding-disabled);
+}
+.swipe.is-disabled .swipe-thumb {
+  cursor: not-allowed;
+  color: var(--mav-btn-sliding-knob-disabled);
+}
+.swipe.is-disabled .swipe-label {
+  color: var(--mav-btn-sliding-text-inverted);
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .swipe-thumb {
+    transition: transform 0.25s var(--mav-ease-out);
+  }
+  .swipe-thumb.dragging {
+    transition: none;
+  }
+  .swipe-label {
+    transition: opacity var(--mav-duration-med) var(--mav-ease-standard);
+  }
+}

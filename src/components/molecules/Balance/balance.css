@@ -1,0 +1,208 @@
+/* Balance — from MaV balance.html (Figma 236:6908).
+   Available-balance hero: label + 32px bold amount with privacy eye toggle,
+   success trend badge, then Send/Request buttons or quick round actions. */
+.bal-hero {
+  width: 375px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: var(--mav-font-body);
+}
+.bal-hero .bal-head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+.bal-hero .amt-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.bal-label {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-xs);
+  color: #81878d; /* one-off: Figma --Text/Grey */
+}
+.bal-amount {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-h5);
+  line-height: 1;
+  color: var(--mav-text-default);
+  letter-spacing: -0.5px;
+  transition: opacity 0.16s var(--mav-ease-standard);
+}
+.bal-amount.masked {
+  letter-spacing: 3px;
+}
+
+.bal-eye {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--mav-icon-default);
+  background: none;
+  border: 0;
+  padding: 0;
+  display: inline-flex;
+  cursor: pointer;
+  transition:
+    transform var(--mav-duration-base) var(--mav-ease-standard),
+    color var(--mav-duration-med) var(--mav-ease-standard);
+}
+.bal-eye:hover {
+  transform: scale(1.12);
+}
+.bal-eye:active {
+  transform: scale(0.9);
+}
+
+/* success trend badge */
+.bal-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 4px;
+  border-radius: var(--mav-radius-sm);
+  background: var(--mav-badge-success-bg);
+  border: 1px solid var(--mav-badge-success-outline);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-xs);
+  color: var(--mav-badge-success-text);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bal-badge {
+    animation: bal-pop 0.5s cubic-bezier(0.34, 1.4, 0.4, 1) both;
+  }
+}
+@keyframes bal-pop {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* action pair */
+.bal-actions {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+.bal-btn {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-radius: var(--mav-radius-sm);
+  border: 0;
+  cursor: pointer;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  transition:
+    transform 0.12s var(--mav-ease-standard),
+    box-shadow var(--mav-duration-med) var(--mav-ease-standard),
+    background var(--mav-duration-med) var(--mav-ease-standard),
+    filter var(--mav-duration-med) var(--mav-ease-standard);
+}
+.bal-btn svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--mav-duration-med) cubic-bezier(0.34, 1.4, 0.4, 1);
+}
+.bal-btn.primary {
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+}
+.bal-btn.primary:hover {
+  filter: brightness(1.04);
+  box-shadow: 0 8px 20px -8px var(--mav-btn-primary-default);
+}
+.bal-btn.secondary {
+  background: transparent;
+  border: 1px solid var(--mav-btn-secondary-outline);
+  color: var(--mav-text-default);
+}
+.bal-btn.secondary:hover {
+  background: var(--mav-bg-tertiary);
+}
+.bal-btn:active {
+  transform: scale(0.96);
+}
+.bal-btn:hover svg {
+  transform: scale(1.18);
+}
+
+/* quick round actions */
+.bal-quick {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+.bal-quick .q {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.q-btn {
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  border-radius: var(--mav-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--mav-border-subtle);
+  background: transparent;
+  color: var(--mav-icon-default);
+  cursor: pointer;
+  transition:
+    transform var(--mav-duration-base) cubic-bezier(0.34, 1.4, 0.4, 1),
+    border-color var(--mav-duration-med) var(--mav-ease-standard),
+    background var(--mav-duration-med) var(--mav-ease-standard);
+}
+.q-btn svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--mav-duration-med) cubic-bezier(0.34, 1.4, 0.4, 1);
+}
+.q:hover .q-btn {
+  border-color: var(--mav-btn-primary-default);
+  background: var(--mav-bg-tertiary);
+}
+.q:active .q-btn {
+  transform: scale(0.9);
+}
+.q:hover .q-btn svg {
+  transform: scale(1.18);
+}
+.q-lbl {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-xs);
+  color: var(--mav-text-default);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bal-btn:hover svg,
+  .q:hover .q-btn svg {
+    transform: none;
+  }
+}

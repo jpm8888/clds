@@ -1,0 +1,71 @@
+/* PhoneFrame — presentational device bezel from MaV bottom-sheet.html.
+   A 330×640 phone with rounded screen; used by stories/demos to stage
+   mobile organisms (BottomSheet, Splash, auth screens). */
+.phone {
+  position: relative;
+  width: 330px;
+  height: 640px;
+  border-radius: 46px;
+  background: #0b0b0d; /* one-off: device bezel */
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow:
+    0 30px 60px -20px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+  flex: 0 0 auto;
+}
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 37px;
+  overflow: hidden;
+  background: var(--mav-bg-default);
+  isolation: isolate;
+}
+[data-theme='dark'] .phone-screen {
+  background: #0e0e10; /* one-off: screen ground slightly deeper than bg */
+}
+
+/* status bar + home indicator chrome */
+.phone-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 26px 0;
+  font-family: var(--mav-font-body);
+  font-size: 13px;
+  font-weight: var(--mav-font-weight-bold);
+  color: var(--mav-text-default);
+}
+.phone-status .dots {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+.phone-status .dots i {
+  width: 15px;
+  height: 10px;
+  border-radius: 2px;
+  background: currentColor;
+  display: inline-block;
+  opacity: 0.9;
+}
+.phone-home {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.phone-home span {
+  width: 130px;
+  height: 5px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-text-default);
+  opacity: 0.9;
+}

@@ -1,0 +1,90 @@
+/* ReceiptDetail — ported from MaV components/finance-widgets.html + builder/data.js
+   (txndetail). Direction icon, amount, status badge, key-value rows. */
+.bld-txnd {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--mav-font-body);
+}
+.bld-txnd-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.bld-txnd-ic {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--mav-radius-full);
+  display: grid;
+  place-items: center;
+  margin-bottom: 2px;
+}
+.bld-txnd-ic svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.bld-txnd-ic.out {
+  background: color-mix(in srgb, var(--mav-system-danger) 14%, transparent);
+}
+.bld-txnd-ic.out svg {
+  stroke: var(--mav-system-danger);
+}
+.bld-txnd-ic.in {
+  background: color-mix(in srgb, var(--mav-system-success) 16%, transparent);
+}
+.bld-txnd-ic.in svg {
+  stroke: var(--mav-system-success);
+}
+.bld-txnd-amt {
+  font-size: var(--mav-font-size-h6);
+  font-weight: 800; /* one-off: source uses extra-bold */
+  letter-spacing: -0.5px;
+  color: var(--mav-text-default);
+}
+.bld-txnd-amt.in {
+  color: var(--mav-system-success);
+}
+.bld-txnd-name {
+  font-size: 13px; /* one-off: source spec */
+  color: var(--mav-text-description);
+}
+.bld-txnd-badge {
+  margin-top: 4px;
+  font-size: 11px; /* one-off: micro label */
+  font-weight: var(--mav-font-weight-bold);
+  padding: 4px 11px;
+  border-radius: var(--mav-radius-full);
+  background: color-mix(in srgb, var(--mav-system-success) 16%, transparent);
+  color: var(--mav-system-success);
+}
+.bld-txnd-rows {
+  display: flex;
+  flex-direction: column;
+  background: var(--mav-bg-tertiary);
+  border-radius: 14px;
+  padding: 4px 14px;
+}
+.bld-txnd-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--mav-border-subtle);
+  font-size: 13px; /* one-off: source spec */
+}
+.bld-txnd-row:last-child {
+  border-bottom: 0;
+}
+.bld-txnd-row span {
+  color: var(--mav-text-description);
+}
+.bld-txnd-row b {
+  color: var(--mav-text-default);
+  font-weight: var(--mav-font-weight-semibold);
+  text-align: right;
+}

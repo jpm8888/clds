@@ -1,0 +1,201 @@
+/* Datepicker — from MaV datepicker.html (Figma 203:2602).
+   344px calendar card: month pager, weekday row, 7-col day grid with cell
+   states. --dp-accent routes through the primary button token, so the
+   selected fill re-themes blue → lime in dark automatically. */
+.dp {
+  width: 344px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: var(--mav-bg-default);
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: var(--mav-radius-lg);
+  padding: 24px;
+  box-shadow: var(--mav-shadow-lg);
+  font-family: var(--mav-font-body);
+  --dp-accent: var(--mav-btn-primary-default);
+  --dp-on: var(--mav-btn-primary-text);
+}
+
+.dp-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.dp-nav {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: var(--mav-radius-md);
+  background: var(--mav-bg-default);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  color: var(--mav-text-default);
+}
+.dp-nav svg {
+  width: 18px;
+  height: 18px;
+}
+.dp-nav.hidden {
+  visibility: hidden;
+}
+.dp-nav:disabled {
+  color: var(--mav-text-disabled);
+  cursor: not-allowed;
+}
+.dp-month {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-description);
+  cursor: pointer;
+  transition: color var(--mav-duration-fast);
+}
+.dp-month:hover {
+  color: var(--mav-text-default);
+}
+.dp-month svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.1, 0.35, 1);
+}
+
+.dp-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 4px;
+}
+.dp-cell {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.dp-wd {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-placeholder);
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+.dp-day {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: none;
+  padding: 0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: background 0.12s;
+}
+.dp-day:hover {
+  background: var(--mav-bg-secondary);
+}
+.dp-day.out {
+  color: var(--mav-text-placeholder);
+}
+.dp-day.sel {
+  background: var(--dp-accent);
+  color: var(--dp-on);
+}
+.dp-day.sel:hover {
+  background: var(--dp-accent);
+}
+.dp-day:focus-visible,
+.dp-day.foc {
+  box-shadow: 0 0 0 2px var(--dp-accent);
+  outline: none;
+}
+.dp-day:disabled,
+.dp-day.dis {
+  color: var(--mav-text-placeholder);
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.dp-day:disabled:hover,
+.dp-day.dis:hover {
+  background: transparent;
+}
+
+/* range band */
+.dp-cell.r::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  background: color-mix(in srgb, var(--dp-accent) 13%, transparent);
+  z-index: 0;
+}
+.dp-cell.r.rs::before {
+  left: 50%;
+}
+.dp-cell.r.re::before {
+  right: 50%;
+}
+.dp-cell.r.edge-l::before {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.dp-cell.r.edge-r::before {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.dp-cell.r .dp-day:not(.sel) {
+  color: var(--dp-accent);
+}
+.dp-cell.r .dp-day:not(.sel):hover {
+  background: transparent;
+}
+
+/* year grid */
+.dp-years {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 8px;
+  column-gap: 6px;
+}
+.dp-year {
+  border: 0;
+  background: none;
+  padding: 9px 0;
+  border-radius: 10px;
+  text-align: center;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.dp-year:hover {
+  background: var(--mav-bg-secondary);
+}
+.dp-year.sel {
+  background: var(--dp-accent);
+  color: var(--dp-on);
+}
+.dp-year.sel:hover {
+  background: var(--dp-accent);
+}

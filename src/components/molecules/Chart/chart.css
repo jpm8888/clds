@@ -1,0 +1,226 @@
+/* Chart — from MaV chart.html (Figma 240:2719).
+   Transaction line-chart card: title + type dropdown, Catmull-Rom spline with
+   a gradient area fill, dashed guides, haloed points, value labels. The line
+   color routes through --mav-chart-line-* via currentColor, so the brand
+   variant re-themes blue → lime in dark. */
+.chart-card {
+  position: relative;
+  width: 100%;
+  max-width: 362px;
+  box-sizing: border-box;
+  background: var(--mav-bg-default);
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: 24px;
+  padding: 24px 0 8px;
+  overflow: hidden;
+  color: var(--mav-chart-line-gain);
+  font-family: var(--mav-font-body);
+  transition:
+    color 0.55s var(--mav-ease-standard),
+    border-color 0.3s var(--mav-ease-standard);
+}
+.chart--loss {
+  color: var(--mav-chart-line-loss);
+}
+.chart--gain {
+  color: var(--mav-chart-line-gain);
+}
+.chart--warning {
+  color: var(--mav-chart-line-warning);
+}
+.chart--brand {
+  color: var(--mav-chart-line-brand);
+}
+
+.chart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 16px;
+  margin-bottom: 22px;
+}
+.chart-title {
+  margin: 0;
+  font-size: var(--mav-font-size-lg);
+  font-weight: var(--mav-font-weight-bold);
+  letter-spacing: -0.01em;
+  color: var(--mav-text-default);
+}
+.chart-drop {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border: 1px solid var(--mav-btn-secondary-outline);
+  border-radius: var(--mav-radius-sm);
+  background: none;
+  cursor: pointer;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+  white-space: nowrap;
+  transition:
+    border-color var(--mav-duration-med) var(--mav-ease-standard),
+    transform 0.12s var(--mav-ease-standard);
+}
+.chart-drop svg {
+  width: 18px;
+  height: 18px;
+}
+.chart-drop:hover {
+  border-color: var(--mav-chart-line-brand);
+}
+.chart-drop:active {
+  transform: scale(0.96);
+}
+
+.chart-plot {
+  position: relative;
+  padding: 0 16px;
+}
+.chart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chart-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 4px 6px color-mix(in srgb, currentColor 26%, transparent));
+}
+.chart-area {
+  stroke: none;
+}
+.chart-guide {
+  stroke: var(--mav-chart-natural);
+  stroke-width: 1.4;
+  stroke-dasharray: 2 4;
+  stroke-linecap: round;
+}
+.chart-base {
+  stroke: var(--mav-chart-natural);
+  stroke-width: 1.4;
+  opacity: 0.35;
+}
+.chart-halo {
+  fill: var(--mav-bg-default);
+}
+.chart-dot {
+  fill: currentColor;
+}
+.chart-val {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: 10px;
+  text-anchor: middle;
+  fill: var(--mav-text-default);
+}
+.chart-day {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-regular);
+  font-size: 11px;
+  text-anchor: middle;
+  fill: var(--mav-text-default);
+  opacity: 0.4;
+}
+
+/* per-point hover lift */
+.chart-pt {
+  transform-box: fill-box;
+}
+.chart-pt .chart-dot,
+.chart-pt .chart-halo {
+  transition: r 0.22s cubic-bezier(0.34, 1.4, 0.4, 1);
+}
+.chart-pt:hover .chart-dot {
+  r: 5.4;
+}
+.chart-pt:hover .chart-halo {
+  r: 8.6;
+}
+.chart-pt:hover .chart-val {
+  font-weight: var(--mav-font-weight-bold);
+}
+
+/* empty state */
+.chart-svg .chart-data {
+  transition: opacity 0.4s var(--mav-ease-standard);
+}
+.chart-svg.is-empty .chart-data {
+  opacity: 0;
+  pointer-events: none;
+}
+.chart-empty {
+  font-family: var(--mav-font-body);
+  font-size: var(--mav-font-size-xs);
+  text-anchor: middle;
+  fill: var(--mav-text-default);
+  opacity: 0;
+  transition: opacity 0.4s var(--mav-ease-standard) 0.1s;
+}
+.chart-svg.is-empty .chart-empty {
+  opacity: 0.35;
+}
+
+/* draw-in reveal */
+@media (prefers-reduced-motion: no-preference) {
+  .chart-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 1.15s cubic-bezier(0.45, 0.05, 0.15, 1);
+  }
+  .chart-svg.in .chart-line {
+    stroke-dashoffset: 0;
+  }
+  .chart-area {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity 0.8s ease 0.12s,
+      transform 0.85s cubic-bezier(0.34, 1.05, 0.35, 1) 0.12s;
+  }
+  .chart-svg.in .chart-area {
+    opacity: 1;
+    transform: none;
+  }
+  .chart-guide {
+    opacity: 0;
+    transition: opacity 0.55s ease;
+  }
+  .chart-svg.in .chart-guide {
+    opacity: 0.6;
+  }
+  .chart-dot-g {
+    opacity: 0;
+    transform: scale(0);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      transform 0.5s cubic-bezier(0.34, 1.5, 0.45, 1),
+      opacity 0.3s ease;
+  }
+  .chart-svg.in .chart-dot-g {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .chart-val {
+    opacity: 0;
+    transform: translateY(9px);
+    transition:
+      opacity 0.45s ease,
+      transform 0.55s cubic-bezier(0.34, 1.25, 0.4, 1);
+  }
+  .chart-svg.in .chart-val {
+    opacity: 1;
+    transform: none;
+  }
+}

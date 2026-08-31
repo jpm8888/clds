@@ -1,0 +1,35 @@
+/* QrPay — ported from MaV components/finance-widgets.html + builder/data.js (qr).
+   A generated QR-style code on an always-light card with caption + subtext. */
+.bld-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  font-family: var(--mav-font-body);
+}
+.bld-qr-card {
+  padding: 16px;
+  background: #ffffff; /* one-off: QR cards stay light in both themes for scanability */
+  border-radius: 18px;
+  border: 1px solid var(--mav-border-subtle);
+  color: #171717; /* one-off: QR modules on the light card */
+  box-shadow: 0 8px 24px -14px rgba(0, 0, 0, 0.25);
+}
+.bld-qr-card svg {
+  display: block;
+  fill: currentColor;
+  width: 150px;
+  height: 150px;
+}
+.bld-qr-cap {
+  font-size: var(--mav-font-size-md);
+  font-weight: 800; /* one-off: source uses extra-bold */
+  color: var(--mav-text-default);
+  margin-top: 2px;
+}
+.bld-qr-sub {
+  font-size: var(--mav-font-size-xs);
+  color: var(--mav-text-description);
+  max-width: 220px;
+}

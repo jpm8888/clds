@@ -1,0 +1,215 @@
+/* LoginForm — ported from MaV components/auth.html (Figma "• Login/Sign Up" 139:2089).
+   Full auth screen: labelled inputs, primary CTA, checkbox row, or-divider,
+   social buttons, footer link. Class names namespaced auth-*. */
+.auth-screen {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: var(--mav-bg-default);
+  font-family: var(--mav-font-body);
+}
+.auth-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 2px;
+}
+.auth-h1 {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-h7);
+  color: var(--mav-text-default);
+}
+.auth-sub {
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-description);
+}
+
+/* field (input + label) */
+.auth-f {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.auth-f-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.auth-f-label {
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+}
+.auth-f-link {
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-btn-textonly-default);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+.auth-f-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  border: 1px solid var(--mav-input-default-outline);
+  background: var(--mav-input-default-bg);
+  border-radius: var(--mav-radius-sm);
+  box-shadow: var(--mav-shadow-input);
+}
+.auth-f-input:focus-within {
+  border-color: var(--mav-input-focus-outline);
+}
+.auth-f-input input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: inherit;
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+}
+.auth-f-input input::placeholder {
+  color: var(--mav-input-default-placeholder);
+}
+.auth-f-ic {
+  color: var(--mav-icon-subtle);
+  flex-shrink: 0;
+}
+
+/* primary CTA — tokens flip to lime/black in dark automatically */
+.auth-btn {
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-radius: var(--mav-radius-sm);
+  cursor: pointer;
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+  font-family: inherit;
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 15px; /* one-off: source spec */
+}
+
+/* remember / terms checkbox row */
+.auth-cbx-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+  cursor: pointer;
+}
+.auth-cbx {
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border-radius: var(--mav-radius-sm);
+  border: 1px solid var(--mav-checkbox-default-outline);
+  background: var(--mav-checkbox-default-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.auth-cbx.on {
+  background: var(--mav-checkbox-active-bg);
+  border-color: var(--mav-checkbox-active-bg);
+}
+.auth-cbx svg {
+  width: 12px;
+  height: 12px;
+  stroke: var(--mav-btn-primary-text);
+  stroke-width: 2.4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: none;
+}
+.auth-cbx.on svg {
+  display: block;
+}
+.auth-cbx-row a {
+  color: var(--mav-btn-textonly-default);
+  text-decoration: none;
+  font-weight: var(--mav-font-weight-bold);
+}
+
+/* or-divider */
+.auth-or {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.auth-or::before,
+.auth-or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--mav-divider-default);
+}
+.auth-or span {
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-description);
+  white-space: nowrap;
+}
+
+/* social buttons */
+.auth-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 20px;
+  border: 1px solid var(--mav-border-subtle);
+  background: var(--mav-bg-default);
+  border-radius: var(--mav-radius-md);
+  box-shadow: var(--mav-shadow-input);
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+}
+.auth-social svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+.auth-social .ic-apple {
+  fill: var(--mav-text-default);
+}
+.auth-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.auth-foot {
+  text-align: center;
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-description);
+  margin-top: 4px;
+}
+.auth-foot a,
+.auth-foot button {
+  color: var(--mav-btn-textonly-default);
+  font-weight: var(--mav-font-weight-bold);
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+}
