@@ -1,0 +1,48 @@
+/* Coachmark — ported from MaV components/coachmark.html (Figma 259:21967).
+   Onboarding tour tip: dashed pointer + dot connecting to a target, white
+   title/description/step counter, designed to sit over a dark blanket
+   (var(--mav-blanket)). */
+.coach {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 340px;
+  font-family: var(--mav-font-body);
+}
+.coach-ptr {
+  color: var(--mav-coachmark-dots);
+  display: flex;
+  justify-content: center;
+}
+.coach-ptr svg {
+  overflow: visible;
+}
+.coach-txt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px;
+  text-align: center;
+}
+.coach-title {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-lg);
+  color: var(--mav-coachmark-title);
+}
+.coach-desc {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-coachmark-description);
+  opacity: 0.95;
+}
+.coach-step {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-coachmark-description);
+  opacity: 0.75;
+}

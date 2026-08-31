@@ -1,0 +1,104 @@
+/* Badge — ported from MaV components/badges.html (Figma page 52:28800).
+   4px radius, Inter-weight labels at 14/12/11px. Filled / outline / clear. */
+.b {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  line-height: 1;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--mav-radius-sm);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.b-sm {
+  font-size: var(--mav-font-size-xs);
+  padding: 4px 8px;
+  gap: 6px;
+}
+.b-xs {
+  font-size: 11px; /* one-off: between xs and 2xs on the scale */
+  padding: 3px 6px;
+  gap: 5px;
+}
+
+/* Filled (default type): bg fill + text token */
+.b-primary {
+  background: var(--mav-badge-primary-bg);
+  color: var(--mav-badge-primary-text);
+}
+.b-red {
+  background: var(--mav-badge-danger-bg);
+  color: var(--mav-badge-danger-text);
+}
+.b-green {
+  background: var(--mav-badge-success-bg);
+  color: var(--mav-badge-success-text);
+}
+.b-orange {
+  background: var(--mav-badge-warning-bg);
+  color: var(--mav-badge-warning-text);
+}
+
+/* Outline: transparent fill, coloured 1px border, vivid text */
+.b-outline {
+  background: transparent;
+}
+.b-outline.b-primary {
+  border-color: var(--mav-badge-primary-outline);
+  color: var(--mav-badge-primary-bg);
+}
+.b-outline.b-red {
+  border-color: var(--mav-badge-danger-outline);
+  color: var(--mav-badge-danger-text);
+}
+.b-outline.b-green {
+  border-color: var(--mav-badge-success-outline);
+  color: var(--mav-badge-success-text);
+}
+.b-outline.b-orange {
+  border-color: var(--mav-badge-warning-outline);
+  color: var(--mav-badge-warning-text);
+}
+
+/* Clear: no fill, no border, vivid text only */
+.b-clear {
+  background: transparent;
+  border-color: transparent;
+}
+.b-clear.b-primary {
+  color: var(--mav-badge-primary-bg);
+}
+.b-clear.b-red {
+  color: var(--mav-badge-danger-text);
+}
+.b-clear.b-green {
+  color: var(--mav-badge-success-text);
+}
+.b-clear.b-orange {
+  color: var(--mav-badge-warning-text);
+}
+
+/* Variation add-ons */
+.b-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--mav-radius-full);
+  background: currentColor;
+  flex-shrink: 0;
+}
+.b .ic {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: scale(1.25);
+}

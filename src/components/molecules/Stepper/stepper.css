@@ -1,0 +1,57 @@
+/* Stepper — ported from MaV components/navigation.html (progress stepper).
+   Source page accent var → --mav-main-primary; done/active label colors flip
+   automatically via --mav-text-inverted. */
+.step-row {
+  display: flex;
+  align-items: center;
+  max-width: 460px;
+}
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--mav-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: var(--mav-font-weight-bold);
+  font-family: var(--mav-font-body);
+}
+.step-done {
+  background: var(--mav-main-primary);
+  color: var(--mav-text-inverted);
+}
+.step-active {
+  background: var(--mav-main-primary);
+  color: var(--mav-text-inverted);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--mav-main-primary) 22%, transparent);
+}
+.step-todo {
+  background: var(--mav-border-subtle);
+  color: var(--mav-text-description);
+}
+.step-lbl {
+  font-size: 11px;
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-description);
+  font-family: var(--mav-font-inter);
+}
+.step-lbl.on {
+  color: var(--mav-main-primary);
+}
+.step-conn {
+  flex: 1;
+  height: 2px;
+  background: var(--mav-border-subtle);
+  margin: 0 6px 22px;
+}
+.step-conn.done {
+  background: var(--mav-main-primary);
+}

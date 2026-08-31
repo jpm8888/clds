@@ -1,0 +1,49 @@
+/* Textarea — ported from MaV components/inputs.html. Radius 8px (vs field's
+   4px). The error helper row reuses .field-err from TextField (same bundle). */
+.ta {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 160px;
+  resize: vertical;
+  padding: 12px 16px;
+  border: 1px solid var(--mav-input-default-outline);
+  background: var(--mav-input-default-bg);
+  border-radius: var(--mav-radius-md);
+  box-shadow: var(--mav-shadow-input);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  line-height: 20px;
+  color: var(--mav-input-active-text);
+  outline: none;
+  transition:
+    border-color var(--mav-duration-fast),
+    background var(--mav-duration-fast);
+}
+.ta::placeholder {
+  color: var(--mav-input-default-placeholder);
+}
+.ta:focus,
+.ta.is-focus {
+  border-color: var(--mav-input-focus-outline);
+}
+.ta.is-error {
+  background: var(--mav-input-error-bg);
+  border-color: var(--mav-input-error-outline);
+}
+.ta.is-disabled,
+.ta:disabled {
+  background: var(--mav-input-disabled-bg);
+  border-color: var(--mav-input-disabled-outline);
+  color: var(--mav-input-disabled-text);
+  cursor: not-allowed;
+  resize: none;
+}
+
+.ta-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}

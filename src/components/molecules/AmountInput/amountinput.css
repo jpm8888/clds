@@ -1,0 +1,96 @@
+/* AmountInput — ported from MaV components/input-amount.html (Figma 139:2090),
+   scoped to the amount-entry block + quick-select chips. Round steppers use
+   --mav-main-tertiary-2 (deep navy → lime in dark); chip fills use
+   --mav-main-primary — both re-theme via tokens alone. */
+.amt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mav-space-16);
+  width: 100%;
+  max-width: 335px;
+}
+.amt-title {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+  text-align: center;
+}
+.amt-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.amt-value {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: 40px;
+  line-height: 1;
+  color: var(--mav-text-default);
+  min-width: 110px;
+  text-align: center;
+}
+.amt-value.error {
+  color: var(--mav-input-error-label);
+}
+.amt-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-main-tertiary-2);
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  color: var(--mav-text-inverted);
+  transition: filter var(--mav-duration-fast);
+}
+.amt-btn:hover:not(:disabled) {
+  filter: brightness(1.15);
+}
+.amt-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--mav-shadow-focus);
+}
+.amt-btn:disabled {
+  background: var(--mav-btn-primary-disabled);
+  cursor: not-allowed;
+}
+.amt-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Quick-select chips */
+.amt-chips {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.amt-chip {
+  height: 48px;
+  border: 1px solid var(--mav-border-subtle);
+  background: var(--mav-bg-default);
+  border-radius: var(--mav-radius-md);
+  cursor: pointer;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+  transition:
+    background 0.12s,
+    border-color 0.12s,
+    color 0.12s;
+}
+.amt-chip.on {
+  background: var(--mav-main-primary);
+  border-color: var(--mav-main-primary);
+  color: var(--mav-text-inverted);
+}
+.amt-chip:focus-visible {
+  outline: none;
+  box-shadow: var(--mav-shadow-focus);
+}

@@ -1,0 +1,135 @@
+/* OtpInput — ported from MaV components/otp.html (Figma 137:1116).
+   V1 boxed (48×48, radius 4) · V2 boxless (digit over 1px underline).
+   Boxed states use --mav-otp-* (focus → lime in dark); error uses
+   --mav-input-error-*. */
+.otp-group {
+  display: inline-flex;
+  gap: var(--mav-otp-slot-gap);
+  align-items: flex-start;
+}
+
+/* ── V1 boxed slot ── */
+.otp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--mav-otp-slot-width);
+  height: var(--mav-otp-slot-height);
+  box-sizing: border-box;
+  border: 1px solid var(--mav-otp-default-outline);
+  background: var(--mav-otp-default-bg);
+  border-radius: var(--mav-radius-sm);
+  box-shadow: var(--mav-shadow-input);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-lg);
+  color: var(--mav-otp-default-placeholder);
+  text-align: center;
+  caret-color: var(--mav-otp-focus-outline);
+  outline: none;
+  transition:
+    border-color var(--mav-duration-fast),
+    box-shadow var(--mav-duration-fast),
+    background var(--mav-duration-fast);
+  padding: 0;
+}
+.otp.filled {
+  border-color: var(--mav-otp-active-outline);
+  color: var(--mav-otp-active-text);
+}
+.otp.is-focus,
+.otp:focus {
+  border-color: var(--mav-otp-focus-outline);
+  box-shadow: var(--mav-shadow-focus);
+  color: var(--mav-otp-focus-text);
+}
+.otp.error {
+  background: var(--mav-input-error-bg);
+  border-color: var(--mav-input-error-outline);
+  color: var(--mav-mono-900);
+  box-shadow: none;
+}
+.otp.disabled,
+.otp:disabled {
+  background: var(--mav-otp-disabled-bg);
+  border-color: var(--mav-otp-disabled-outline);
+  color: var(--mav-otp-disabled-text);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* ── V2 boxless slot ── */
+.otp2 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: var(--mav-otp-slot-width);
+}
+.otp2 .d {
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  text-align: center;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-lg);
+  line-height: 20px;
+  color: var(--mav-otp-default-placeholder);
+  caret-color: var(--mav-otp-focus-outline);
+}
+.otp2 .u {
+  width: 100%;
+  height: 1px;
+  background: var(--mav-divider-default);
+  transition: background var(--mav-duration-fast);
+}
+.otp2.filled .d {
+  color: var(--mav-otp-active-text);
+}
+.otp2.filled .u {
+  background: var(--mav-otp-active-outline);
+}
+.otp2.is-focus .d,
+.otp2:focus-within .d {
+  color: var(--mav-otp-focus-text);
+}
+.otp2.is-focus .u,
+.otp2:focus-within .u {
+  background: var(--mav-otp-focus-outline);
+}
+.otp2.error .d {
+  color: var(--mav-mono-900);
+}
+.otp2.error .u {
+  background: var(--mav-input-error-outline);
+}
+.otp2.disabled .d {
+  color: var(--mav-otp-disabled-text);
+}
+.otp2.disabled .u {
+  background: var(--mav-otp-disabled-outline);
+}
+/* keep the error digit legible on the dark-red fill in dark mode */
+[data-theme='dark'] .otp.error,
+[data-theme='dark'] .otp2.error .d {
+  color: var(--mav-mono-900);
+}
+
+/* ── Error row ── */
+.otp-err-msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-input-error-label);
+  margin-top: 8px;
+}
+.otp-err-msg svg {
+  color: var(--mav-input-error-icon);
+}

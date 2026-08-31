@@ -1,0 +1,80 @@
+/* SearchField — ported from MaV components/forms.html (--input-field/* tokens). */
+.fc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 400px;
+}
+.fc-flabel {
+  font-size: 13px;
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-text-default);
+  font-family: var(--mav-font-inter);
+}
+
+.srch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--mav-radius-md);
+  box-sizing: border-box;
+  width: 100%;
+  border: 1.5px solid var(--mav-input-default-outline);
+  background: var(--mav-input-default-bg);
+  transition:
+    border-color var(--mav-duration-fast),
+    background var(--mav-duration-fast),
+    box-shadow var(--mav-duration-fast);
+}
+.srch .srch-icon {
+  flex-shrink: 0;
+  color: var(--mav-text-placeholder);
+}
+.srch input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font-family: var(--mav-font-body);
+  font-size: 15px;
+  color: var(--mav-text-default);
+}
+.srch input::placeholder {
+  color: var(--mav-text-placeholder);
+}
+.srch .srch-clear {
+  cursor: pointer;
+  color: var(--mav-text-placeholder);
+  font-size: var(--mav-font-size-lg);
+  line-height: 1;
+  flex-shrink: 0;
+  background: none;
+  border: 0;
+  padding: 0;
+  display: inline-flex;
+}
+.srch:focus-within,
+.srch.is-focus {
+  border-color: var(--mav-input-focus-outline);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mav-input-focus-outline) 18%, transparent);
+}
+.srch:focus-within .srch-icon,
+.srch.is-focus .srch-icon {
+  color: var(--mav-input-focus-outline);
+}
+.srch.is-error {
+  border-color: var(--mav-input-error-outline);
+  background: var(--mav-input-error-bg);
+}
+.srch.is-error .srch-icon {
+  color: var(--mav-input-error-icon);
+}
+.fc-err {
+  font-size: var(--mav-font-size-xs);
+  font-weight: var(--mav-font-weight-semibold);
+  color: var(--mav-input-error-label);
+  font-family: var(--mav-font-inter);
+}

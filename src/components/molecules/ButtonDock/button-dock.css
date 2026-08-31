@@ -1,0 +1,105 @@
+/* ButtonDock — ported from MaV components/button-dock.html (Figma 267:5230).
+   Sticky bottom footer: rounded-top surface with a full-width primary button,
+   optional consent checkbox / secondary button, and an iOS home indicator. */
+.dock {
+  width: 375px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: var(--mav-dock-bg);
+  border-radius: var(--mav-radius-sheet) var(--mav-radius-sheet) 0 0;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.dock-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: var(--mav-z-sticky);
+}
+.dock-inner {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.dock-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dock-btn {
+  width: 100%;
+  padding: 16px;
+  border: 0;
+  border-radius: var(--mav-radius-sm);
+  cursor: pointer;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-lg);
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+}
+.dock-btn.secondary {
+  background: transparent;
+  border: 1px solid var(--mav-border-subtle);
+  color: var(--mav-text-default);
+}
+
+/* checkbox row (consent) */
+.dock-cbx {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+}
+.dock-cbx .cbx {
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border-radius: var(--mav-radius-sm);
+  flex-shrink: 0;
+  box-shadow: var(--mav-shadow-input);
+  border: 1px solid var(--mav-checkbox-default-outline);
+  background: var(--mav-checkbox-default-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dock-cbx .cbx.on {
+  background: var(--mav-checkbox-active-bg);
+  border-color: var(--mav-checkbox-active-bg);
+}
+.dock-cbx .cbx svg {
+  width: 12px;
+  height: 12px;
+  stroke: var(--mav-icon-inverted);
+  stroke-width: 2.4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: none;
+}
+.dock-cbx .cbx.on svg {
+  display: block;
+}
+.dock-cbx a {
+  color: var(--mav-btn-textonly-default);
+  text-decoration: none;
+  font-weight: var(--mav-font-weight-bold);
+}
+
+.home-ind {
+  width: 144px;
+  height: 5px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-text-default);
+  margin: 0 auto 8px;
+}

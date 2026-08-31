@@ -1,0 +1,92 @@
+/* Tabs — ported from MaV components/tabs.html (Figma "‣ Tabs" 901:22860).
+   48px tab bar: full-width rail with a per-tab active indicator. */
+.tabs {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 375px;
+}
+.tabs::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-tabs-default);
+}
+.tab {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+.tab-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-md);
+  color: var(--mav-text-placeholder);
+}
+.tab.selected .tab-label {
+  color: var(--mav-text-default);
+}
+.tab.selected::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-tabs-active);
+  z-index: 1;
+}
+.tab.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.tab-label svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+.tab-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mav-system-danger);
+  border: 1.5px solid var(--mav-bg-default);
+  flex-shrink: 0;
+}
+
+/* scrollable: tabs keep intrinsic width and scroll horizontally */
+.tabs-scroll {
+  overflow-x: auto;
+  max-width: 375px;
+}
+.tabs-scroll .tab {
+  flex: 0 0 auto;
+}
+
+/* skeleton */
+.tab-skel {
+  width: 70px;
+  height: 16px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-bg-secondary);
+  margin: 12px 16px;
+}

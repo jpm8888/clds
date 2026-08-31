@@ -1,0 +1,148 @@
+/* TextField — ported from MaV components/inputs.html (Figma 52:30298).
+   Base padding 10/16 · radius 4px · shadow-input. States re-theme in dark. */
+.field-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 16px;
+  border: 1px solid var(--mav-input-default-outline);
+  background: var(--mav-input-default-bg);
+  border-radius: var(--mav-radius-sm);
+  box-shadow: var(--mav-shadow-input);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  line-height: 20px;
+  color: var(--mav-input-active-text);
+  transition:
+    border-color var(--mav-duration-fast),
+    background var(--mav-duration-fast);
+}
+.field input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+}
+.field input::placeholder {
+  color: var(--mav-input-default-placeholder);
+  font-weight: var(--mav-font-weight-bold);
+}
+.field-icon {
+  flex-shrink: 0;
+  color: var(--mav-icon-subtle);
+}
+
+/* Sizes */
+.field-sm {
+  padding: 8px 14px;
+}
+.field-lg {
+  padding: 14px 16px;
+}
+
+/* States */
+.field.is-filled {
+  border-color: var(--mav-input-active-outline);
+}
+.field.is-focus {
+  border-color: var(--mav-input-focus-outline);
+}
+.field.is-error {
+  background: var(--mav-input-error-bg);
+  border-color: var(--mav-input-error-outline);
+}
+.field.is-disabled {
+  background: var(--mav-input-disabled-bg);
+  border-color: var(--mav-input-disabled-outline);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.field.is-disabled input {
+  color: var(--mav-input-disabled-text);
+  cursor: not-allowed;
+}
+.field.is-disabled input::placeholder {
+  color: var(--mav-input-disabled-text);
+}
+/* live focus for interactive inputs */
+.field:focus-within:not(.is-error):not(.is-disabled) {
+  border-color: var(--mav-input-focus-outline);
+}
+
+/* Error helper row */
+.field-err {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-input-error-label);
+}
+.field-err .field-icon {
+  color: var(--mav-input-error-icon);
+}
+
+/* Leading text / prefix chunk (e.g. https://) */
+.field-prefix {
+  color: var(--mav-text-description);
+  font-weight: var(--mav-font-weight-bold);
+  white-space: nowrap;
+}
+.field-vline {
+  width: 1px;
+  align-self: stretch;
+  background: var(--mav-divider-default);
+  margin: -2px 2px;
+}
+
+/* Label block */
+.lbl-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+.lbl-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.lbl-text {
+  font-family: var(--mav-font-inter);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+}
+.lbl-btn {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-btn-textonly-default);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+.lbl-desc {
+  font-family: var(--mav-font-inter);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-description);
+}

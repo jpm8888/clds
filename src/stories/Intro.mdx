@@ -1,0 +1,30 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# @mav/bayad — MaV Design System
+
+Token-driven React components for the **Bayad** fintech prototype, ported from the
+MaV (Modular App Visualizer) design system. Mobile-first (390px reference viewport),
+light + dark theming, zero styling dependencies.
+
+## The three rules
+
+1. **Import the stylesheet once** at the app root: `import '@mav/bayad/styles.css'`
+   (and load fonts — Google Fonts link or `import '@mav/bayad/fonts.css'`).
+2. **Theme with an attribute, not a provider:**
+   `document.documentElement.setAttribute('data-theme', 'dark' | 'light')`.
+   Every component re-themes automatically — never write dark-specific styles.
+3. **Never hardcode colors.** Style your own layout with `var(--mav-…)` tokens or the
+   typed maps from `@mav/bayad/tokens`.
+
+## Structure
+
+- **Atoms** — Button, TextField, Badge, Avatar, OtpInput, Spinner, …
+- **Molecules** — Alert, Toast, Tabs, PaymentCard, List, ChatBubble, Datepicker, …
+- **Organisms** — AppBar, BottomNav, BottomSheet, BalanceCard, TransactionList, and
+  full screen templates (LoginForm, OtpEntry, SelectAccount, Splash).
+- **Tokens** — browse the Colors / Typography / Spacing pages in this section.
+
+Use the **Theme** toolbar button above to flip every story between light and dark —
+the brand flips electric blue `#352eff` → lime `#a1ff5b`.

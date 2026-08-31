@@ -1,0 +1,44 @@
+/* ProgressBar — ported from MaV components/progress.html (Figma 145:939).
+   6px track, 8px radius. Track = --mav-progress-fill-soft, fill =
+   --mav-progress-fill, disabled track = --mav-progress-track. */
+.pbar {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 6px;
+  border-radius: var(--mav-radius-md);
+  background: var(--mav-progress-fill-soft);
+  overflow: hidden;
+}
+.pbar-fill {
+  height: 6px;
+  border-radius: var(--mav-radius-md);
+  background: var(--mav-progress-fill);
+  transition: width 0.35s var(--mav-ease-standard);
+}
+.pbar.is-disabled {
+  background: var(--mav-progress-track);
+}
+
+/* Row with a caption / percentage label */
+.pbar-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 504px;
+}
+.pbar-row .pbar {
+  flex: 1;
+}
+.pbar-label {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-regular);
+  font-size: var(--mav-font-size-sm);
+  line-height: 20px;
+  color: var(--mav-progress-text);
+  min-width: 44px;
+}
+.pbar-label.right {
+  text-align: right;
+}

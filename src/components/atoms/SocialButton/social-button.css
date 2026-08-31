@@ -1,0 +1,68 @@
+/* SocialButton — ported from MaV components/buttons.html (Figma set 52:25190).
+   White card button with a brand logo slot (Google/Apple/Facebook sign-in). */
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--mav-bg-default);
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: var(--mav-radius-md);
+  box-shadow: var(--mav-shadow-input);
+  font-family: var(--mav-font-body);
+  font-size: var(--mav-font-size-sm);
+  font-weight: var(--mav-font-weight-bold);
+  color: var(--mav-text-default);
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition:
+    background var(--mav-duration-fast),
+    border-color var(--mav-duration-fast),
+    box-shadow var(--mav-duration-fast);
+}
+.social-btn img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+.social-btn-sm {
+  padding: 6px 12px;
+}
+.social-btn-sm img {
+  width: 20px;
+  height: 20px;
+}
+.social-btn-lg {
+  padding: 12px 20px;
+}
+.social-btn:hover {
+  background: var(--mav-bg-secondary);
+  border-color: var(--mav-mono-200);
+  color: var(--mav-text-default);
+}
+.social-btn:focus-visible,
+.social-btn.is-focus {
+  box-shadow: var(--mav-shadow-focus-soft);
+  outline: none;
+}
+.social-btn:disabled,
+.social-btn.is-disabled {
+  background: var(--mav-bg-default);
+  border-color: #dbdbdb; /* one-off: source literal */
+  color: #a5a5a5; /* one-off: source literal */
+  cursor: not-allowed;
+}
+.social-btn:disabled img,
+.social-btn.is-disabled img {
+  opacity: 0.4;
+}
+.social-btn-icononly {
+  padding: 8px;
+}
+.social-btn-icononly.social-btn-sm {
+  padding: 6px;
+}
+.social-btn-icononly.social-btn-lg {
+  padding: 12px;
+}

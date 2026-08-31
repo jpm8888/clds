@@ -1,0 +1,67 @@
+/* Breadcrumb / page header — ported from MaV components/navigation.html
+   (Figma 139:2093): breadcrumb trail + title with trailing icon actions. */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 18px;
+  background: var(--mav-bg-default);
+  border: 1px solid var(--mav-border-subtle);
+  border-radius: 14px;
+  max-width: 460px;
+  font-family: var(--mav-font-body);
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+.bc-link {
+  color: var(--mav-btn-textonly-default);
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+}
+.bc-sep {
+  color: var(--mav-text-description);
+  opacity: 0.5;
+}
+.bc-current {
+  color: var(--mav-text-default);
+  font-weight: var(--mav-font-weight-semibold);
+}
+.th-title {
+  font-size: var(--mav-font-size-lg);
+  font-weight: var(--mav-font-weight-bold);
+  color: var(--mav-text-default);
+  margin-top: 4px;
+}
+.th-actions {
+  display: flex;
+  gap: 8px;
+}
+.th-icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--mav-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+  color: var(--mav-text-default);
+  transition: transform 0.12s;
+}
+.th-icon-btn:hover {
+  transform: translateY(-1px);
+}
+.th-icon-btn svg {
+  width: 18px;
+  height: 18px;
+}

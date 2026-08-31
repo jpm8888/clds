@@ -1,0 +1,48 @@
+/* GlideTabs — ported from MaV components/navigation.html (Figma 139:2093).
+   Underline tabs with a gliding ink bar. The accent token flips blue → lime
+   in dark mode by itself. */
+.gtabs {
+  --accent: var(--mav-btn-primary-default);
+  --glide:
+    transform 0.42s cubic-bezier(0.34, 1.1, 0.35, 1), width 0.42s cubic-bezier(0.34, 1.1, 0.35, 1);
+  position: relative;
+  display: flex;
+  border-bottom: 1px solid var(--mav-border-subtle);
+  max-width: 520px;
+  font-family: var(--mav-font-body);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gtabs {
+    --glide: none;
+  }
+}
+.gtabs-ink {
+  position: absolute;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+  left: 0;
+  width: 0;
+  transition: var(--glide);
+  border-radius: 2px;
+}
+.gtab {
+  flex: 1;
+  background: none;
+  border: 0;
+  padding: 12px 16px;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-description);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--mav-duration-med) var(--mav-ease-standard);
+}
+.gtab.on {
+  color: var(--accent);
+  font-weight: var(--mav-font-weight-semibold);
+}
+.gtab:hover:not(.on) {
+  color: var(--mav-text-default);
+}

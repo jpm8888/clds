@@ -1,0 +1,78 @@
+/* Toggle — ported from MaV components/forms.html (--mav-toggle-*; 44×24 pill,
+   active re-themes blue → lime in dark). */
+.tgl {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: var(--mav-radius-full);
+  flex-shrink: 0;
+  cursor: pointer;
+  padding: 0;
+  border: 0;
+  background: var(--mav-toggle-default-bg);
+  transition:
+    background var(--mav-duration-med),
+    box-shadow var(--mav-duration-fast);
+}
+.tgl::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: var(--mav-radius-full);
+  background: var(--mav-main-white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tgl::after {
+    transition: left 0.22s cubic-bezier(0.34, 1.1, 0.35, 1);
+  }
+}
+.tgl.on {
+  background: var(--mav-toggle-active-bg);
+}
+.tgl.on::after {
+  left: 23px;
+}
+.tgl:hover:not(:disabled),
+.tgl.is-hover {
+  filter: brightness(0.95);
+}
+.tgl:focus-visible,
+.tgl.is-focus {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mav-toggle-active-bg) 28%, transparent);
+}
+.tgl:disabled,
+.tgl.is-disabled {
+  cursor: not-allowed;
+  background: var(--mav-toggle-disabled-bg);
+  opacity: 0.7;
+}
+.tgl:disabled.on,
+.tgl.is-disabled.on {
+  background: var(--mav-toggle-disabled-bg2);
+}
+
+.tgl-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-family: var(--mav-font-inter);
+}
+.tgl-field.text-left {
+  flex-direction: row-reverse;
+}
+.tgl-field .nm {
+  font-size: 15px;
+  color: var(--mav-text-default);
+}
+.tgl-field.is-disabled {
+  cursor: not-allowed;
+}
+.tgl-field.is-disabled .nm {
+  color: var(--mav-text-placeholder);
+}

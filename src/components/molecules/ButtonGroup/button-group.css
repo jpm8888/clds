@@ -1,0 +1,73 @@
+/* ButtonGroup — ported from MaV components/buttons.html (Figma 52:26652).
+   Segmented control: bordered pill of equal actions with 1px separators. */
+.btn-group {
+  display: inline-flex;
+  align-items: stretch;
+  background: var(--mav-bg-default);
+  border: 1px solid var(--mav-mono-200);
+  border-radius: var(--mav-radius-md);
+  overflow: hidden;
+  box-shadow: var(--mav-shadow-input);
+}
+.bg-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: var(--mav-font-body);
+  font-size: var(--mav-font-size-sm);
+  font-weight: var(--mav-font-weight-medium);
+  line-height: normal;
+  color: var(--mav-text-default);
+  white-space: nowrap;
+  transition: background var(--mav-duration-fast);
+}
+.bg-item + .bg-item {
+  border-left: 1px solid var(--mav-mono-200);
+}
+.bg-item svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.bg-item:hover {
+  background: var(--mav-bg-secondary);
+}
+.bg-item:disabled,
+.bg-item.is-disabled {
+  color: var(--mav-text-description);
+  cursor: not-allowed;
+  background: transparent;
+}
+.btn-group-sm .bg-item {
+  padding: 6px 12px;
+}
+.btn-group-lg .bg-item {
+  padding: 14px 20px;
+  font-size: var(--mav-font-size-lg);
+}
+.bg-item-icononly {
+  padding: 10px;
+}
+.bg-check {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--mav-radius-sm);
+  background: var(--mav-checkbox-default-bg);
+  border: 1px solid var(--mav-checkbox-default-outline);
+  box-shadow: var(--mav-shadow-input);
+  flex-shrink: 0;
+}
+.bg-item:hover .bg-check {
+  box-shadow: 0 0 0 3px rgba(53, 46, 255, 0.2); /* one-off: primary @ 20% */
+}
+.bg-item:disabled .bg-check {
+  background: var(--mav-checkbox-disabled-bg);
+  border-color: var(--mav-checkbox-disabled-outline);
+  box-shadow: none;
+}

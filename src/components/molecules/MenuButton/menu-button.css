@@ -1,0 +1,55 @@
+/* MenuButton — ported from MaV components/buttons.html (Figma 171:5378 /
+   171:5670). Circular action with an optional label below (home quick
+   actions: Send, Pay, Top-up…). */
+.menu-btn-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.menu-btn-wrap span {
+  font-size: var(--mav-font-size-xs);
+  font-weight: var(--mav-font-weight-medium);
+  color: var(--mav-text-default);
+  font-family: var(--mav-font-body);
+}
+.menu-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: filter var(--mav-duration-fast);
+  background: transparent;
+}
+.menu-btn:hover {
+  filter: brightness(0.95);
+}
+.menu-btn svg {
+  width: 24px;
+  height: 24px;
+}
+.menu-btn-sm {
+  width: 40px;
+  height: 40px;
+}
+.menu-btn-sm svg {
+  width: 19px;
+  height: 19px;
+}
+.menu-btn-primary {
+  background: var(--mav-menu-bg-primary);
+  color: var(--mav-text-inverted);
+}
+.menu-btn-secondary {
+  background: var(--mav-menu-bg-secondary);
+  color: var(--mav-icon-default);
+}
+.menu-btn-tertiary {
+  background: var(--mav-menu-bg-tertiary);
+  border: 1px solid var(--mav-border-subtle);
+  color: var(--mav-icon-default);
+}

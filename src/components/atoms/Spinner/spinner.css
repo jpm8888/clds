@@ -1,0 +1,49 @@
+/* Spinner (Loader) — ported from MaV components/loader.html (Figma 85:2727).
+   Comet spinner: rounded head + fading conic tail in --mav-loader-spin,
+   masked to a ring. Sizes lg 48 / md 32 / sm 24 / xs 16. */
+.loader {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(farthest-side, var(--mav-loader-spin) 94%, #0000) top center / var(--lw)
+      var(--lw) no-repeat,
+    conic-gradient(#0000 25%, var(--mav-loader-spin));
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    #0000 calc(100% - var(--lw)),
+    #000 calc(100% - var(--lw))
+  );
+  mask: radial-gradient(farthest-side, #0000 calc(100% - var(--lw)), #000 calc(100% - var(--lw)));
+  animation: loader-spin 0.8s infinite linear;
+}
+@keyframes loader-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    animation-duration: 2.4s;
+  }
+}
+
+.loader-lg {
+  width: 48px;
+  height: 48px;
+  --lw: 5px;
+}
+.loader-md {
+  width: 32px;
+  height: 32px;
+  --lw: 4px;
+}
+.loader-sm {
+  width: 24px;
+  height: 24px;
+  --lw: 3px;
+}
+.loader-xs {
+  width: 16px;
+  height: 16px;
+  --lw: 2.5px;
+}

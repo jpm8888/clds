@@ -1,0 +1,98 @@
+/* Chip — ported from MaV components/badges.html (Figma page 52:28800).
+   8px radius, dismissible tag. Filled / outline. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  line-height: 1;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--mav-radius-md);
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  transition: filter var(--mav-duration-fast);
+}
+.chip:hover {
+  filter: brightness(0.97);
+}
+.chip-sm {
+  font-size: var(--mav-font-size-xs);
+  padding: 4px 10px;
+}
+.chip-xs {
+  font-size: 11px; /* one-off: between xs and 2xs on the scale */
+  padding: 3px 8px;
+}
+
+.chip-close {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.9;
+  transform: scale(1.15);
+}
+
+/* Filled */
+.chip-primary {
+  background: var(--mav-badge-primary-bg);
+  color: var(--mav-badge-primary-text);
+}
+.chip-red {
+  background: var(--mav-badge-danger-bg);
+  color: var(--mav-badge-danger-text);
+}
+.chip-green {
+  background: var(--mav-badge-success-bg);
+  color: var(--mav-badge-success-text);
+}
+.chip-orange {
+  background: var(--mav-badge-warning-bg);
+  color: var(--mav-badge-warning-text);
+}
+.chip-grey {
+  background: #f5f5f5; /* one-off: light surface, no semantic token */
+  color: #171717; /* one-off: pairs with the fixed light surface */
+}
+.chip-white {
+  background: #fff; /* one-off: stays white per source */
+  color: var(--mav-badge-white-text);
+  border-color: var(--mav-badge-white-outline);
+}
+[data-theme='dark'] .chip-grey {
+  background: var(--mav-border-subtle);
+  color: var(--mav-text-default);
+}
+[data-theme='dark'] .chip-white {
+  background: transparent;
+}
+
+/* Outline */
+.chip-outline {
+  background: transparent;
+}
+.chip-outline.chip-primary {
+  border-color: var(--mav-badge-primary-outline);
+  color: var(--mav-badge-primary-bg);
+}
+.chip-outline.chip-red {
+  border-color: var(--mav-badge-danger-outline);
+  color: var(--mav-badge-danger-text);
+}
+.chip-outline.chip-green {
+  border-color: var(--mav-badge-success-outline);
+  color: var(--mav-badge-success-text);
+}
+.chip-outline.chip-orange {
+  border-color: var(--mav-badge-warning-outline);
+  color: var(--mav-badge-warning-text);
+}

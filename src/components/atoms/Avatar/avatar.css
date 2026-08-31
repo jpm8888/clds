@@ -1,0 +1,123 @@
+/* Avatar — ported from MaV components/avatars.html (Figma set 206:7252).
+   Driven by a single --sz custom property: initials = 50% of size, status
+   dot = 21%. Shapes rounded/squared; text colors grey/primary/red. */
+.avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sz);
+  height: var(--sz);
+  flex-shrink: 0;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  line-height: 1;
+  font-size: calc(var(--sz) * 0.5);
+  overflow: visible;
+}
+.avatar img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
+  pointer-events: none;
+}
+.avatar-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  overflow: hidden;
+}
+/* shape */
+.avatar.rounded {
+  border-radius: 50%;
+}
+.avatar.squared {
+  border-radius: var(--mav-radius-sm);
+}
+.avatar.rounded .avatar-inner {
+  border-radius: 50%;
+}
+.avatar.squared .avatar-inner {
+  border-radius: var(--mav-radius-sm);
+}
+/* text colors */
+.avatar-grey .avatar-inner {
+  background: var(--mav-avatar-grey-bg);
+}
+.avatar-grey {
+  color: var(--mav-avatar-grey-text);
+}
+.avatar-primary .avatar-inner {
+  background: var(--mav-avatar-primary-bg);
+}
+.avatar-primary {
+  color: var(--mav-avatar-primary-text);
+}
+.avatar-red .avatar-inner {
+  background: var(--mav-avatar-red-bg);
+}
+.avatar-red {
+  color: var(--mav-avatar-red-text);
+}
+/* status dot — green fill + white ring, bottom-right */
+.avatar-status {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: calc(var(--sz) * 0.21);
+  height: calc(var(--sz) * 0.21);
+  border-radius: 50%;
+  background: var(--mav-avatar-status-online);
+  box-shadow: 0 0 0 2px var(--mav-avatar-status-ring);
+}
+.avatar.squared .avatar-status {
+  bottom: -2px;
+  right: -2px;
+}
+
+/* Profile chip — avatar + name label below (Figma "Profile" 231:117159) */
+.profile {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.profile .name {
+  font-family: var(--mav-font-body);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-text-default);
+}
+
+/* Stacked group (overlapping avatars) */
+.avatar-stack {
+  display: inline-flex;
+  align-items: center;
+}
+.avatar-stack .avatar {
+  box-shadow: 0 0 0 2px var(--mav-bg-default);
+}
+.avatar-stack .avatar + .avatar {
+  margin-left: calc(var(--sz) * -0.35);
+}
+.avatar-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sz);
+  height: var(--sz);
+  border-radius: 50%;
+  background: var(--mav-avatar-grey-bg);
+  color: var(--mav-avatar-grey-text);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-bold);
+  font-size: calc(var(--sz) * 0.36);
+  box-shadow: 0 0 0 2px var(--mav-bg-default);
+  margin-left: calc(var(--sz) * -0.35);
+}

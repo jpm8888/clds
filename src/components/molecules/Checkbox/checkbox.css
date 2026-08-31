@@ -1,0 +1,89 @@
+/* Checkbox — ported from MaV components/forms.html (--mav-checkbox-* tokens;
+   active fill re-themes blue → lime in dark). */
+.cbx {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  border: 1.5px solid var(--mav-checkbox-default-outline);
+  background: var(--mav-checkbox-default-bg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition:
+    box-shadow var(--mav-duration-fast),
+    background var(--mav-duration-fast),
+    border-color var(--mav-duration-fast);
+}
+.cbx svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--mav-icon-inverted);
+  stroke-width: 2.4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: none;
+}
+.cbx-input:focus-visible + .cbx,
+.cbx.is-focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mav-checkbox-active-bg) 22%, transparent);
+  border-color: var(--mav-checkbox-active-bg);
+}
+.cbx-input:checked + .cbx,
+.cbx.is-selected,
+.cbx.is-indeterminate {
+  background: var(--mav-checkbox-active-bg);
+  border-color: var(--mav-checkbox-active-bg);
+}
+.cbx-input:checked + .cbx .cb-check,
+.cbx.is-selected .cb-check {
+  display: block;
+}
+.cbx.is-indeterminate .cb-check {
+  display: none;
+}
+.cbx.is-indeterminate .cb-minus {
+  display: block;
+}
+.cbx-input:disabled + .cbx,
+.cbx.is-disabled {
+  background: var(--mav-checkbox-disabled-bg);
+  border-color: var(--mav-checkbox-disabled-outline);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.cbx-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: var(--mav-font-inter);
+}
+.cbx-field.text-left {
+  flex-direction: row-reverse;
+}
+.cbx-field .nm {
+  font-size: 15px;
+  color: var(--mav-text-default);
+}
+.cbx-field.is-disabled {
+  cursor: not-allowed;
+}
+.cbx-field.is-disabled .nm {
+  color: var(--mav-text-placeholder);
+}
+
+/* visually hidden native input keeps keyboard + a11y semantics */
+.cbx-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}

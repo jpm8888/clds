@@ -1,0 +1,120 @@
+/* AppBar — ported from MaV components/app-bar.html (Figma "❖ Top Navigation"
+   203:1615). iOS status bar over a 56px row: back control, centered title,
+   trailing action slot. */
+.appbar {
+  width: 375px;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background: var(--mav-appbar-bg);
+  overflow: hidden;
+  font-family: var(--mav-font-body);
+}
+
+/* status bar */
+.ab-status {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+.ab-time {
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-semibold);
+  font-size: 15px;
+  color: var(--mav-icon-default);
+  letter-spacing: 0.2px;
+}
+.ab-levels {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.ab-levels svg {
+  display: block;
+  fill: var(--mav-icon-default);
+}
+
+/* nav row */
+.ab-row {
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+.ab-side {
+  width: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+.ab-side.after {
+  width: auto;
+  min-width: 44px;
+  padding-right: 8px;
+}
+.ab-title {
+  flex: 1 0 0;
+  min-width: 0;
+  text-align: center;
+  font-weight: var(--mav-font-weight-bold);
+  font-size: var(--mav-font-size-md);
+  color: var(--mav-text-default);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 4px;
+}
+
+/* icon button */
+.ab-ico {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--mav-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--mav-icon-default);
+}
+
+/* text button */
+.ab-txt {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0 8px;
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-medium);
+  font-size: var(--mav-font-size-sm);
+  color: var(--mav-btn-textonly-default);
+  white-space: nowrap;
+}
+
+/* inverted appearance — a permanently dark bar (independent of theme).
+   The accent is the dark-theme brand lime by design. */
+.appbar.inverted {
+  background: #171717;
+}
+.appbar.inverted .ab-time,
+.appbar.inverted .ab-title,
+.appbar.inverted .ab-ico {
+  color: #ffffff;
+}
+.appbar.inverted .ab-levels svg {
+  fill: #ffffff;
+}
+.appbar.inverted .ab-txt {
+  color: #a1ff5b;
+}
+
+/* framed variant (hairline bottom border) */
+.appbar.bordered {
+  border-bottom: 1px solid var(--mav-border-subtle);
+}

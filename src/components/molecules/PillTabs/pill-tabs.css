@@ -1,0 +1,50 @@
+/* PillTabs — ported from MaV components/navigation.html (Figma 139:2093).
+   Segmented pills with a gliding highlight over a grey track. */
+.gpills {
+  --glide:
+    transform 0.42s cubic-bezier(0.34, 1.1, 0.35, 1), width 0.42s cubic-bezier(0.34, 1.1, 0.35, 1);
+  position: relative;
+  display: inline-flex;
+  gap: 2px;
+  background: var(--mav-bg-secondary);
+  padding: 4px;
+  border-radius: var(--mav-radius-full);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gpills {
+    --glide: none;
+  }
+}
+.gpills-ink {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: 0;
+  background: var(--mav-bg-default);
+  border-radius: var(--mav-radius-full);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: var(--glide);
+}
+/* dark: the pill must sit above the dark track — one-off elevated grey */
+[data-theme='dark'] .gpills-ink {
+  background: #3a3a3a;
+}
+.gpill {
+  position: relative;
+  z-index: 1;
+  background: none;
+  border: 0;
+  padding: 8px 18px;
+  border-radius: var(--mav-radius-full);
+  font-family: var(--mav-font-body);
+  font-weight: var(--mav-font-weight-semibold);
+  font-size: 13px;
+  color: var(--mav-text-description);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--mav-duration-med) var(--mav-ease-standard);
+}
+.gpill.on {
+  color: var(--mav-text-default);
+}

@@ -1,0 +1,69 @@
+/* TextLink — ported from MaV components/buttons.html (Figma set 52:26430).
+   Inline text action, no underline in any state. */
+.tlink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: var(--mav-radius-sm);
+  font-family: var(--mav-font-body);
+  font-size: var(--mav-font-size-sm);
+  font-weight: var(--mav-font-weight-medium);
+  line-height: normal;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    color var(--mav-duration-fast),
+    box-shadow var(--mav-duration-fast);
+}
+.tlink svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.tlink-sm svg {
+  width: 16px;
+  height: 16px;
+}
+.tlink-primary {
+  color: var(--mav-btn-textonly-default);
+}
+.tlink-primary:hover {
+  color: #06111b; /* one-off: source literal near-black hover */
+}
+.tlink-primary:focus-visible,
+.tlink-primary.is-focus {
+  color: var(--mav-input-focus-text);
+  box-shadow: var(--mav-shadow-focus-soft);
+  outline: none;
+}
+.tlink-secondary {
+  color: var(--mav-icon-default);
+}
+.tlink-secondary:hover {
+  color: #383838; /* one-off: source literal */
+}
+.tlink-secondary:focus-visible,
+.tlink-secondary.is-focus {
+  box-shadow: var(--mav-shadow-focus-soft);
+  outline: none;
+}
+.tlink-tertiary {
+  color: var(--mav-btn-textonly-default);
+}
+.tlink-tertiary:hover {
+  color: var(--mav-icon-default);
+}
+.tlink-tertiary:focus-visible,
+.tlink-tertiary.is-focus {
+  box-shadow: var(--mav-shadow-focus-soft);
+  outline: none;
+}
+.tlink:disabled,
+.tlink.is-disabled {
+  color: var(--mav-btn-textonly-disabled);
+  cursor: not-allowed;
+}
