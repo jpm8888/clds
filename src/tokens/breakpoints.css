@@ -1,0 +1,17 @@
+/* ════════════════════════════════════════════════════════════════════════
+   @mav/bayad — Breakpoints (documentation only)
+   CSS custom properties cannot be used inside @media queries, so these are
+   exported as TS constants from '@mav/bayad/tokens' (breakpoints map) and
+   hardcoded in CSS with a comment naming the breakpoint.
+
+     xs    360px   small Android
+     sm    390px   reference mobile viewport (iPhone 12+)
+     mdSm  600px   large phone / small tablet
+     md    768px   tablet
+     lg    1024px  small laptop
+     xl    1280px  desktop
+     2xl   1440px  wide desktop
+
+   Example — annotate hardcoded widths with the breakpoint name:
+     @media (min-width: 768px) { … }  ← comment it as "bp-md"
+   ════════════════════════════════════════════════════════════════════════ */

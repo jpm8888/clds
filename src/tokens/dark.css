@@ -1,0 +1,181 @@
+/* ════════════════════════════════════════════════════════════════════════
+   @mav/bayad — DARK theme overrides
+   Activated by data-theme="dark" on <html> (or any ancestor).
+   Only tokens that change are re-pointed — component CSS never mentions
+   dark mode. Status colors (danger/success/warning) are deliberately
+   identical in both themes, as is the focus ring.
+   Headline flip: brand primary #352eff → #a1ff5b (lime).
+   ════════════════════════════════════════════════════════════════════════ */
+[data-theme='dark'] {
+  /* Foundation */
+  --mav-main-white: var(--mav-bc-black);
+  --mav-main-black: var(--mav-bc-white);
+  --mav-main-grey: var(--mav-bc-mono200-l); /* #cccccc in dark, per source */
+  --mav-main-primary: var(--mav-bc-primary-dark);
+  --mav-main-secondary: var(--mav-bc-primary-dark);
+  --mav-main-tertiary-2: var(--mav-bc-primary-dark);
+
+  --mav-mono-100: var(--mav-bc-mono100-d);
+  --mav-mono-200: var(--mav-bc-mono200-d);
+  --mav-mono-300: var(--mav-bc-mono300-d);
+  --mav-mono-400: var(--mav-bc-mono400-d);
+  --mav-mono-600: var(--mav-bc-mono600-d);
+  --mav-mono-700: var(--mav-bc-mono700-d);
+  --mav-mono-800: var(--mav-bc-mono800-d);
+  --mav-mono-900: var(--mav-bc-mono900-d);
+
+  --mav-system-primary: var(--mav-bc-primary-dark);
+  --mav-system-primary-soft: var(--mav-bc-primary-dark-soft);
+
+  --mav-tint-primary-100: var(--mav-bc-tintp100-d);
+  --mav-tint-primary-200: var(--mav-bc-tintp200-d);
+  --mav-tint-primary-300: var(--mav-bc-tintp300-d);
+  --mav-tint-primary-400: var(--mav-bc-tintp400-d);
+  --mav-tint-primary-500: var(--mav-bc-tintp500-d);
+  --mav-tint-primary-600: var(--mav-bc-tintp600-d);
+  --mav-tint-primary-700: var(--mav-bc-tintp700-d);
+  --mav-tint-primary-800: var(--mav-bc-tintp800-d);
+  --mav-tint-primary-900: var(--mav-bc-tintp900-d);
+
+  --mav-shade-primary-100: var(--mav-bc-shadep100-d);
+  --mav-shade-primary-200: var(--mav-bc-shadep200-d);
+  --mav-shade-primary-300: var(--mav-bc-shadep300-d);
+  --mav-shade-primary-400: var(--mav-bc-shadep400-d);
+  --mav-shade-primary-500: var(--mav-bc-shadep500-d);
+  --mav-shade-primary-600: var(--mav-bc-shadep600-d);
+  --mav-shade-primary-700: var(--mav-bc-shadep700-d);
+  --mav-shade-primary-800: var(--mav-bc-shadep800-d);
+  --mav-shade-primary-900: var(--mav-bc-shadep900-d);
+
+  --mav-tint-secondary-100: var(--mav-bc-tints100-d);
+  --mav-tint-secondary-200: var(--mav-bc-tints200-d);
+  --mav-tint-secondary-300: var(--mav-bc-tints300-d);
+  --mav-tint-secondary-400: var(--mav-bc-tints400-d);
+  --mav-tint-secondary-500: var(--mav-bc-tints500-d);
+  --mav-tint-secondary-600: var(--mav-bc-tints600-d);
+  --mav-tint-secondary-700: var(--mav-bc-tints700-d);
+  --mav-tint-secondary-800: var(--mav-bc-tints800-d);
+  --mav-tint-secondary-900: var(--mav-bc-tints900-d);
+
+  --mav-shade-secondary-100: var(--mav-bc-shades100-d);
+  --mav-shade-secondary-200: var(--mav-bc-shades200-d);
+  --mav-shade-secondary-300: var(--mav-bc-shades300-d);
+  --mav-shade-secondary-400: var(--mav-bc-shades400-d);
+  --mav-shade-secondary-500: var(--mav-bc-shades500-d);
+  --mav-shade-secondary-600: var(--mav-bc-shades600-d);
+  --mav-shade-secondary-700: var(--mav-bc-shades700-d);
+  --mav-shade-secondary-800: var(--mav-bc-shades800-d);
+  --mav-shade-secondary-900: var(--mav-bc-shades900-d);
+
+  /* Background & surface */
+  --mav-bg-default: var(--mav-bc-black);
+  --mav-bg-secondary: var(--mav-bc-mono100-d);
+  --mav-bg-tertiary: var(--mav-bc-tints100-d);
+  --mav-surface: var(--mav-bc-surface-dark);
+
+  /* Overlay — scrim slightly stronger over dark UI */
+  --mav-blanket: #00000099; /* one-off */
+
+  /* Text */
+  --mav-text-default: var(--mav-bc-white);
+  --mav-text-brand: var(--mav-bc-primary-dark);
+  --mav-text-inverted: var(--mav-bc-black);
+
+  /* Icon */
+  --mav-icon-default: var(--mav-bc-white);
+  --mav-icon-active: var(--mav-bc-primary-dark);
+  --mav-icon-inverted: var(--mav-bc-black);
+
+  /* Divider & border */
+  --mav-divider-default: var(--mav-bc-mono200-d);
+  --mav-border-default: var(--mav-bc-white);
+  --mav-border-active: var(--mav-bc-primary-dark);
+  --mav-border-subtle: var(--mav-bc-mono300-l); /* #b2b2b2 in dark, per source */
+
+  /* Buttons */
+  --mav-btn-primary-default: var(--mav-bc-primary-dark);
+  --mav-btn-primary-disabled: var(--mav-bc-mono100-d);
+  --mav-btn-primary-text: var(--mav-bc-black);
+  --mav-btn-textonly-default: var(--mav-bc-primary-dark);
+  --mav-btn-textonly-clicked: var(--mav-bc-primary-dark);
+
+  /* Input field */
+  --mav-input-default-bg: var(--mav-bc-black);
+  --mav-input-default-outline: var(--mav-bc-mono200-d);
+  --mav-input-default-placeholder: var(--mav-bc-mono300-d);
+  --mav-input-active-bg: var(--mav-bc-black);
+  --mav-input-active-outline: var(--mav-bc-mono900-d);
+  --mav-input-active-text: var(--mav-bc-mono900-d);
+  --mav-input-focus-bg: var(--mav-bc-black);
+  --mav-input-focus-outline: var(--mav-bc-primary-dark);
+  --mav-input-focus-text: var(--mav-bc-mono900-d);
+
+  /* OTP */
+  --mav-otp-default-bg: var(--mav-bc-black);
+  --mav-otp-default-outline: var(--mav-bc-mono200-d);
+  --mav-otp-focus-bg: var(--mav-bc-black);
+  --mav-otp-focus-outline: var(--mav-bc-primary-dark);
+  --mav-otp-focus-text: var(--mav-bc-mono900-d);
+  --mav-otp-active-bg: var(--mav-bc-black);
+  --mav-otp-active-outline: var(--mav-bc-mono900-d);
+  --mav-otp-active-text: var(--mav-bc-mono900-d);
+
+  /* Controls */
+  --mav-loader-spin: var(--mav-bc-primary-dark);
+  --mav-tabs-active: var(--mav-bc-primary-dark);
+  --mav-toggle-default-bg: var(--mav-bc-mono100-d);
+  --mav-toggle-active-bg: var(--mav-bc-primary-dark);
+  --mav-checkbox-active-bg: var(--mav-bc-primary-dark);
+
+  /* Account / dock */
+  --mav-account-bg: var(--mav-bc-mono100-d);
+  --mav-account-bg-secondary: var(--mav-bc-surface-dark);
+  --mav-account-outline: var(--mav-bc-mono200-d);
+  --mav-account-text: var(--mav-bc-mono900-d);
+  --mav-dock-bg: var(--mav-bc-black);
+
+  /* Alert */
+  --mav-alert-primary-bg: var(--mav-bc-primary-soft);
+  --mav-alert-primary-text: var(--mav-bc-primary-dark);
+
+  /* Badge & chip */
+  --mav-badge-primary-bg: var(--mav-bc-primary-dark);
+  --mav-badge-primary-text: var(--mav-bc-black);
+  --mav-badge-primary-icon: var(--mav-bc-black);
+
+  /* Toast */
+  --mav-toast-bg: var(--mav-bc-black);
+  --mav-toast-title: var(--mav-bc-white);
+  --mav-toast-icon: var(--mav-bc-white);
+  --mav-toast-outline: var(--mav-bc-mono200-d);
+
+  /* Nav bar */
+  --mav-nav-bg-primary: var(--mav-bc-white);
+  --mav-nav-bg-secondary: var(--mav-bc-white);
+  --mav-nav-bg-card: var(--mav-bc-white);
+  --mav-nav-active: var(--mav-bc-white);
+  --mav-nav-icon: var(--mav-bc-white);
+  --mav-nav-text: var(--mav-bc-white);
+
+  /* Coachmark */
+  --mav-coachmark-dots: var(--mav-bc-white);
+  --mav-coachmark-dot-dash: var(--mav-bc-white);
+
+  /* Chat bubbles — incoming dark-grey, outgoing solid blue, sender lime */
+  --mav-bubble-bg-incoming: #2c2c2e; /* one-off */
+  --mav-bubble-bg-outgoing: #2f43d9; /* one-off */
+  --mav-bubble-name-incoming: var(--mav-bc-primary-dark);
+  --mav-bubble-text-outgoing: var(--mav-bc-white);
+  --mav-bubble-text-incoming: #f2f2f2; /* one-off */
+  --mav-bubble-bg-outgoing-reply: #ffffff26; /* one-off */
+  --mav-bubble-outline-incoming: var(--mav-bc-primary-dark);
+
+  /* Balance / app bar */
+  --mav-balance-bg: var(--mav-bc-black);
+  --mav-balance-bg-secondary: var(--mav-bc-mono200-d);
+  --mav-appbar-bg: var(--mav-bc-black);
+
+  /* Line chart */
+  --mav-chart-line-brand: var(--mav-bc-primary-dark);
+  --mav-chart-gradient-brand: var(--mav-bc-primary-dark-soft);
+}

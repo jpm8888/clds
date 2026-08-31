@@ -1,0 +1,13 @@
+/* ════════════════════════════════════════════════════════════════════════
+   @mav/bayad — Z-index layers (new in this port). Keep app content below
+   --mav-z-sticky; never hardcode z-index in app code.
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  --mav-z-base: 0;
+  --mav-z-sticky: 10; /* sticky section headers, docked CTAs */
+  --mav-z-appbar: 100;
+  --mav-z-overlay: 900; /* blanket / scrim */
+  --mav-z-sheet: 1000; /* bottom sheets, dialogs */
+  --mav-z-toast: 1100;
+  --mav-z-tooltip: 1200; /* coachmarks, tooltips */
+}

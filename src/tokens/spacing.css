@@ -1,0 +1,49 @@
+/* ════════════════════════════════════════════════════════════════════════
+   @mav/bayad — Spacing & layout tokens
+   Single px-named scale (the source's --space-*, --spacing/N and
+   --Spacing/N all fold into this one set — see docs/tokens-figma-mapping.md).
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  --mav-space-0: 0px;
+  --mav-space-2: 2px;
+  --mav-space-4: 4px;
+  --mav-space-6: 6px;
+  --mav-space-8: 8px;
+  --mav-space-10: 10px;
+  --mav-space-12: 12px;
+  --mav-space-14: 14px;
+  --mav-space-16: 16px;
+  --mav-space-18: 18px;
+  --mav-space-20: 20px;
+  --mav-space-24: 24px;
+  --mav-space-28: 28px;
+  --mav-space-32: 32px;
+  --mav-space-36: 36px;
+  --mav-space-38: 38px;
+  --mav-space-40: 40px;
+  --mav-space-44: 44px;
+  --mav-space-48: 48px;
+  --mav-space-54: 54px;
+  --mav-space-56: 56px;
+  --mav-space-64: 64px;
+
+  /* Section-header spacing presets */
+  --mav-space-header-none: var(--mav-space-0);
+  --mav-space-header-xs: var(--mav-space-4);
+  --mav-space-header-sm: var(--mav-space-8);
+  --mav-space-header-md: var(--mav-space-16);
+  --mav-space-header-lg: var(--mav-space-24);
+
+  /* Layout constraints (mobile-first, 390px reference viewport) */
+  --mav-container-padding: var(--mav-space-20);
+  --mav-max-content-width: 343px; /* 390 − 2×20 + 3px optical */
+
+  /* OTP layout */
+  --mav-otp-root-gap: var(--mav-space-32);
+  --mav-otp-field-gap: var(--mav-space-16);
+  --mav-otp-slot-width: var(--mav-space-48);
+  --mav-otp-slot-height: var(--mav-space-48);
+  --mav-otp-slot-padding-h: var(--mav-space-16);
+  --mav-otp-slot-padding-v: var(--mav-space-14);
+  --mav-otp-slot-gap: var(--mav-space-8);
+}

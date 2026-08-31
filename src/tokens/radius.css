@@ -1,0 +1,15 @@
+/* ════════════════════════════════════════════════════════════════════════
+   @mav/bayad — Radii & border widths
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  --mav-radius-xs: 2px;
+  --mav-radius-sm: 4px; /* the default button/input radius */
+  --mav-radius-md: 8px;
+  --mav-radius-lg: 16px;
+  --mav-radius-full: 9999px;
+  --mav-radius-sheet: 32px; /* bottom-sheet top corners */
+
+  --mav-border-width-xs: 1px;
+  --mav-border-width-sm: 2px;
+  --mav-border-width-md: 4px;
+}

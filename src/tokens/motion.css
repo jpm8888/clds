@@ -1,0 +1,14 @@
+/* ════════════════════════════════════════════════════════════════════════
+   @mav/bayad — Motion tokens (new in this port; the source scattered these
+   as literals). Always gate decorative animation behind
+   @media (prefers-reduced-motion: no-preference).
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  --mav-duration-fast: 0.15s; /* hover/press feedback */
+  --mav-duration-base: 0.18s; /* small state changes */
+  --mav-duration-med: 0.2s; /* toggles, tabs */
+  --mav-duration-slow: 0.38s; /* sheets, page-level transitions */
+
+  --mav-ease-out: cubic-bezier(0.22, 0.9, 0.3, 1); /* the MaV signature ease */
+  --mav-ease-standard: ease;
+}

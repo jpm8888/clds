@@ -1,0 +1,412 @@
+/* ════════════════════════════════════════════════════════════════════════
+   @mav/bayad — LAYERS 1+2: Foundation + component tokens (LIGHT theme)
+   Every value references a Layer-0 primitive (primitives.css) so palette
+   changes propagate. Component CSS references THESE tokens — never
+   --mav-bc-* primitives directly, never raw hex.
+   Dark theme re-points the same names in dark.css; component CSS therefore
+   never mentions dark mode.
+   A few values are one-off literals with no palette primitive — each is
+   marked "one-off".
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* ══ FOUNDATION ══ */
+
+  /* Main */
+  --mav-main-white: var(--mav-bc-white);
+  --mav-main-black: var(--mav-bc-black);
+  --mav-main-grey: var(--mav-bc-grey);
+  --mav-main-transparent: var(--mav-bc-transparent);
+  --mav-main-primary: var(--mav-bc-primary-light);
+  --mav-main-secondary: var(--mav-bc-secondary);
+  --mav-main-tertiary-1: var(--mav-bc-tertiary1);
+  --mav-main-tertiary-2: var(--mav-bc-tertiary2);
+  --mav-main-variation: var(--mav-bc-variation);
+
+  /* Mono */
+  --mav-mono-100: var(--mav-bc-mono100-l);
+  --mav-mono-200: var(--mav-bc-mono200-l);
+  --mav-mono-300: var(--mav-bc-mono300-l);
+  --mav-mono-400: var(--mav-bc-mono400-l);
+  --mav-mono-500: var(--mav-bc-mono500);
+  --mav-mono-600: var(--mav-bc-mono600-l);
+  --mav-mono-700: var(--mav-bc-mono700-l);
+  --mav-mono-800: var(--mav-bc-mono800-l);
+  --mav-mono-900: var(--mav-bc-mono900-l);
+
+  /* System */
+  --mav-system-danger: var(--mav-bc-danger);
+  --mav-system-danger-soft: var(--mav-bc-danger-soft);
+  --mav-system-danger-dark: var(--mav-bc-danger-dark);
+  --mav-system-success: var(--mav-bc-success);
+  --mav-system-success-soft: var(--mav-bc-success-soft);
+  --mav-system-warning: var(--mav-bc-warning);
+  --mav-system-warning-soft: var(--mav-bc-warning-soft);
+  --mav-system-natural: var(--mav-bc-natural);
+  --mav-system-primary: var(--mav-bc-primary-light);
+  --mav-system-primary-soft: var(--mav-bc-primary-soft);
+  --mav-system-info: var(--mav-bc-info-500);
+
+  /* Tint / Shade ramps */
+  --mav-tint-primary-100: var(--mav-bc-tintp100-l);
+  --mav-tint-primary-200: var(--mav-bc-tintp200-l);
+  --mav-tint-primary-300: var(--mav-bc-tintp300-l);
+  --mav-tint-primary-400: var(--mav-bc-tintp400-l);
+  --mav-tint-primary-500: var(--mav-bc-tintp500-l);
+  --mav-tint-primary-600: var(--mav-bc-tintp600-l);
+  --mav-tint-primary-700: var(--mav-bc-tintp700-l);
+  --mav-tint-primary-800: var(--mav-bc-tintp800-l);
+  --mav-tint-primary-900: var(--mav-bc-tintp900-l);
+
+  --mav-shade-primary-100: var(--mav-bc-shadep100-l);
+  --mav-shade-primary-200: var(--mav-bc-shadep200-l);
+  --mav-shade-primary-300: var(--mav-bc-shadep300-l);
+  --mav-shade-primary-400: var(--mav-bc-shadep400-l);
+  --mav-shade-primary-500: var(--mav-bc-shadep500-l);
+  --mav-shade-primary-600: var(--mav-bc-shadep600-l);
+  --mav-shade-primary-700: var(--mav-bc-shadep700-l);
+  --mav-shade-primary-800: var(--mav-bc-shadep800-l);
+  --mav-shade-primary-900: var(--mav-bc-shadep900-l);
+
+  --mav-tint-secondary-100: var(--mav-bc-tints100-l);
+  --mav-tint-secondary-200: var(--mav-bc-tints200-l);
+  --mav-tint-secondary-300: var(--mav-bc-tints300-l);
+  --mav-tint-secondary-400: var(--mav-bc-tints400-l);
+  --mav-tint-secondary-500: var(--mav-bc-tints500-l);
+  --mav-tint-secondary-600: var(--mav-bc-tints600-l);
+  --mav-tint-secondary-700: var(--mav-bc-tints700-l);
+  --mav-tint-secondary-800: var(--mav-bc-tints800-l);
+  --mav-tint-secondary-900: var(--mav-bc-tints900-l);
+
+  --mav-shade-secondary-100: var(--mav-bc-shades100-l);
+  --mav-shade-secondary-200: var(--mav-bc-shades200-l);
+  --mav-shade-secondary-300: var(--mav-bc-shades300-l);
+  --mav-shade-secondary-400: var(--mav-bc-shades400-l);
+  --mav-shade-secondary-500: var(--mav-bc-shades500-l);
+  --mav-shade-secondary-600: var(--mav-bc-shades600-l);
+  --mav-shade-secondary-700: var(--mav-bc-shades700-l);
+  --mav-shade-secondary-800: var(--mav-bc-shades800-l);
+  --mav-shade-secondary-900: var(--mav-bc-shades900-l);
+
+  --mav-tint-tertiary-100: var(--mav-bc-tintt100);
+  --mav-tint-tertiary-200: var(--mav-bc-tintt200);
+  --mav-tint-tertiary-300: var(--mav-bc-tintt300);
+  --mav-tint-tertiary-400: var(--mav-bc-tintt400);
+  --mav-tint-tertiary-500: var(--mav-bc-tintt500);
+  --mav-tint-tertiary-600: var(--mav-bc-tintt600);
+  --mav-tint-tertiary-700: var(--mav-bc-tintt700);
+  --mav-tint-tertiary-800: var(--mav-bc-tintt800);
+  --mav-tint-tertiary-900: var(--mav-bc-tintt900);
+
+  --mav-tint-tertiary2-100: var(--mav-bc-tintt2-100);
+  --mav-tint-tertiary2-200: var(--mav-bc-tintt2-200);
+  --mav-tint-tertiary2-300: var(--mav-bc-tintt2-300);
+  --mav-tint-tertiary2-400: var(--mav-bc-tintt2-400);
+  --mav-tint-tertiary2-500: var(--mav-bc-tintt2-500);
+  --mav-tint-tertiary2-600: var(--mav-bc-tintt2-600);
+  --mav-tint-tertiary2-700: var(--mav-bc-tintt2-700);
+  --mav-tint-tertiary2-800: var(--mav-bc-tintt2-800);
+  --mav-tint-tertiary2-900: var(--mav-bc-tintt2-900);
+
+  --mav-shade-tertiary-100: var(--mav-bc-shadet100);
+  --mav-shade-tertiary-200: var(--mav-bc-shadet200);
+  --mav-shade-tertiary-300: var(--mav-bc-shadet300);
+  --mav-shade-tertiary-400: var(--mav-bc-shadet400);
+  --mav-shade-tertiary-500: var(--mav-bc-shadet500);
+  --mav-shade-tertiary-600: var(--mav-bc-shadet600);
+  --mav-shade-tertiary-700: var(--mav-bc-shadet700);
+  --mav-shade-tertiary-800: var(--mav-bc-shadet800);
+  --mav-shade-tertiary-900: var(--mav-bc-shadet900);
+
+  --mav-shade-tertiary2-100: var(--mav-bc-shadet2-100);
+  --mav-shade-tertiary2-200: var(--mav-bc-shadet2-200);
+  --mav-shade-tertiary2-300: var(--mav-bc-shadet2-300);
+  --mav-shade-tertiary2-400: var(--mav-bc-shadet2-400);
+  --mav-shade-tertiary2-500: var(--mav-bc-shadet2-500);
+  --mav-shade-tertiary2-600: var(--mav-bc-shadet2-600);
+  --mav-shade-tertiary2-700: var(--mav-bc-shadet2-700);
+  --mav-shade-tertiary2-800: var(--mav-bc-shadet2-800);
+  --mav-shade-tertiary2-900: var(--mav-bc-shadet2-900);
+
+  /* ══ SEMANTIC / COMPONENT ══ */
+
+  /* Background & surface */
+  --mav-bg-default: var(--mav-bc-white);
+  --mav-bg-secondary: var(--mav-bc-mono100-l);
+  --mav-bg-tertiary: var(--mav-bc-tints100-l); /* tinted primary bg */
+  --mav-surface: var(--mav-bc-white);
+  --mav-code-bg: var(--mav-bc-code-bg); /* invariant dark */
+
+  /* Overlay / bottom sheet */
+  --mav-blanket: #0d0d0d80; /* one-off: sheet scrim */
+
+  /* Text */
+  --mav-text-default: var(--mav-bc-black);
+  --mav-text-description: var(--mav-bc-mono500);
+  --mav-text-placeholder: var(--mav-bc-mono300-l);
+  --mav-text-disabled: var(--mav-bc-mono200-l);
+  --mav-text-brand: var(--mav-bc-primary-light);
+  --mav-text-inverted: var(--mav-bc-white);
+
+  /* Icon */
+  --mav-icon-default: var(--mav-bc-black);
+  --mav-icon-active: var(--mav-bc-primary-light);
+  --mav-icon-subtle: var(--mav-bc-mono300-l);
+  --mav-icon-disabled: var(--mav-bc-mono200-l);
+  --mav-icon-inverted: var(--mav-bc-white);
+
+  /* Divider */
+  --mav-divider-default: var(--mav-bc-grey);
+
+  /* Border */
+  --mav-border-default: var(--mav-bc-black);
+  --mav-border-inverted: var(--mav-bc-white);
+  --mav-border-active: var(--mav-bc-primary-light);
+  --mav-border-subtle: var(--mav-bc-grey);
+  --mav-border-disabled: var(--mav-bc-mono200-l);
+
+  /* Button — primary */
+  --mav-btn-primary-default: var(--mav-bc-primary-light);
+  --mav-btn-primary-hover: var(--mav-bc-black);
+  --mav-btn-primary-clicked: var(--mav-bc-tertiary2);
+  --mav-btn-primary-disabled: var(--mav-bc-mono100-l);
+  --mav-btn-primary-loading: var(--mav-bc-primary-light);
+  --mav-btn-primary-text: var(--mav-bc-white);
+  --mav-btn-primary-text-inverted: var(--mav-bc-black);
+
+  /* Button — secondary (outlined) */
+  --mav-btn-secondary-default: transparent;
+  --mav-btn-secondary-hover: var(--mav-bc-grey);
+  --mav-btn-secondary-clicked: var(--mav-bc-primary-light);
+  --mav-btn-secondary-disabled: transparent;
+  --mav-btn-secondary-loading: var(--mav-bc-white);
+  --mav-btn-secondary-outline: var(--mav-bc-grey);
+  --mav-btn-secondary-outline-hover: var(--mav-bc-tertiary1);
+  --mav-btn-secondary-outline-clicked: var(--mav-bc-white);
+  --mav-btn-secondary-outline-loading: var(--mav-bc-primary-light);
+  --mav-btn-secondary-outline-disabled: var(--mav-bc-mono200-l);
+  --mav-btn-secondary-text: var(--mav-bc-black);
+  --mav-btn-secondary-text-inverted: var(--mav-bc-black);
+
+  /* Button — text-only (clear) */
+  --mav-btn-textonly-default: var(--mav-bc-primary-light);
+  --mav-btn-textonly-hover: var(--mav-bc-tertiary1);
+  --mav-btn-textonly-clicked: var(--mav-bc-tertiary2);
+  --mav-btn-textonly-disabled: var(--mav-bc-mono100-l);
+  --mav-btn-textonly-loading: var(--mav-bc-primary-light);
+
+  /* Button — sliding (swipe-to-confirm) */
+  --mav-btn-sliding-default: var(--mav-bc-primary-light);
+  --mav-btn-sliding-hover: var(--mav-bc-tertiary1);
+  --mav-btn-sliding-clicked: var(--mav-bc-tertiary2);
+  --mav-btn-sliding-disabled: var(--mav-bc-mono100-l);
+  --mav-btn-sliding-bg: var(--mav-bc-white);
+  --mav-btn-sliding-knob-disabled: var(--mav-bc-mono200-l);
+  --mav-btn-sliding-text: var(--mav-bc-white);
+  --mav-btn-sliding-text-inverted: var(--mav-bc-black);
+
+  /* Button — swipe-up */
+  --mav-btn-swipeup-default: var(--mav-bc-primary-light);
+  --mav-btn-swipeup-hover: var(--mav-bc-tertiary1);
+  --mav-btn-swipeup-clicked: var(--mav-bc-tertiary2);
+  --mav-btn-swipeup-disabled: var(--mav-bc-mono100-l);
+  --mav-btn-swipeup-loading: var(--mav-bc-primary-light);
+  --mav-btn-swipeup-bg2: var(--mav-bc-tints100-l);
+  --mav-btn-swipeup-text: var(--mav-bc-white);
+  --mav-btn-swipeup-text-inverted: var(--mav-bc-black);
+
+  /* Input field */
+  --mav-input-default-bg: var(--mav-bc-white);
+  --mav-input-default-outline: var(--mav-bc-mono200-l);
+  --mav-input-default-placeholder: var(--mav-bc-mono300-l);
+  --mav-input-active-bg: var(--mav-bc-white);
+  --mav-input-active-outline: var(--mav-bc-mono900-l);
+  --mav-input-active-text: var(--mav-bc-mono900-l);
+  --mav-input-focus-bg: var(--mav-bc-white);
+  --mav-input-focus-outline: var(--mav-bc-primary-light);
+  --mav-input-focus-text: var(--mav-bc-mono900-l);
+  --mav-input-error-bg: var(--mav-bc-danger-soft);
+  --mav-input-error-outline: var(--mav-bc-danger);
+  --mav-input-error-text: var(--mav-bc-mono900-l);
+  --mav-input-error-label: var(--mav-bc-danger);
+  --mav-input-error-icon: var(--mav-bc-danger);
+  --mav-input-disabled-bg: var(--mav-bc-grey);
+  --mav-input-disabled-outline: var(--mav-bc-mono200-l);
+  --mav-input-disabled-text: var(--mav-bc-mono300-l);
+
+  /* OTP */
+  --mav-otp-default-bg: var(--mav-bc-white);
+  --mav-otp-default-outline: var(--mav-bc-mono200-l);
+  --mav-otp-default-placeholder: var(--mav-bc-mono300-l);
+  --mav-otp-focus-bg: var(--mav-bc-white);
+  --mav-otp-focus-outline: var(--mav-bc-primary-light);
+  --mav-otp-focus-text: var(--mav-bc-mono900-l);
+  --mav-otp-active-bg: var(--mav-bc-white);
+  --mav-otp-active-outline: var(--mav-bc-mono900-l);
+  --mav-otp-active-text: var(--mav-bc-mono900-l);
+  --mav-otp-disabled-bg: var(--mav-bc-grey);
+  --mav-otp-disabled-outline: var(--mav-bc-mono200-l);
+  --mav-otp-disabled-text: var(--mav-bc-mono200-l);
+
+  /* Checkbox */
+  --mav-checkbox-default-bg: var(--mav-bc-white);
+  --mav-checkbox-default-outline: var(--mav-bc-mono200-l);
+  --mav-checkbox-active-bg: var(--mav-bc-primary-light);
+  --mav-checkbox-active-outline: var(--mav-bc-mono900-l);
+  --mav-checkbox-disabled-bg: var(--mav-bc-mono100-l);
+  --mav-checkbox-disabled-outline: var(--mav-bc-mono300-l);
+  --mav-checkbox-disabled-text: var(--mav-bc-mono200-l);
+
+  /* Radio */
+  --mav-radio-outline: var(--mav-bc-grey);
+  --mav-radio-secondary: var(--mav-bc-mono200-l);
+
+  /* Toggle */
+  --mav-toggle-default-bg: var(--mav-bc-mono100-l);
+  --mav-toggle-default-placeholder: var(--mav-bc-mono300-l);
+  --mav-toggle-active-bg: var(--mav-bc-primary-light);
+  --mav-toggle-active-text: var(--mav-bc-mono900-l);
+  --mav-toggle-disabled-bg: var(--mav-bc-mono100-l);
+  --mav-toggle-disabled-text: var(--mav-bc-mono200-l);
+  --mav-toggle-disabled-bg2: var(--mav-bc-toggle-disabled2);
+
+  /* Loader */
+  --mav-loader-spin: var(--mav-bc-primary-light);
+
+  /* Progress bar */
+  --mav-progress-fill: #0d00fa; /* one-off: Figma shade/primary/900 variable */
+  --mav-progress-fill-soft: #99c2e9; /* one-off: Figma brand/primary/200 */
+  --mav-progress-track: #ececec; /* one-off: Figma grey/200 */
+  --mav-progress-text: #5e5e5e; /* one-off: Figma grey/600 */
+
+  /* Tabs */
+  --mav-tabs-default: var(--mav-bc-toggle-disabled2);
+  --mav-tabs-active: var(--mav-bc-primary-light);
+
+  /* Account tile / select account */
+  --mav-account-bg: var(--mav-bc-white);
+  --mav-account-bg-secondary: var(--mav-bc-white);
+  --mav-account-outline: var(--mav-bc-grey);
+  --mav-account-text: var(--mav-bc-black);
+
+  /* Button dock */
+  --mav-dock-bg: var(--mav-bc-white);
+
+  /* Alert (source Figma name uses the "waring" typo — normalized here) */
+  --mav-alert-primary-bg: var(--mav-bc-primary-soft);
+  --mav-alert-primary-text: var(--mav-bc-primary-light);
+  --mav-alert-primary-icon: var(--mav-bc-primary-light);
+  --mav-alert-warning-bg: var(--mav-bc-warning-soft);
+  --mav-alert-warning-text: var(--mav-bc-warning);
+  --mav-alert-warning-icon: var(--mav-bc-warning);
+  --mav-alert-success-bg: var(--mav-bc-success-soft);
+  --mav-alert-success-text: var(--mav-bc-success);
+  --mav-alert-success-icon: var(--mav-bc-success);
+  --mav-alert-danger-bg: var(--mav-bc-danger-soft);
+  --mav-alert-danger-text: var(--mav-bc-danger);
+  --mav-alert-danger-icon: var(--mav-bc-danger);
+
+  /* Badge & chip */
+  --mav-badge-primary-bg: var(--mav-bc-primary-light);
+  --mav-badge-primary-text: var(--mav-bc-white);
+  --mav-badge-primary-outline: var(--mav-bc-tertiary1);
+  --mav-badge-primary-icon: var(--mav-bc-white);
+  --mav-badge-white-bg: var(--mav-bc-mono100-l);
+  --mav-badge-white-text: var(--mav-bc-black);
+  --mav-badge-white-outline: var(--mav-bc-grey);
+  --mav-badge-white-icon: var(--mav-bc-black);
+  --mav-badge-warning-bg: var(--mav-bc-warning-soft);
+  --mav-badge-warning-text: var(--mav-bc-warning);
+  --mav-badge-warning-outline: var(--mav-bc-warning);
+  --mav-badge-warning-icon: var(--mav-bc-warning);
+  --mav-badge-success-bg: var(--mav-bc-success-soft);
+  --mav-badge-success-text: var(--mav-bc-success);
+  --mav-badge-success-outline: var(--mav-bc-success);
+  --mav-badge-success-icon: var(--mav-bc-success);
+  --mav-badge-danger-bg: var(--mav-bc-danger-soft);
+  --mav-badge-danger-text: var(--mav-bc-danger);
+  --mav-badge-danger-outline: var(--mav-bc-danger);
+  --mav-badge-danger-icon: var(--mav-bc-danger);
+
+  /* Avatar */
+  --mav-avatar-grey-bg: var(--mav-main-grey);
+  --mav-avatar-grey-text: var(--mav-text-default);
+  --mav-avatar-primary-bg: var(--mav-bg-tertiary);
+  --mav-avatar-primary-text: var(--mav-text-brand);
+  --mav-avatar-red-bg: var(--mav-system-danger-soft);
+  --mav-avatar-red-text: var(--mav-system-danger);
+  --mav-avatar-status-online: var(--mav-bc-avatar-online);
+  --mav-avatar-status-ring: var(--mav-bc-white);
+
+  /* Toast */
+  --mav-toast-bg: var(--mav-bc-white);
+  --mav-toast-title: var(--mav-bc-black);
+  --mav-toast-desc: var(--mav-bc-mono500);
+  --mav-toast-icon: var(--mav-bc-black);
+  --mav-toast-outline: var(--mav-bc-grey);
+
+  /* Nav bar */
+  --mav-nav-bg-primary: var(--mav-bc-tertiary2);
+  --mav-nav-bg-secondary: var(--mav-bc-grey);
+  --mav-nav-bg-tertiary: var(--mav-bc-white);
+  --mav-nav-bg-card: var(--mav-bc-grey);
+  --mav-nav-active: var(--mav-bc-primary-light);
+  --mav-nav-icon: var(--mav-bc-black);
+  --mav-nav-text: var(--mav-bc-black);
+
+  /* Menu */
+  --mav-menu-bg-primary: var(--mav-bc-tertiary2);
+  --mav-menu-bg-secondary: var(--mav-bc-grey);
+  --mav-menu-bg-tertiary: var(--mav-bc-white);
+
+  /* Coachmark */
+  --mav-coachmark-dots: var(--mav-bc-primary-light);
+  --mav-coachmark-dot-dash: var(--mav-bc-primary-light);
+  --mav-coachmark-title: var(--mav-bc-white);
+  --mav-coachmark-description: var(--mav-bc-white);
+
+  /* Chat bubble (source says "outcoming" — normalized to "outgoing") */
+  --mav-bubble-bg-incoming: var(--mav-bc-grey);
+  --mav-bubble-bg-outgoing: var(--mav-bc-bubble-outgoing);
+  --mav-bubble-name-incoming: var(--mav-bc-primary-light);
+  --mav-bubble-text-outgoing: var(--mav-bc-black);
+  --mav-bubble-text-incoming: var(--mav-bc-black);
+  --mav-bubble-bg-outgoing-reply: var(--mav-bc-bubble-outgoing);
+  --mav-bubble-outline-incoming: var(--mav-bc-primary-light);
+
+  /* Balance */
+  --mav-balance-bg: var(--mav-bc-white);
+  --mav-balance-bg-secondary: var(--mav-bc-grey);
+
+  /* Header / app bar */
+  --mav-appbar-bg: var(--mav-bc-white);
+
+  /* Gain & loss */
+  --mav-gainloss-success-bg: var(--mav-bc-success-soft);
+  --mav-gainloss-success-text: var(--mav-bc-success);
+  --mav-gainloss-success-icon: var(--mav-bc-success);
+  --mav-gainloss-danger-bg: var(--mav-bc-danger-soft);
+  --mav-gainloss-danger-text: var(--mav-bc-danger);
+  --mav-gainloss-danger-icon: var(--mav-bc-danger);
+
+  /* Line chart */
+  --mav-chart-line-loss: var(--mav-bc-danger);
+  --mav-chart-gradient-loss: var(--mav-bc-danger-soft);
+  --mav-chart-line-gain: var(--mav-bc-success);
+  --mav-chart-gradient-gain: var(--mav-bc-success-soft);
+  --mav-chart-line-warning: var(--mav-bc-warning);
+  --mav-chart-gradient-warning: var(--mav-bc-warning-soft);
+  --mav-chart-natural: var(--mav-bc-natural);
+  --mav-chart-line-brand: var(--mav-bc-primary-light);
+  --mav-chart-gradient-brand: var(--mav-bc-primary-soft);
+
+  /* Focus ring color (never changes in dark mode) */
+  --mav-focus-ring: rgba(53, 46, 255, 0.4); /* one-off: primary @ 40% */
+
+  /* Gradients */
+  --mav-gradient-bubble-bot: linear-gradient(142deg, rgba(181, 210, 243, 0.1) 0%, #1a5896 100%); /* one-off */
+  --mav-gradient-brand: linear-gradient(
+    135deg,
+    var(--mav-bc-primary-soft) 0%,
+    var(--mav-bc-primary-dark-soft) 100%
+  );
+}

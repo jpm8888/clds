@@ -1,0 +1,12 @@
+/* @mav/bayad — token layer entry. Order matters: primitives first, then
+   semantic light values, then theme overrides. */
+@import './primitives.css';
+@import './semantic.css';
+@import './dark.css';
+@import './typography.css';
+@import './spacing.css';
+@import './radius.css';
+@import './shadows.css';
+@import './motion.css';
+@import './z-index.css';
+@import './breakpoints.css';

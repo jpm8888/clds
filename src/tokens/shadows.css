@@ -1,0 +1,34 @@
+/* ════════════════════════════════════════════════════════════════════════
+   @mav/bayad — Shadows, focus rings, blur
+   The source had two overlapping shadow sets; this is the collapsed one
+   (see docs/tokens-figma-mapping.md). Components mostly use
+   --mav-shadow-input and the focus rings. The focus ring never changes
+   in dark mode.
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Elevation scale */
+  --mav-shadow-xs: 0px 2px 4px 0px rgba(16, 16, 19, 0.16);
+  --mav-shadow-sm: 0px 2px 4px 0px rgba(16, 16, 19, 0.04), 0px 16px 32px -4px rgba(16, 16, 19, 0.1);
+  --mav-shadow-md:
+    0px 2px 4px 0px rgba(16, 16, 19, 0.04), 0px 24px 48px -8px rgba(16, 16, 19, 0.12);
+  --mav-shadow-lg:
+    0px 2px 4px 0px rgba(16, 16, 19, 0.04), 0px 40px 80px -16px rgba(16, 16, 19, 0.16);
+  --mav-shadow-xl: 0px 2px 4px 0px rgba(0, 0, 0, 0.04), 0px 56px 112px -20px rgba(0, 0, 0, 0.18);
+  --mav-shadow-outline: 0px 0px 0px 1px rgba(16, 16, 19, 0.08), 0px 8px 16px 0px rgba(16, 16, 19, 0.04);
+
+  /* Input / card raised edge (= source --shadow-input = --shadow/sm) */
+  --mav-shadow-input:
+    0px 1px 0px -1px rgba(0, 0, 0, 0.05), 0px 1px 2px -1px rgba(0, 0, 0, 0.05),
+    0px 2px 4px -2px rgba(0, 0, 0, 0.05), 0px 3px 6px -3px rgba(0, 0, 0, 0.05);
+
+  /* Focus rings — invariant across themes */
+  --mav-shadow-focus: 0 0 0 3px var(--mav-focus-ring); /* brand focus */
+  --mav-shadow-focus-soft: 0 0 0 3px rgba(89, 156, 219, 0.4); /* input focus (Figma focus/primary) */
+
+  /* Blur (full filter functions) */
+  --mav-blur-xs: blur(4px);
+  --mav-blur-sm: blur(8px);
+  --mav-blur-md: blur(16px);
+  --mav-blur-lg: blur(24px);
+  --mav-blur-xl: blur(32px);
+}

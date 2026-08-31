@@ -1,0 +1,13 @@
+/* @mav/bayad — the design-system stylesheet.
+   Consumers: import '@mav/bayad/styles.css' once, at the app root.
+   Token definitions must precede component rules; component CSS is pulled
+   in by the component TSX files and merged into this bundle at build time. */
+@import './tokens/index.css';
+
+/* Base element defaults for app surfaces built on the system. */
+:root {
+  color-scheme: light;
+}
+[data-theme='dark'] {
+  color-scheme: dark;
+}

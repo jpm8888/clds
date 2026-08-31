@@ -1,0 +1,57 @@
+/* ════════════════════════════════════════════════════════════════════════
+   @mav/bayad — Typography tokens
+   The whole system re-fonts by overriding ONE token: --mav-font-active.
+   Fonts are loaded by the consumer (Google Fonts <link>, or import
+   '@mav/bayad/fonts.css'). Interchangeable UI families: Plus Jakarta Sans
+   (default), Inter, Poppins. Mono is fixed: JetBrains Mono.
+   ════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* Families */
+  --mav-font-jakarta: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --mav-font-inter: 'Inter', system-ui, sans-serif;
+  --mav-font-poppins: 'Poppins', system-ui, sans-serif;
+  --mav-font-unbounded: 'Unbounded', system-ui, sans-serif;
+  --mav-font-sfpro: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Active family — override this one token to retheme the whole system */
+  --mav-font-active: var(--mav-font-jakarta);
+
+  /* Role aliases — components reference these, never a family directly */
+  --mav-font-display: var(--mav-font-active);
+  --mav-font-body: var(--mav-font-active);
+  --mav-font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Weights */
+  --mav-font-weight-regular: 400;
+  --mav-font-weight-medium: 500;
+  --mav-font-weight-semibold: 600;
+  --mav-font-weight-bold: 700;
+
+  /* Type scale — headings (from the source typography spec) */
+  --mav-font-size-h1: 64px;
+  --mav-font-size-h2: 48px;
+  --mav-font-size-h3: 44px;
+  --mav-font-size-h4: 38px;
+  --mav-font-size-h5: 32px;
+  --mav-font-size-h6: 28px;
+  --mav-font-size-h7: 24px;
+
+  /* Type scale — body (collapses the source's --medium/* and --body/* sets) */
+  --mav-font-size-xl: 20px;
+  --mav-font-size-lg: 18px;
+  --mav-font-size-md: 16px;
+  --mav-font-size-sm: 14px;
+  --mav-font-size-xs: 12px;
+  --mav-font-size-2xs: 10px;
+
+  /* Line heights */
+  --mav-line-height-display: 1.05; /* h1 */
+  --mav-line-height-heading: 1.1; /* h2–h4 */
+  --mav-line-height-tight: 1.2; /* h5–h7, labels */
+  --mav-line-height-body: 1.5;
+
+  /* Letter spacing */
+  --mav-letter-spacing-tight: -0.02em; /* display headings */
+  --mav-letter-spacing-snug: -0.015em; /* mid headings */
+  --mav-letter-spacing-normal: 0;
+}

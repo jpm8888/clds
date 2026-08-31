@@ -1,0 +1,65 @@
+{
+  "name": "@mav/bayad",
+  "version": "0.1.0",
+  "description": "MaV (Modular App Visualizer) design system for the Bayad fintech prototype — token-driven React components with light/dark theming via [data-theme].",
+  "type": "module",
+  "private": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./fonts.css": "./dist/fonts.css",
+    "./tokens": {
+      "types": "./dist/tokens/tokens.d.ts",
+      "import": "./dist/tokens/tokens.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "bun run typecheck && vite build && bun run scripts/postbuild.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src scripts",
+    "lint:fix": "eslint src scripts --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "check-tokens": "bun run scripts/check-tokens.ts",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "verify": "bun run typecheck && bun run lint && bun run check-tokens && bun run build && bun run build-storybook"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@storybook/addon-a11y": "^10.5.10",
+    "@storybook/addon-docs": "^10.5.10",
+    "@storybook/react-vite": "^10.5.10",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.1",
+    "eslint": "^10.9.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-storybook": "^10.5.10",
+    "prettier": "^3.9.6",
+    "storybook": "^10.5.10",
+    "typescript": "^5.9",
+    "typescript-eslint": "^8.68.0",
+    "vite": "^8.2.2",
+    "vite-plugin-dts": "^5.0.3"
+  }
+}

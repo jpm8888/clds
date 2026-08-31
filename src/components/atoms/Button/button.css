@@ -1,0 +1,181 @@
+/* Button — ported from MaV components/buttons.html (Figma set 52:24315).
+   Axes: variant primary/secondary/clear/swipe · size xs/sm/md/lg/xl ·
+   state default/hover/focus/disabled/loading · iconOnly. */
+.mav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--mav-radius-sm);
+  font-family: var(--mav-font-body);
+  font-size: var(--mav-font-size-sm);
+  font-weight: var(--mav-font-weight-medium);
+  line-height: normal;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+  transition:
+    background var(--mav-duration-fast),
+    color var(--mav-duration-fast),
+    box-shadow var(--mav-duration-fast),
+    border-color var(--mav-duration-fast);
+}
+.mav-btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Sizes — icon stays 20px at every size */
+.mav-btn-xs {
+  padding: 2px 8px;
+  font-size: var(--mav-font-size-xs);
+  gap: 4px;
+}
+.mav-btn-sm {
+  padding: 6px 12px;
+}
+.mav-btn-lg {
+  padding: 16px;
+  font-size: var(--mav-font-size-lg);
+}
+/* xl — full-width dock CTA */
+.mav-btn-xl {
+  padding: 16px 24px;
+  font-size: var(--mav-font-size-md);
+  width: 100%;
+  max-width: var(--mav-max-content-width);
+}
+
+/* Icon-only */
+.mav-btn-icononly {
+  padding: 10px;
+}
+.mav-btn-icononly.mav-btn-xs {
+  padding: 2px;
+}
+.mav-btn-icononly.mav-btn-sm {
+  padding: 6px;
+}
+.mav-btn-icononly.mav-btn-lg {
+  padding: 16px;
+}
+
+/* Primary */
+.mav-btn-primary {
+  background: var(--mav-btn-primary-default);
+  color: var(--mav-btn-primary-text);
+}
+.mav-btn-primary:hover {
+  background: var(--mav-btn-primary-hover);
+}
+.mav-btn-primary:focus-visible,
+.mav-btn-primary.is-focus {
+  background: var(--mav-btn-primary-default);
+  box-shadow: var(--mav-shadow-focus);
+  outline: none;
+}
+.mav-btn-primary:disabled,
+.mav-btn-primary.is-disabled {
+  background: var(--mav-btn-primary-disabled);
+  color: var(--mav-btn-primary-text);
+  cursor: not-allowed;
+}
+
+/* Secondary (outline) */
+.mav-btn-secondary {
+  background: var(--mav-btn-secondary-default);
+  color: var(--mav-btn-secondary-text);
+  border: 1px solid var(--mav-btn-secondary-outline);
+}
+.mav-btn-secondary:hover {
+  background: var(--mav-btn-secondary-hover);
+  box-shadow: var(--mav-shadow-input);
+}
+.mav-btn-secondary:focus-visible,
+.mav-btn-secondary.is-focus {
+  background: var(--mav-btn-secondary-clicked);
+  color: var(--mav-btn-primary-text);
+  border-color: var(--mav-icon-inverted);
+  box-shadow: var(--mav-shadow-focus-soft);
+  outline: none;
+}
+.mav-btn-secondary:disabled,
+.mav-btn-secondary.is-disabled {
+  background: var(--mav-btn-secondary-disabled);
+  border-color: var(--mav-btn-secondary-outline-disabled);
+  color: var(--mav-text-disabled);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Clear (text-only) — zero padding at every size */
+.mav-btn-clear {
+  background: transparent;
+  color: var(--mav-btn-textonly-default);
+  padding: 0;
+}
+.mav-btn-clear.mav-btn-xs,
+.mav-btn-clear.mav-btn-lg,
+.mav-btn-clear.mav-btn-xl {
+  padding: 0;
+}
+.mav-btn-clear:hover {
+  color: var(--mav-btn-textonly-hover);
+}
+.mav-btn-clear:focus-visible,
+.mav-btn-clear.is-focus {
+  color: var(--mav-btn-textonly-clicked);
+  outline: none;
+}
+.mav-btn-clear:disabled,
+.mav-btn-clear.is-disabled {
+  color: var(--mav-btn-textonly-disabled);
+  cursor: not-allowed;
+}
+
+/* Swipe (bottom-sheet trigger) — top corners only */
+.mav-btn-swipe {
+  background: var(--mav-btn-swipeup-default);
+  color: var(--mav-btn-primary-text);
+  border-radius: var(--mav-radius-md) var(--mav-radius-md) 0 0;
+}
+.mav-btn-swipe:hover {
+  background: var(--mav-btn-primary-hover);
+}
+.mav-btn-swipe:focus-visible,
+.mav-btn-swipe.is-focus {
+  background: var(--mav-btn-primary-clicked);
+  box-shadow: var(--mav-shadow-focus);
+  outline: none;
+}
+.mav-btn-swipe:disabled,
+.mav-btn-swipe.is-disabled {
+  background: var(--mav-btn-swipeup-disabled);
+  cursor: not-allowed;
+}
+.mav-btn-swipe.mav-btn-lg {
+  padding: 14px 20px;
+}
+
+/* Loading spinner */
+.mav-btn-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: currentColor;
+  border-radius: var(--mav-radius-full);
+  display: inline-block;
+  flex-shrink: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .mav-btn-spinner {
+    animation: mav-btn-spin 0.6s linear infinite;
+  }
+}
+@keyframes mav-btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
